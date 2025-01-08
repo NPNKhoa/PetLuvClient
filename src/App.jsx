@@ -1,11 +1,12 @@
-import { Header } from './components';
+import { ThemeProvider } from '@mui/material/styles';
+import Router from './components/common/Router';
+import theme from './configs/theme';
 
 function App() {
   return (
-    <div className='flex justify-center items-center'>
-      <Header />
-      <h1 className='text-red-500 text-xl font-bold'>Hello World!</h1>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Router />
+    </ThemeProvider>
   );
 }
 

@@ -1,3 +1,6 @@
-import Header from './common/Header';
+import Router from './common/Router';
 
-export { Header };
+import Header from './common/Header';
+import Footer from './common/Footer';
+
+export { Header, Footer, Router };

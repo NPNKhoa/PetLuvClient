@@ -1,11 +1,13 @@
 import PropTypes from 'prop-types';
+import { Footer, Header } from '../components';
 
 const CommonLayout = ({ children }) => {
   return (
-    <main>
-      <h1>Common Layout</h1>
-      {children}
-    </main>
+    <div className='flex flex-col min-h-screen'>
+      <Header />
+      <main className='flex-grow px-8'>{children}</main>
+      <Footer />
+    </div>
   );
 };
 
