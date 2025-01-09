@@ -4,27 +4,34 @@ import { useSpring, animated } from '@react-spring/web';
 import { Avatar, IconButton, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { configHoverDropdownAnimation } from '../../configs/animationConfigurations';
 
 const Header = () => {
   const [navHovered, setNavHovered] = useState(false);
   const [searchHovered, setSearchHovered] = useState(false);
 
-  const menuAnimation = useSpring({
-    opacity: navHovered ? 1 : 0,
-    transform: navHovered ? 'translateY(0)' : 'translateY(-20px)',
-    config: { tension: 200, friction: 20 },
-    delay: 100,
-  });
+  const loggedInUser = localStorage.getItem('loggedInUser');
 
-  const searchAnimation = useSpring({
-    opacity: searchHovered ? 1 : 0,
-    transform: searchHovered ? 'translateY(0)' : 'translateY(-20px)',
-    config: { tension: 200, friction: 20 },
-    delay: 100,
-  });
+  const menuAnimation = useSpring(configHoverDropdownAnimation(navHovered));
 
+  const searchAnimation = useSpring(
+    configHoverDropdownAnimation(searchHovered)
+  );
+
+  // HANDLER EVENT FUNCTIONS
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+
+    alert('ok');
+    loggedInUser
+      ? localStorage.removeItem('loggedInUser')
+      : localStorage.setItem('loggedInUser', 'user');
+  };
+
+  // SUPPORT FUNCTIONS
   return (
-    <header className='bg-tertiary-light text-white flex items-center justify-between px-8'>
+    <header className='bg-tertiary-light text-white flex items-center justify-between px-8 z-50'>
       {/* Logo */}
       <Link to={'/'} className='flex items-center'>
         <img src='/logo.png' alt='logo' className='w-24 h-[5.5rem]' />
@@ -101,11 +108,11 @@ const Header = () => {
           <SearchIcon />
           <animated.div
             style={searchAnimation}
-            className='absolute left-[-10rem] right-[-4rem] top-[2rem] bg-gray-200 flex flex-col p-4 mt-1 rounded-md'
+            className='absolute left-[-12rem] right-[-2rem] top-[2rem] bg-gray-200 flex flex-col p-4 mt-1 rounded-md'
           >
-            <form>
+            <form onSubmit={handleSearch}>
               <p className='mb-2'>Tìm kiếm</p>
-              <TextField size='small' placeholder='Nhập từ khóa...' />
+              <TextField size='small' placeholder='Nhập từ khóa...' fullWidth />
             </form>
           </animated.div>
         </IconButton>
@@ -114,13 +121,18 @@ const Header = () => {
           <ShoppingCartIcon />
         </IconButton>
 
-        <Link
-          to={'/dang-nhap'}
-          className='px-4 py-2 rounded-md bg-primary-light hover:bg-primary-dark'
-        >
-          Đăng nhập
-        </Link>
-        {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" /> */}
+        {loggedInUser ? (
+          <Link to={'/trang-ca-nhan'}>
+            <Avatar alt='Avatar' src='/static/images/avatar/1.jpg' />
+          </Link>
+        ) : (
+          <Link
+            to={'/dang-nhap'}
+            className='px-4 py-2 rounded-md bg-primary-light hover:bg-primary-dark'
+          >
+            Đăng nhập
+          </Link>
+        )}
       </div>
     </header>
   );
