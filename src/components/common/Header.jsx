@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSpring, animated } from '@react-spring/web';
 import { Avatar, IconButton, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
@@ -7,6 +7,8 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { configHoverDropdownAnimation } from '../../configs/animationConfigurations';
 
 const Header = () => {
+  const navigate = useNavigate();
+
   const [navHovered, setNavHovered] = useState(false);
   const [searchHovered, setSearchHovered] = useState(false);
 
@@ -117,7 +119,7 @@ const Header = () => {
           </animated.div>
         </IconButton>
 
-        <IconButton color='primary'>
+        <IconButton color='primary' onClick={() => navigate('/gio-hang')}>
           <ShoppingCartIcon />
         </IconButton>
 

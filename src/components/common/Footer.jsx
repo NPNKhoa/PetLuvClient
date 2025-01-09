@@ -1,5 +1,4 @@
-import { Box, Typography, Button, Stack } from '@mui/material';
-import { FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa'; // Các icon xã hội
+import { Box, Typography, Stack } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { IoMdMail } from 'react-icons/io';
 import { FaPhone } from 'react-icons/fa6';
@@ -14,7 +13,7 @@ const Footer = () => {
         </Box>
 
         <Box className='flex-1 text-left'>
-          <h1 className='text-primary-light uppercase font-bold text-4xl mb-2'>
+          <h1 className='text-primary-light uppercase font-semibold text-3xl mb-2'>
             PetLuv
           </h1>
           <p className='italic'>
@@ -26,8 +25,8 @@ const Footer = () => {
         </Box>
 
         <Box className='flex-1 text-left'>
-          <h1 className='text-primary-light uppercase font-bold text-4xl mb-2'>
-            Dịch vụ tại PetLuv
+          <h1 className='text-primary-light uppercase font-semibold text-3xl mb-2'>
+            Tại PetLuv có gì?
           </h1>
           <div>
             <Link
@@ -46,13 +45,19 @@ const Footer = () => {
               to={'/dat-cho-di-dao'}
               className='block my-2 hover:text-primary-dark'
             >
-              Dắt chó đi dạo
+              Thức ăn thú cưng
+            </Link>
+            <Link
+              to={'/dat-cho-di-dao'}
+              className='block my-2 hover:text-primary-dark'
+            >
+              Bán chó, mèo
             </Link>
           </div>
         </Box>
 
         <Box className='text-left flex-1'>
-          <h1 className='text-primary-light uppercase font-bold text-4xl mb-2'>
+          <h1 className='text-primary-light uppercase font-semibold text-3xl mb-2'>
             Liên hệ
           </h1>
           <Stack spacing={2}>
@@ -67,33 +72,6 @@ const Footer = () => {
               TPCT
             </div>
           </Stack>
-
-          <Box className='flex justify-center space-x-4 mt-4'>
-            <Button
-              component='a'
-              href='https://facebook.com/nyka1603'
-              target='_blank'
-              sx={{ color: '#cfcfcf', '&:hover': { color: '#f79400' } }}
-            >
-              <FaFacebookF />
-            </Button>
-            <Button
-              component='a'
-              href='https://instagram.com'
-              target='_blank'
-              sx={{ color: '#cfcfcf', '&:hover': { color: '#f79400' } }}
-            >
-              <FaInstagram />
-            </Button>
-            <Button
-              component='a'
-              href='https://twitter.com'
-              target='_blank'
-              sx={{ color: '#cfcfcf', '&:hover': { color: '#f79400' } }}
-            >
-              <FaTwitter />
-            </Button>
-          </Box>
         </Box>
       </div>
 
