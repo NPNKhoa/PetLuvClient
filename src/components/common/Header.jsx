@@ -4,7 +4,7 @@ import { useSpring, animated } from '@react-spring/web';
 import { Avatar, IconButton, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { configHoverDropdownAnimation } from '../../configs/animationConfigurations';
+import { hoverDropdownConfig } from '../../configs/animationConfigurations';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -14,11 +14,9 @@ const Header = () => {
 
   const loggedInUser = localStorage.getItem('loggedInUser');
 
-  const menuAnimation = useSpring(configHoverDropdownAnimation(navHovered));
+  const menuAnimation = useSpring(hoverDropdownConfig(navHovered));
 
-  const searchAnimation = useSpring(
-    configHoverDropdownAnimation(searchHovered)
-  );
+  const searchAnimation = useSpring(hoverDropdownConfig(searchHovered));
 
   // HANDLER EVENT FUNCTIONS
 
@@ -47,6 +45,12 @@ const Header = () => {
           className='text-primary-light font-semibold text-xl hover:text-primary-dark'
         >
           Trang chủ
+        </Link>
+        <Link
+          to='/gioi-thieu'
+          className='text-primary-light font-semibold text-xl hover:text-primary-dark'
+        >
+          Giới thiệu
         </Link>
         <Link
           to='/dich-vu'

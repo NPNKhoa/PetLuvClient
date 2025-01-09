@@ -30,7 +30,7 @@ const Footer = () => {
           </h1>
           <div>
             <Link
-              to={'/spa-thu-cung'}
+              to={'/dich-vu-spa'}
               className='block my-2 hover:text-primary-dark'
             >
               Spa thú cưng
@@ -42,13 +42,13 @@ const Footer = () => {
               Khách sạn thú cưng
             </Link>
             <Link
-              to={'/dat-cho-di-dao'}
+              to={'/thuc-an-cho-meo'}
               className='block my-2 hover:text-primary-dark'
             >
               Thức ăn thú cưng
             </Link>
             <Link
-              to={'/dat-cho-di-dao'}
+              to={'/san-pham-cho-meo'}
               className='block my-2 hover:text-primary-dark'
             >
               Bán chó, mèo

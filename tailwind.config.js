@@ -13,11 +13,12 @@ export default {
           dark: '#09111b',
         },
         tertiary: {
-          light: '#cfcfcf',
+          light: '#efefef',
           dark: '#aeaeae',
         },
       },
     },
   },
-  plugins: [],
+  // eslint-disable-next-line no-undef
+  plugins: [require('@tailwindcss/line-clamp')],
 };
