@@ -61,13 +61,13 @@ const Footer = () => {
             Liên hệ
           </h1>
           <Stack spacing={2}>
-            <div className='flex items-center gap-2'>
+            <div className='flex items-center gap-2 hover:cursor-default hover:text-primary-light'>
               <IoMdMail /> khoab2110083@student.ctu.edu.vn
             </div>
-            <div className='flex items-center gap-2'>
+            <div className='flex items-center gap-2 hover:cursor-default hover:text-primary-light'>
               <FaPhone /> 0916380593
             </div>
-            <div className='flex items-center gap-2'>
+            <div className='flex items-center gap-2 hover:cursor-default hover:text-primary-light'>
               <GiPositionMarker /> đường 3/2, phường Xuân Khánh, quận Ninh Kiều
               TPCT
             </div>
@@ -76,7 +76,11 @@ const Footer = () => {
       </div>
 
       <hr className='w-full' />
-      <Typography variant='body2' sx={{ marginTop: '1rem', color: '#aeaeae' }}>
+      <Typography
+        variant='body2'
+        sx={{ marginTop: '1rem', color: '#aeaeae' }}
+        className='hover:cursor-default hover:text-primary-dark'
+      >
         © 2025 PetLuv. All rights reserved.
       </Typography>
     </div>

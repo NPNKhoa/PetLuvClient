@@ -4,5 +4,13 @@ import LoadingPage from './common/LoadingPage';
 import HomePage from './HomePage';
 import LoginPage from './LoginPage';
 import RegisterPage from './RegisterPage';
+import ServicePage from './ServicePage';
 
-export { NotFoundPage, LoadingPage, HomePage, LoginPage, RegisterPage };
+export {
+  NotFoundPage,
+  LoadingPage,
+  HomePage,
+  LoginPage,
+  RegisterPage,
+  ServicePage,
+};

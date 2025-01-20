@@ -2,6 +2,7 @@ import * as Yup from 'yup';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { Divider, Stack } from '@mui/material';
 import { Link } from 'react-router-dom';
+import MyAlrt from '../configs/alert/MyAlrt';
 
 const LoginPage = () => {
   const initialValues = {
@@ -20,7 +21,9 @@ const LoginPage = () => {
 
   const handleSubmit = (values) => {
     console.log('Login Data:', values);
-    alert('Login successful!');
+    MyAlrt.Error('Lỗi', 'Lỗi khi đăng nhập', 'Xác nhận', true, 'Đóng', () => {
+      alert('Confirm result');
+    });
   };
 
   return (

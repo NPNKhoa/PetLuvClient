@@ -4,12 +4,15 @@ import CategoryList from '../components/HomePage/CategoryList';
 import { BiSupport } from 'react-icons/bi';
 import ServiceCardList from '../components/common/ServiceCardList';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { serviceList } from '../mocks/services';
 
 const HomePage = () => {
   return (
     <div>
       <Carousel />
+
       <CategoryList />
+
       <section className='flex w-full px-6 justify-between items-center gap-2 lg:flex-row md:flex-col mb-16'>
         <Link className='lg:w-[45%] md:w-full hover:opacity-90'>
           <img
@@ -26,12 +29,14 @@ const HomePage = () => {
           />
         </Link>
       </section>
+
       <section>
         <h1 className='uppercase text-primary-light text-3xl text-center font-bold mb-4'>
           Dịch vụ nổi bật tại PetLuv
         </h1>
-        <ServiceCardList />
+        <ServiceCardList serviceList={serviceList} />
       </section>
+
       <LazyLoadImage
         src='./grooming-banner.webp'
         alt='grooming banner'
@@ -39,12 +44,40 @@ const HomePage = () => {
         height='auto'
         width='100%'
       />
+
       <section>
         <h1 className='uppercase text-primary-light text-3xl text-center font-bold mb-4'>
           Dịch vụ gợi ý cho bạn
         </h1>
-        <ServiceCardList />
+        <ServiceCardList serviceList={serviceList} />
       </section>
+
+      <section className='relative'>
+        <div className='bg-secondary-light w-1/2 m-auto px-12 py-4 my-8 rounded-lg flex justify-between items-center'>
+          <div className='w-1/2'>
+            <h2 className='uppercase text-tertiary-light text-4xl mb-8'>
+              Đặt lịch ngay hôm nay
+            </h2>
+            <Link
+              to={'/dat-lich'}
+              className='bg-primary-light text-black p-4 rounded-full px-8 hover:bg-primary-dark'
+            >
+              Đặt ngay!
+            </Link>
+          </div>
+          <img src='cool-dog.png' alt='dog' className='w-1/2' />
+        </div>
+        <img
+          src='./a-half-of-cat-head.png'
+          className='absolute left-0 bottom-0 translate-y-8 w-[20rem]'
+        />
+
+        <img
+          src='./cute-dog-in-right.png'
+          className='absolute right-0 bottom-0 translate-y-8 w-[16rem]'
+        />
+      </section>
+
       <section className='flex items-center justify-center gap-8 bg-primary-light text-secondary-light text-3xl py-10'>
         <BiSupport size={'6rem'} className='text-primary-dark' />
         <h2>

@@ -10,7 +10,7 @@ const Category = ({
   ...props
 }) => {
   return (
-    <Paper elevation={4} className='md:w-1/3 sm:w-1/4 p-6 pb-8' {...props}>
+    <Paper elevation={4} className='md:w-1/3 sm:w-1/4 p-6 pb-8 z-50' {...props}>
       {categoryIcon}
       <h1 className='uppercase text-secondary-dark text-xl font-semibold mb-2'>
         {categoryName}
