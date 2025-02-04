@@ -1,3 +1,5 @@
+import ServiceCategoryList from '../components/ServicePage/ServiceCategoryList';
+
 const ServicePage = () => {
   return (
     <div>
@@ -6,7 +8,19 @@ const ServicePage = () => {
         alt='services-banner'
         className='w-full'
       />
-      <h1>Dịch vụ của chúng tôi</h1>
+      <div>
+        <h1 className='text-3xl font-semibold text-center text-primary mt-4 mb-2'>
+          Dịch vụ
+        </h1>
+        <img
+          src='./cute_separator.png'
+          alt='cute_separator'
+          className='mx-auto'
+        />
+      </div>
+
+      <ServiceCategoryList />
+
       <img
         src='./dog-cat-bird.png'
         alt='cute-things'

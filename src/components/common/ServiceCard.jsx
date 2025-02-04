@@ -22,7 +22,7 @@ const ServiceCard = ({ service }) => {
           <p className='mb-8 lg:line-clamp-4 md:line-clamp-3'>
             {service.serviceDesc}
           </p>
-          <div className='flex items-center justify-end text-primary-light hover:cursor-pointer hover:text-primary-dark'>
+          <div className='flex items-center justify-end text-primary hover:cursor-pointer hover:text-primary-dark'>
             Đặt lịch ngay
             <ChevronRight />
           </div>

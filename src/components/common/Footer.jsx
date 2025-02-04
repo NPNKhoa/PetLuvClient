@@ -6,14 +6,14 @@ import { GiPositionMarker } from 'react-icons/gi';
 
 const Footer = () => {
   return (
-    <div className='bg-secondary-light text-tertiary-light pt-6 pb-4 text-center flex-1'>
+    <div className='bg-secondary text-tertiary-light pt-6 pb-4 text-center flex-1'>
       <div className='flex justify-between items-start gap-6 mb-8 px-4'>
         <Box className='bg-gray-50 w-36 h-36 rounded-full'>
           <img src='./logo.png' alt='logo' className='m-auto mt-2' />
         </Box>
 
         <Box className='flex-1 text-left'>
-          <h1 className='text-primary-light uppercase font-semibold text-3xl mb-2'>
+          <h1 className='text-primary uppercase font-semibold text-3xl mb-2'>
             PetLuv
           </h1>
           <p className='italic'>
@@ -25,7 +25,7 @@ const Footer = () => {
         </Box>
 
         <Box className='flex-1 text-left'>
-          <h1 className='text-primary-light uppercase font-semibold text-3xl mb-2'>
+          <h1 className='text-primary uppercase font-semibold text-3xl mb-2'>
             Tại PetLuv có gì?
           </h1>
           <div>
@@ -57,17 +57,17 @@ const Footer = () => {
         </Box>
 
         <Box className='text-left flex-1'>
-          <h1 className='text-primary-light uppercase font-semibold text-3xl mb-2'>
+          <h1 className='text-primary uppercase font-semibold text-3xl mb-2'>
             Liên hệ
           </h1>
           <Stack spacing={2}>
-            <div className='flex items-center gap-2 hover:cursor-default hover:text-primary-light'>
+            <div className='flex items-center gap-2 hover:cursor-default hover:text-primary'>
               <IoMdMail /> khoab2110083@student.ctu.edu.vn
             </div>
-            <div className='flex items-center gap-2 hover:cursor-default hover:text-primary-light'>
+            <div className='flex items-center gap-2 hover:cursor-default hover:text-primary'>
               <FaPhone /> 0916380593
             </div>
-            <div className='flex items-center gap-2 hover:cursor-default hover:text-primary-light'>
+            <div className='flex items-center gap-2 hover:cursor-default hover:text-primary'>
               <GiPositionMarker /> đường 3/2, phường Xuân Khánh, quận Ninh Kiều
               TPCT
             </div>

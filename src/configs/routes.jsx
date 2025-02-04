@@ -1,5 +1,11 @@
 import { v4 as uuidv4 } from 'uuid';
-import { HomePage, LoginPage, RegisterPage, ServicePage } from '../pages';
+import {
+  HomePage,
+  LoginPage,
+  RegisterPage,
+  ServicePage,
+  SpaServicePage,
+} from '../pages';
 
 export default [
   {
@@ -21,5 +27,10 @@ export default [
     id: `client-route-${uuidv4}`,
     path: '/dich-vu',
     element: <ServicePage />,
+  },
+  {
+    id: `client-route-${uuidv4}`,
+    path: '/dich-vu-spa',
+    element: <SpaServicePage />,
   },
 ];

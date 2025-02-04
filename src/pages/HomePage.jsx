@@ -31,7 +31,7 @@ const HomePage = () => {
       </section>
 
       <section>
-        <h1 className='uppercase text-primary-light text-3xl text-center font-bold mb-4'>
+        <h1 className='uppercase text-primary text-3xl text-center font-bold mb-4'>
           Dịch vụ nổi bật tại PetLuv
         </h1>
         <ServiceCardList serviceList={serviceList} />
@@ -46,21 +46,21 @@ const HomePage = () => {
       />
 
       <section>
-        <h1 className='uppercase text-primary-light text-3xl text-center font-bold mb-4'>
+        <h1 className='uppercase text-primary text-3xl text-center font-bold mb-4'>
           Dịch vụ gợi ý cho bạn
         </h1>
         <ServiceCardList serviceList={serviceList} />
       </section>
 
       <section className='relative'>
-        <div className='bg-secondary-light w-1/2 m-auto px-12 py-4 my-8 rounded-lg flex justify-between items-center'>
+        <div className='bg-secondary w-1/2 m-auto px-12 py-4 my-8 rounded-lg flex justify-between items-center'>
           <div className='w-1/2'>
             <h2 className='uppercase text-tertiary-light text-4xl mb-8'>
               Đặt lịch ngay hôm nay
             </h2>
             <Link
               to={'/dat-lich'}
-              className='bg-primary-light text-black p-4 rounded-full px-8 hover:bg-primary-dark'
+              className='bg-primary text-black p-4 rounded-full px-8 hover:bg-primary-dark'
             >
               Đặt ngay!
             </Link>
@@ -78,7 +78,7 @@ const HomePage = () => {
         />
       </section>
 
-      <section className='flex items-center justify-center gap-8 bg-primary-light text-secondary-light text-3xl py-10'>
+      <section className='flex items-center justify-center gap-8 bg-primary text-secondary text-3xl py-10'>
         <BiSupport size={'6rem'} className='text-primary-dark' />
         <h2>
           Hotline hỗ trợ 24/7 của chúng tôi luôn sẵn sàng giải đáp mọi thắc mắc

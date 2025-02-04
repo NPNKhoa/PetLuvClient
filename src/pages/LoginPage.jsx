@@ -77,7 +77,7 @@ const LoginPage = () => {
               </div>
               <button
                 type='submit'
-                className='w-full bg-primary-light hover:bg-primary-dark text-white font-bold py-2 px-4 rounded'
+                className='w-full bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded'
               >
                 Login
               </button>
@@ -87,7 +87,7 @@ const LoginPage = () => {
         <Divider>hoặc</Divider>
         <Link
           to={'/dang-ky'}
-          className='text-center text-primary-light p-2 rounded-md hover:bg-primary-light hover:text-white'
+          className='text-center text-primary p-2 rounded-md hover:bg-primary hover:text-white'
         >
           Đăng ký
         </Link>

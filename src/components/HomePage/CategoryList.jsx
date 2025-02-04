@@ -14,22 +14,22 @@ const categoryList = [
     categoryPath: 'dich-vu-spa',
   },
   {
-    categoryName: 'Thức ăn chó, mèo',
-    categoryDesc:
-      'Cùng với hơn 3.000 khách hàng đã luôn tin tưởng, đồng hành, chúng tôi luôn đặt ra những mục tiêu và thử thách mới. PET SERVICE cung cấp các sản phẩm, phụ kiện rất đa dạng...',
-    categoryIcon: (
-      <img src='/shop-icon.png' alt='dich-vu' className='mb-6 w-20' />
-    ),
-    categoryPath: 'thuc-an-cho-meo',
-  },
-  {
     categoryName: 'Dịch vụ khách sạn',
     categoryDesc:
-      'Mọi hành động ở PET SERVICE đều bắt đầu từ sứ mệnh Trao Gửi Yêu Thương. Mọi thú cưng mới khi đến với chúng tôi đều được quan tâm đặc biệt bởi đội ngũ Nhân viên nhiều kinh nghiệm...',
+      'Mọi hành động ở PET LUV đều bắt đầu từ sứ mệnh Trao Gửi Yêu Thương. Mọi thú cưng mới khi đến với chúng tôi đều được quan tâm đặc biệt bởi đội ngũ Nhân viên nhiều kinh nghiệm...',
     categoryIcon: (
       <img src='/hotel-icon.png' alt='dich-vu' className='mb-6 w-20' />
     ),
     categoryPath: 'khach-san-thu-cung',
+  },
+  {
+    categoryName: 'Thức ăn chó, mèo',
+    categoryDesc:
+      'Cùng với hơn 3.000 khách hàng đã luôn tin tưởng, đồng hành, chúng tôi luôn đặt ra những mục tiêu và thử thách mới. PET LUV cung cấp các sản phẩm, phụ kiện rất đa dạng...',
+    categoryIcon: (
+      <img src='/shop-icon.png' alt='dich-vu' className='mb-6 w-20' />
+    ),
+    categoryPath: 'thuc-an-cho-meo',
   },
 ];
 
@@ -38,7 +38,7 @@ const CategoryList = () => {
 
   return (
     <animated.div style={fadeIn} className='px-32 mb-12'>
-      <h1 className='uppercase text-primary-light text-3xl text-center font-bold mb-6 z-50'>
+      <h1 className='uppercase text-primary text-3xl text-center font-bold mb-6 z-50'>
         Dịch vụ của PetLuv
       </h1>
       <div className='flex justify-between items-center gap-4 relative'>

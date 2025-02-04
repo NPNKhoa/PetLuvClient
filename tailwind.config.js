@@ -5,20 +5,23 @@ export default {
     extend: {
       colors: {
         primary: {
-          light: '#f79400',
+          DEFAULT: '#f79400',
+          light: '#ffb347',
           dark: '#d87a00',
         },
         secondary: {
-          light: '#0e1826',
-          dark: '#09111b',
+          light: '#5b708d',
+          DEFAULT: '#0e1826',
         },
         tertiary: {
           light: '#efefef',
           dark: '#aeaeae',
         },
       },
+      fontFamily: {
+        cute: ['"iciel-crocante"', 'cursive'],
+      },
     },
   },
-  // eslint-disable-next-line no-undef
-  plugins: [require('@tailwindcss/line-clamp')],
+  plugins: [],
 };
