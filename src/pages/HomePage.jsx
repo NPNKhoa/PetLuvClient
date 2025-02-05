@@ -54,17 +54,19 @@ const HomePage = () => {
         <h1 className='uppercase text-primary text-3xl text-center font-bold mb-4'>
           Dịch vụ nổi bật tại PetLuv
         </h1>
-        {loading ? (
-          <div className='flex justify-center items-center w-full'>
-            <img
-              src='./loading-cat.gif'
-              alt='loading...'
-              className='w-1/4 sm:w-1/3'
-            />
-          </div>
-        ) : (
-          <ServiceCardList serviceList={services} />
-        )}
+        <div className='m-8'>
+          {loading ? (
+            <div className='flex justify-center items-center w-full'>
+              <img
+                src='./loading-cat.gif'
+                alt='loading...'
+                className='w-1/4 sm:w-1/3'
+              />
+            </div>
+          ) : (
+            <ServiceCardList serviceList={services} />
+          )}
+        </div>
       </section>
 
       <LazyLoadImage
@@ -79,17 +81,19 @@ const HomePage = () => {
         <h1 className='uppercase text-primary text-3xl text-center font-bold mb-4'>
           Dịch vụ gợi ý cho bạn
         </h1>
-        {loading ? (
-          <div className='flex justify-center items-center w-full'>
-            <img
-              src='./loading-cat.gif'
-              alt='loading...'
-              className='w-1/4 sm:w-1/3'
-            />
-          </div>
-        ) : (
-          <ServiceCardList serviceList={services} />
-        )}
+        <div className='m-8'>
+          {loading ? (
+            <div className='flex justify-center items-center w-full'>
+              <img
+                src='./loading-cat.gif'
+                alt='loading...'
+                className='w-1/4 sm:w-1/3'
+              />
+            </div>
+          ) : (
+            <ServiceCardList serviceList={services} />
+          )}
+        </div>
       </section>
 
       <section className='relative'>

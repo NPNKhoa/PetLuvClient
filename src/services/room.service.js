@@ -2,7 +2,7 @@ import ApiService from './api.service';
 
 class RoomService {
   constructor() {
-    this.api = new ApiService('http://localhost:5018/api/rooms');
+    this.api = new ApiService('http://localhost:5018/api/rooms/');
   }
 
   async getAllRooms(params = {}) {
@@ -23,7 +23,7 @@ class RoomService {
 
   async getRoomById(roomId) {
     try {
-      const response = this.api.get(`${roomId}`);
+      const response = await this.api.get(`${roomId}`);
       return response.data;
     } catch (error) {
       console.log(error);

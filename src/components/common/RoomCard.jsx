@@ -1,8 +1,12 @@
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 const RoomCard = ({ room }) => {
   return (
-    <div className='bg-white shadow-lg rounded-2xl overflow-hidden max-w-sm transition-transform transform hover:scale-105 hover:cursor-pointer w-1/4'>
+    <Link
+      to={`/khach-san-thu-cung/${room?.roomId}`}
+      className='bg-white shadow-lg rounded-2xl overflow-hidden max-w-sm transition-transform transform hover:scale-105 hover:cursor-pointer w-1/4'
+    >
       <img
         src={`${
           !Array.isArray(room?.roomImages) || room?.roomImages.length === 0
@@ -21,7 +25,7 @@ const RoomCard = ({ room }) => {
           {room?.roomTypeName}
         </span>
       </div>
-    </div>
+    </Link>
   );
 };
 

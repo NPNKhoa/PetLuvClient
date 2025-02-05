@@ -2,7 +2,7 @@ import ApiService from './api.service';
 
 class ServicesService {
   constructor() {
-    this.api = new ApiService('http://localhost:5212/api/services');
+    this.api = new ApiService('http://localhost:5212/api/services/');
   }
 
   async getServices(params = {}) {

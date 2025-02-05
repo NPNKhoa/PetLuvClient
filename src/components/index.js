@@ -12,6 +12,11 @@ import ServiceComboCardList from './common/ServiceComboCardList';
 import CatPawsBackground from './common/CatPawsBackground';
 import CategoryList from './HomePage/CategoryList';
 
+import ImageGallery from './common/ImageGallery';
+import ServiceInfo from './ServicePage/ServiceInfo';
+
+import RoomInfo from './RoomPage/RoomInfo';
+
 export {
   Header,
   Footer,
@@ -24,4 +29,7 @@ export {
   NotFoundComponent,
   ServiceComboCard,
   ServiceComboCardList,
+  ImageGallery,
+  ServiceInfo,
+  RoomInfo,
 };

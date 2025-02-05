@@ -7,6 +7,8 @@ import {
   SpaServicePage,
 } from '../pages';
 import HotelServicePage from '../pages/HotelServicePage';
+import ServiceDetailPage from '../pages/ServiceDetailPage';
+import RoomDetailPage from '../pages/RoomDetailPage';
 
 export default [
   {
@@ -36,7 +38,17 @@ export default [
   },
   {
     id: `client-route-${uuidv4}`,
+    path: '/dich-vu-spa/:serviceId',
+    element: <ServiceDetailPage />,
+  },
+  {
+    id: `client-route-${uuidv4}`,
     path: '/khach-san-thu-cung',
     element: <HotelServicePage />,
+  },
+  {
+    id: `client-route-${uuidv4}`,
+    path: '/khach-san-thu-cung/:roomId',
+    element: <RoomDetailPage />,
   },
 ];

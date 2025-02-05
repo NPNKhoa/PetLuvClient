@@ -4,7 +4,7 @@ const NotFoundPage = () => {
   return (
     <div className='flex flex-col justify-center items-center min-h-screen bg-gray-100'>
       <img
-        src='./not-found-cat.gif'
+        src='/not-found-cat.gif'
         alt='Not Found Cat'
         className='sm:w-1/2 md:w-1/3 lg:w-1/5 mb-8'
       />

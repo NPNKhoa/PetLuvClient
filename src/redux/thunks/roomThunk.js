@@ -19,7 +19,7 @@ export const getRoomById = createAsyncThunk(
   async (roomId, { rejectWithValue }) => {
     try {
       const response = await roomService.getRoomById(roomId);
-      return response;
+      return response.data;
     } catch (error) {
       console.log(error);
       return rejectWithValue(error.message);

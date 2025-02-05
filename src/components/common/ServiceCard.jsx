@@ -1,8 +1,12 @@
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 const ServiceCard = ({ service }) => {
   return (
-    <div className='bg-white shadow-lg rounded-2xl overflow-hidden max-w-sm transition-transform transform hover:scale-105 hover:cursor-pointer w-1/4'>
+    <Link
+      to={`/dich-vu-spa/${service.serviceId}`}
+      className='bg-white shadow-lg rounded-2xl overflow-hidden max-w-sm transition-transform transform hover:scale-105 hover:cursor-pointer w-1/4'
+    >
       <img
         src={`${
           !Array.isArray(service?.serviceImageUrls) ||
@@ -24,7 +28,7 @@ const ServiceCard = ({ service }) => {
           {service?.serviceTypeName}
         </span>
       </div>
-    </div>
+    </Link>
   );
 };
 

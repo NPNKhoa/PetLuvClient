@@ -9,7 +9,7 @@ const Footer = () => {
     <div className='bg-secondary text-tertiary-light pt-6 pb-4 text-center flex-1'>
       <div className='flex justify-between items-start gap-6 mb-8 px-4'>
         <Box className='bg-gray-50 w-36 h-36 rounded-full'>
-          <img src='./logo.png' alt='logo' className='m-auto mt-2' />
+          <img src='/logo.png' alt='logo' className='m-auto mt-2' />
         </Box>
 
         <Box className='flex-1 text-left'>
