@@ -9,7 +9,7 @@ const ServicePage = () => {
         className='w-full'
       />
       <div>
-        <h1 className='text-3xl font-semibold text-center text-primary mt-4 mb-2'>
+        <h1 className='text-3xl font-semibold text-center text-primary mt-4 mb-2 mt-8'>
           Dịch vụ
         </h1>
         <img

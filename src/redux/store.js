@@ -6,6 +6,7 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import serviceSlice from './slices/serviceSlice.js';
 import serviceComboSlice from './slices/serviceComboSlice.js';
+import roomReducer from './slices/roomSlice.js';
 
 const persistConfig = {
   key: 'root',
@@ -16,6 +17,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   services: serviceSlice,
   serviceCombos: serviceComboSlice,
+  rooms: roomReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

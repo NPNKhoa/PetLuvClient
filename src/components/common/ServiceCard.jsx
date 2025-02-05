@@ -4,7 +4,12 @@ const ServiceCard = ({ service }) => {
   return (
     <div className='bg-white shadow-lg rounded-2xl overflow-hidden max-w-sm transition-transform transform hover:scale-105 hover:cursor-pointer w-1/4'>
       <img
-        src={`http://localhost:5212${service?.serviceImageUrls[0]}`}
+        src={`${
+          !Array.isArray(service?.serviceImageUrls) ||
+          service?.serviceImageUrls.length === 0
+            ? 'logo.png'
+            : 'http://localhost:5212' + service?.serviceImageUrls[0]
+        }`}
         alt={service?.serviceName}
         className='w-full h-48 object-cover'
       />
