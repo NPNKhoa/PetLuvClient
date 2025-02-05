@@ -3,13 +3,13 @@ import servicesService from '../../services/services.service';
 
 export const getServices = createAsyncThunk(
   'services/getServices',
-  async (pageSize = 10, { rejectWithValue }) => {
+  async (params = {}, { rejectWithValue }) => {
     try {
-      const response = await servicesService.getServices(pageSize);
+      const response = await servicesService.getServices(params);
       return response.data;
     } catch (error) {
       console.log(error);
-      return rejectWithValue(error);
+      return rejectWithValue(error.message);
     }
   }
 );
@@ -22,7 +22,7 @@ export const getServiceById = createAsyncThunk(
       return response;
     } catch (error) {
       console.log(error);
-      return rejectWithValue(error);
+      return rejectWithValue(error.message);
     }
   }
 );

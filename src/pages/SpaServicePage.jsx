@@ -1,26 +1,38 @@
 import { useDispatch } from 'react-redux';
-import ServiceCard from '../components/ServicePage/ServiceCard';
 import { useEffect } from 'react';
 import { getServices } from '../redux/thunks/serviceThunk.js';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { NotFoundComponent } from '../components/index.js';
+import { ServiceCardList, ServiceComboCardList } from '../components/index.js';
+import { getServiceCombos } from '../redux/thunks/serviceComboThunk.js';
 
 const SpaServicePage = () => {
   const dispatch = useDispatch();
 
-  const services = useSelector((state) => state.services.services);
   const loading = useSelector((state) => state.services.loading);
+  const services = useSelector((state) => state.services.services);
   const error = useSelector((state) => state.services.error);
 
-  useEffect(() => {
-    dispatch(getServices(10));
+  const comboLoading = useSelector((state) => state.serviceCombos.loading);
+  const serviceCombos = useSelector(
+    (state) => state.serviceCombos.serviceCombos
+  );
+  const comboError = useSelector((state) => state.serviceCombos.error);
 
+  useEffect(() => {
+    dispatch(getServices({ pageIndex: 1, pageSize: 10 }));
+    dispatch(getServiceCombos({ pageIndex: 1, pageSize: 10 }));
+
+    console.log('error ben page ne ', error);
     if (error) {
       toast.error(error);
     }
+
+    if (comboError) {
+      toast.error(comboError);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [error, comboError]);
 
   return (
     <div>
@@ -49,23 +61,19 @@ const SpaServicePage = () => {
           />
         </div>
 
-        {loading ? (
-          <div className='flex justify-center items-center w-full'>
-            <img
-              src='./loading-cat.gif'
-              alt='loading...'
-              className='w-1/4 sm:w-1/3'
-            />
-          </div>
-        ) : Array.isArray(services) && services.length === 0 ? (
-          <NotFoundComponent name='dịch vụ' />
-        ) : (
-          <div className='flex justify-between items-center gap-4 mb-16 m-8'>
-            {services?.map((item, index) => (
-              <ServiceCard key={`service-${index}`} service={item} />
-            ))}
-          </div>
-        )}
+        <div className='m-8'>
+          {loading ? (
+            <div className='flex justify-center items-center w-full'>
+              <img
+                src='./loading-cat.gif'
+                alt='loading...'
+                className='w-1/4 sm:w-1/3'
+              />
+            </div>
+          ) : (
+            <ServiceCardList serviceList={services} />
+          )}
+        </div>
       </section>
 
       <section>
@@ -80,10 +88,18 @@ const SpaServicePage = () => {
           />
         </div>
 
-        <div className='flex justify-between items-center gap-4 mb-16 m-8'>
-          {services.map((item, index) => (
-            <ServiceCard key={`service-${index}`} service={item} />
-          ))}
+        <div className='m-10 mb-24'>
+          {comboLoading ? (
+            <div className='flex justify-center items-center w-full'>
+              <img
+                src='./loading-cat.gif'
+                alt='loading...'
+                className='w-1/4 sm:w-1/3'
+              />
+            </div>
+          ) : (
+            <ServiceComboCardList comboList={serviceCombos} />
+          )}
         </div>
       </section>
     </div>

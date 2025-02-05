@@ -24,6 +24,7 @@ const servicesSlice = createSlice({
       })
       .addCase(getServices.rejected, (state, action) => {
         state.loading = false;
+        console.log('error ben slice ', action.payload);
         state.error = action.payload;
       });
 
@@ -38,6 +39,7 @@ const servicesSlice = createSlice({
       })
       .addCase(getServiceById.rejected, (state, action) => {
         state.loading = false;
+        console.log('error ben slice ', action);
         state.error = action.payload;
       });
   },

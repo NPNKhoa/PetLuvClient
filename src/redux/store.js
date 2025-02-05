@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux';
 import storage from 'redux-persist/lib/storage';
 
-import serviceSlice from './slices/serviceSlice.js';
 import { persistReducer, persistStore } from 'redux-persist';
 import { configureStore } from '@reduxjs/toolkit';
+
+import serviceSlice from './slices/serviceSlice.js';
+import serviceComboSlice from './slices/serviceComboSlice.js';
 
 const persistConfig = {
   key: 'root',
@@ -13,6 +15,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   services: serviceSlice,
+  serviceCombos: serviceComboSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

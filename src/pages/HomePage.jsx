@@ -4,9 +4,29 @@ import CategoryList from '../components/HomePage/CategoryList';
 import { BiSupport } from 'react-icons/bi';
 import ServiceCardList from '../components/common/ServiceCardList';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import { serviceList } from '../mocks/services';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { getServices } from '../redux/thunks/serviceThunk';
+import { useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 const HomePage = () => {
+  const dispatch = useDispatch();
+
+  const loading = useSelector((state) => state.services.loading);
+  const services = useSelector((state) => state.services.services);
+  const error = useSelector((state) => state.services.error);
+
+  useEffect(() => {
+    dispatch(getServices({ pageIndex: 1, pageSize: 10 }));
+
+    console.log('error ben page ne ', error);
+    if (error) {
+      toast.error(error);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [error]);
+
   return (
     <div>
       <Carousel />
@@ -34,7 +54,17 @@ const HomePage = () => {
         <h1 className='uppercase text-primary text-3xl text-center font-bold mb-4'>
           Dịch vụ nổi bật tại PetLuv
         </h1>
-        <ServiceCardList serviceList={serviceList} />
+        {loading ? (
+          <div className='flex justify-center items-center w-full'>
+            <img
+              src='./loading-cat.gif'
+              alt='loading...'
+              className='w-1/4 sm:w-1/3'
+            />
+          </div>
+        ) : (
+          <ServiceCardList serviceList={services} />
+        )}
       </section>
 
       <LazyLoadImage
@@ -49,7 +79,17 @@ const HomePage = () => {
         <h1 className='uppercase text-primary text-3xl text-center font-bold mb-4'>
           Dịch vụ gợi ý cho bạn
         </h1>
-        <ServiceCardList serviceList={serviceList} />
+        {loading ? (
+          <div className='flex justify-center items-center w-full'>
+            <img
+              src='./loading-cat.gif'
+              alt='loading...'
+              className='w-1/4 sm:w-1/3'
+            />
+          </div>
+        ) : (
+          <ServiceCardList serviceList={services} />
+        )}
       </section>
 
       <section className='relative'>

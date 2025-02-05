@@ -1,13 +1,17 @@
 import ApiService from './api.service';
 
-class ServicesService {
+class ServiceCombo {
   constructor() {
-    this.api = new ApiService('http://localhost:5212/api/services');
+    this.api = new ApiService('http://localhost:5212/api/service-combos');
   }
 
-  async getServices(params = {}) {
+  async getAll(params = {}) {
     const { pageIndex, pageSize } = params;
-    const query = new URLSearchParams({ pageIndex, pageSize }).toString();
+
+    const query = new URLSearchParams({
+      pageIndex,
+      pageSize,
+    }).toString();
 
     try {
       const response = await this.api.get(`?${query}`);
@@ -18,9 +22,9 @@ class ServicesService {
     }
   }
 
-  async getServiceById(serviceId) {
+  async getById(serviceComboId) {
     try {
-      const response = await this.api.get(`${serviceId}`);
+      const response = await this.api.get(`${serviceComboId}`);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -29,4 +33,4 @@ class ServicesService {
   }
 }
 
-export default new ServicesService();
+export default new ServiceCombo();

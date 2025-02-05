@@ -7,7 +7,7 @@ class ApiService {
   }
 
   async request(endpoint, method = 'GET', body = null, headers = {}) {
-    const url = `${this.baseUrl}${endpoint}`;
+    const url = new URL(endpoint, this.baseUrl);
     const accessToken = this.authService.getToken();
 
     const options = {
@@ -30,7 +30,8 @@ class ApiService {
       const response = await fetch(url, options);
 
       if (response.status === 401) {
-        throw new Error('Token expired! Please try again');
+        localStorage.removeItem('token');
+        throw new Error('Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại');
       }
 
       const data = await response.json();
@@ -39,14 +40,16 @@ class ApiService {
 
       if (!data.flag) {
         console.log(data.message);
-        throw new Error(data.message || 'Error on fetching data');
+        throw new Error(
+          data.message || 'Something went wrong. Please try again!'
+        );
       }
 
       return data;
     } catch (error) {
       if (error instanceof TypeError) {
-        console.error('Network error! Please check your connection.');
-        throw new Error('Network error! Please try again later.');
+        console.error('Lỗi mạng! Kiểm tra kết nối mạng và thử lại sau.');
+        throw new Error('Lỗi mạng! Kiểm tra kết nối mạng và thử lại sau.');
       }
       console.error('API error:', error);
       throw error;

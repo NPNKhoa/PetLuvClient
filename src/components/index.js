@@ -7,6 +7,8 @@ import NotFoundComponent from './common/NotFoundComponent';
 
 import ServiceCard from './common/ServiceCard';
 import ServiceCardList from './common/ServiceCardList';
+import ServiceComboCard from './common/ServiceComboCard';
+import ServiceComboCardList from './common/ServiceComboCardList';
 import CatPawsBackground from './common/CatPawsBackground';
 import CategoryList from './HomePage/CategoryList';
 
@@ -20,4 +22,6 @@ export {
   CatPawsBackground,
   CategoryList,
   NotFoundComponent,
+  ServiceComboCard,
+  ServiceComboCardList,
 };
