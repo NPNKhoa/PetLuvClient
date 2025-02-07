@@ -6,7 +6,12 @@ export const getServiceCombos = createAsyncThunk(
   async (params = {}, { rejectWithValue }) => {
     try {
       const response = await serviceCombosService.getAll(params);
-      return response.data;
+
+      if (!response.flag) {
+        return rejectWithValue(response.message);
+      }
+
+      return response.data.data;
     } catch (error) {
       console.log(error);
       rejectWithValue(error);

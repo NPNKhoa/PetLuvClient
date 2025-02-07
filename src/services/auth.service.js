@@ -1,22 +1,19 @@
+import ApiService from './api.service';
+
 class AuthService {
   constructor() {
-    this.tokenKey = 'token';
+    this.api = new ApiService('http://localhost:5050/api/');
   }
 
-  setToken(token) {
-    localStorage.setItem(this.tokenKey, token);
-  }
+  async login(credentials) {
+    const { email, password } = credentials;
 
-  getToken() {
-    return localStorage.getItem(this.tokenKey);
-  }
-
-  clearToken() {
-    localStorage.removeItem(this.tokenKey);
-  }
-
-  isAuthenticated() {
-    return this.getToken() !== null;
+    try {
+      const response = await this.api.post('login', { email, password });
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
 export default new AuthService();

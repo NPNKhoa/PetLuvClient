@@ -20,7 +20,6 @@ const HomePage = () => {
   useEffect(() => {
     dispatch(getServices({ pageIndex: 1, pageSize: 10 }));
 
-    console.log('error ben page ne ', error);
     if (error) {
       toast.error(error);
     }

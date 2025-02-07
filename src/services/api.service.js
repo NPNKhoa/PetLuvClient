@@ -1,14 +1,12 @@
-import authService from './auth.service';
-
 class ApiService {
   constructor(baseUrl = import.meta.env.VITE_API_BASE_URL) {
     this.baseUrl = baseUrl || 'http://localhost:5000/api';
-    this.authService = authService;
+    this.tokenKey = 'token';
   }
 
   async request(endpoint, method = 'GET', body = null, headers = {}) {
     const url = new URL(endpoint, this.baseUrl);
-    const accessToken = this.authService.getToken();
+    const accessToken = localStorage.getItem(this.tokenKey);
 
     const options = {
       method,
@@ -29,20 +27,15 @@ class ApiService {
     try {
       const response = await fetch(url, options);
 
-      if (response.status === 401) {
-        localStorage.removeItem('token');
-        throw new Error('Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại');
-      }
-
       const data = await response.json();
 
-      console.log(data);
+      if (data === null || data.flag === null) {
+        if (response.status === 401) {
+          localStorage.removeItem(this.tokenKey);
+          throw new Error('Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại');
+        }
 
-      if (!data.flag) {
-        console.log(data.message);
-        throw new Error(
-          data.message || 'Something went wrong. Please try again!'
-        );
+        throw new Error('Lỗi không xác định. Thử lại sau');
       }
 
       return data;

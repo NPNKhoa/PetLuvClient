@@ -23,7 +23,6 @@ const SpaServicePage = () => {
     dispatch(getServices({ pageIndex: 1, pageSize: 10 }));
     dispatch(getServiceCombos({ pageIndex: 1, pageSize: 10 }));
 
-    console.log('error ben page ne ', error);
     if (error) {
       toast.error(error);
     }

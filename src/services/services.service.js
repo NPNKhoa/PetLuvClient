@@ -11,7 +11,7 @@ class ServicesService {
 
     try {
       const response = await this.api.get(`?${query}`);
-      return response.data;
+      return response;
     } catch (error) {
       console.log(error);
       throw error;
@@ -21,7 +21,7 @@ class ServicesService {
   async getServiceById(serviceId) {
     try {
       const response = await this.api.get(`${serviceId}`);
-      return response.data;
+      return response;
     } catch (error) {
       console.log(error);
       throw error;

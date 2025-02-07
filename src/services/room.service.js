@@ -14,7 +14,7 @@ class RoomService {
 
     try {
       const response = await this.api.get(`?${query}`);
-      return response.data;
+      return response;
     } catch (error) {
       console.log(error);
       throw error;
@@ -24,7 +24,7 @@ class RoomService {
   async getRoomById(roomId) {
     try {
       const response = await this.api.get(`${roomId}`);
-      return response.data;
+      return response;
     } catch (error) {
       console.log(error);
       throw error;

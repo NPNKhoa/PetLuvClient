@@ -6,7 +6,12 @@ export const getServices = createAsyncThunk(
   async (params = {}, { rejectWithValue }) => {
     try {
       const response = await servicesService.getServices(params);
-      return response.data;
+
+      if (!response.flag) {
+        return rejectWithValue(response.message);
+      }
+
+      return response.data.data;
     } catch (error) {
       console.log(error);
       return rejectWithValue(error.message);
@@ -19,6 +24,11 @@ export const getServiceById = createAsyncThunk(
   async (serviceId, { rejectWithValue }) => {
     try {
       const response = await servicesService.getServiceById(serviceId);
+
+      if (!response.flag) {
+        return rejectWithValue(response.message);
+      }
+
       return response.data;
     } catch (error) {
       console.log(error);

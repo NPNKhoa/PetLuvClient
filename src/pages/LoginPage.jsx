@@ -1,14 +1,27 @@
 import * as Yup from 'yup';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { Divider, Stack } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { CircularProgress, Divider, Stack } from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
 import MyAlrt from '../configs/alert/MyAlrt';
+import { useEffect } from 'react';
+import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { login } from '../redux/thunks/authThunk';
+import { clearError } from '../redux/slices/authSlice';
 
 const LoginPage = () => {
-  const initialValues = {
+  const credentialsValue = {
     email: '',
     password: '',
   };
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const loading = useSelector((state) => state.auth.loading);
+  const error = useSelector((state) => state.auth.error);
+  const user = useSelector((state) => state.auth.user);
 
   const validationSchema = Yup.object({
     email: Yup.string()
@@ -19,19 +32,33 @@ const LoginPage = () => {
       .required('Không được bỏ trống'),
   });
 
-  const handleSubmit = (values) => {
-    console.log('Login Data:', values);
-    MyAlrt.Error('Lỗi', 'Lỗi khi đăng nhập', 'Xác nhận', true, 'Đóng', () => {
-      alert('Confirm result');
-    });
+  const handleSubmit = async (values) => {
+    dispatch(login(values));
   };
+
+  useEffect(() => {
+    if (error) {
+      MyAlrt.Error('Lỗi', error, 'Xác nhận', false, 'Đóng', () => {
+        dispatch(clearError());
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [error]);
+
+  useEffect(() => {
+    if (user) {
+      toast.success('Đăng nhập thành công');
+      navigate('/');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   return (
     <div className='flex items-center justify-center min-h-screen bg-gray-100'>
       <Stack spacing={2} className='bg-white p-6 rounded-lg shadow-md w-96'>
         <h2 className='text-2xl font-bold mb-4 text-center'>Đăng nhập</h2>
         <Formik
-          initialValues={initialValues}
+          initialValues={credentialsValue}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
@@ -76,10 +103,17 @@ const LoginPage = () => {
                 />
               </div>
               <button
+                disabled={loading}
                 type='submit'
-                className='w-full bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded'
+                className={`w-full bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded ${
+                  loading && 'hover:cursor-not-allowed'
+                }`}
               >
-                Login
+                {loading ? (
+                  <CircularProgress size={'medium'} color='primary' />
+                ) : (
+                  'Login'
+                )}
               </button>
             </Form>
           )}

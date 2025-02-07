@@ -5,6 +5,7 @@ import { Avatar, IconButton, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { hoverDropdownConfig } from '../../configs/animationConfigurations';
+import { useSelector } from 'react-redux';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ const Header = () => {
   const [navHovered, setNavHovered] = useState(false);
   const [searchHovered, setSearchHovered] = useState(false);
 
-  const loggedInUser = localStorage.getItem('loggedInUser');
+  const loggedInUser = useSelector((state) => state.auth.user);
 
   const menuAnimation = useSpring(hoverDropdownConfig(navHovered));
 
@@ -24,9 +25,6 @@ const Header = () => {
     e.preventDefault();
 
     alert('ok');
-    loggedInUser
-      ? localStorage.removeItem('loggedInUser')
-      : localStorage.setItem('loggedInUser', 'user');
   };
 
   // SUPPORT FUNCTIONS
@@ -143,6 +141,7 @@ const Header = () => {
 
         {loggedInUser ? (
           <Link to={'/trang-ca-nhan'}>
+            {console.log(loggedInUser)}
             <Avatar alt='Avatar' src='/static/images/avatar/1.jpg' />
           </Link>
         ) : (
