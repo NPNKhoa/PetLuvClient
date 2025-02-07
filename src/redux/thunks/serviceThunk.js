@@ -28,8 +28,7 @@ export const getServiceById = createAsyncThunk(
       if (!response.flag) {
         return rejectWithValue(response.message);
       }
-
-      return response.data;
+      return response.data.data;
     } catch (error) {
       console.log(error);
       return rejectWithValue(error.message);

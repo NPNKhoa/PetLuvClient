@@ -1,7 +1,21 @@
 import PropTypes from 'prop-types';
 import formatCurrency from '../../utils/formatCurrency';
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 const ServiceInfo = ({ service }) => {
+  const { serviceId } = useParams();
+
+  const [selectedVariant, setSelectedVariant] = useState({
+    serviceId: '',
+    breedId: '',
+    petWeightRange: '',
+  });
+
+  const onSelectVariant = ({ breedId, petWeightRange }) => {
+    setSelectedVariant({ serviceId, breedId, petWeightRange });
+  };
+
   return (
     <div className='flex flex-col h-full'>
       <div className='mb-6'>
@@ -25,11 +39,15 @@ const ServiceInfo = ({ service }) => {
             {service.serviceVariants.map((variant, index) => (
               <div
                 key={index}
-                className='bg-white shadow-md rounded-lg p-4 border border-gray-200'
+                className={`bg-white shadow-md rounded-lg p-4 border border-gray-200 relative z-50 hover:cursor-pointer hover:scale-105 ${
+                  selectedVariant.breedId === variant.breedId &&
+                  selectedVariant.petWeightRange === variant.petWeightRange &&
+                  'border-primary-light border-[3px]'
+                }`}
+                onClick={() => onSelectVariant(variant)}
               >
                 <h2 className='font-bold text-lg text-secondary'>
-                  {variant.breedId}{' '}
-                  {/* TODO: Thay backend thanh breed name + hien thi o day */}
+                  {variant.breedName}{' '}
                 </h2>
                 <h3 className='font-bold text-lg text-secondary'>
                   <span>Trọng lượng: </span> {variant?.petWeightRange}
@@ -37,6 +55,14 @@ const ServiceInfo = ({ service }) => {
                 <p className='text-gray-600 mt-2'>
                   Giá: {formatCurrency(variant.price)}
                 </p>
+                {selectedVariant.breedId === variant.breedId &&
+                  selectedVariant.petWeightRange === variant.petWeightRange && (
+                    <img
+                      src='/cat-paw.png'
+                      alt='cat-paw'
+                      className='w-16 absolute right-0 top-0 -z-50 -rotate-45'
+                    />
+                  )}
               </div>
             ))}
           </div>

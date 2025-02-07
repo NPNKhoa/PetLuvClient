@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getRoomById } from '../redux/thunks/roomThunk'; // Giả sử có thunk này
@@ -9,8 +9,17 @@ import RoomInfo from '../components/RoomPage/RoomInfo';
 const RoomDetailPage = () => {
   const { roomId } = useParams();
   const dispatch = useDispatch();
+
+  const headPageRef = useRef(null);
+
   const room = useSelector((state) => state.rooms.room);
   const error = useSelector((state) => state.rooms.error);
+
+  useEffect(() => {
+    if (headPageRef.current) {
+      headPageRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, []);
 
   useEffect(() => {
     if (error) {
@@ -20,7 +29,7 @@ const RoomDetailPage = () => {
   }, [dispatch, roomId, error]);
 
   return (
-    <div className='container mx-auto p-6 space-y-12'>
+    <div className='container mx-auto p-6 space-y-12' ref={headPageRef}>
       <div className='flex flex-col lg:flex-row gap-8'>
         <div className='lg:w-1/2'>
           {room?.RoomImages && room.RoomImages.length > 0 ? (

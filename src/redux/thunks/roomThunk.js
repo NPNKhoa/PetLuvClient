@@ -29,7 +29,7 @@ export const getRoomById = createAsyncThunk(
         return rejectWithValue(response.message);
       }
 
-      return response.data;
+      return response.data.data;
     } catch (error) {
       console.log(error);
       return rejectWithValue(error.message);

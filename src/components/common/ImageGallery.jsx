@@ -8,7 +8,7 @@ const ImageGallery = ({ imageUrls }) => {
     <div className='flex flex-col'>
       <div className='w-full h-96 rounded-lg overflow-hidden shadow-lg'>
         <img
-          src={`http://localhost:5212${selectedImage}`}
+          src={selectedImage}
           alt='Service'
           className='w-full h-full object-cover'
         />
@@ -21,7 +21,7 @@ const ImageGallery = ({ imageUrls }) => {
             className='focus:outline-none'
           >
             <img
-              src={`http://localhost:5212${url}`}
+              src={url}
               alt={`Thumbnail ${index + 1}`}
               className={`w-full h-24 object-cover rounded ${
                 selectedImage === url ? 'ring-4 ring-primary' : ''
