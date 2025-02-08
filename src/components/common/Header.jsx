@@ -141,7 +141,10 @@ const Header = () => {
 
         {loggedInUser ? (
           <Link to={'/trang-ca-nhan'}>
-            <Avatar alt='Avatar' src='/static/images/avatar/1.jpg' />
+            <Avatar
+              alt={loggedInUser?.fullName || 'Avatar'}
+              src={`http://localhost:5050${loggedInUser?.avatar}`}
+            />
           </Link>
         ) : (
           <Link

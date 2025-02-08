@@ -30,7 +30,7 @@ const ServiceDetailPage = () => {
 
   const serviceImageUrls = useMemo(
     () =>
-      service?.serviceImageUrls?.map((url) => `http://localhost:5010${url}`),
+      service?.serviceImageUrls?.map((url) => `http://localhost:5020${url}`),
     [service]
   );
 

@@ -12,7 +12,7 @@ const ServiceCard = ({ service }) => {
           !Array.isArray(service?.serviceImageUrls) ||
           service?.serviceImageUrls.length === 0
             ? 'logo.png'
-            : 'http://localhost:5010' + service?.serviceImageUrls[0]
+            : 'http://localhost:5020' + service?.serviceImageUrls[0]
         }`}
         alt={service?.serviceName}
         className='w-full h-48 object-cover'

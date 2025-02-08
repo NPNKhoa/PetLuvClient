@@ -9,6 +9,8 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { login } from '../redux/thunks/authThunk';
 import { clearError } from '../redux/slices/authSlice';
+import { FaFacebook } from 'react-icons/fa';
+import { FcGoogle } from 'react-icons/fc';
 
 const LoginPage = () => {
   const credentialsValue = {
@@ -102,10 +104,13 @@ const LoginPage = () => {
                   className='text-red-500 text-sm mt-1'
                 />
               </div>
+              <p className='text-primary text-right hover:text-primary-dark hover:cursor-pointer'>
+                Quên mật khẩu?
+              </p>
               <button
                 disabled={loading}
                 type='submit'
-                className={`w-full bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded ${
+                className={`w-full bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 mt-4 rounded ${
                   loading && 'hover:cursor-not-allowed'
                 }`}
               >
@@ -118,13 +123,34 @@ const LoginPage = () => {
             </Form>
           )}
         </Formik>
-        <Divider>hoặc</Divider>
-        <Link
-          to={'/dang-ky'}
-          className='text-center text-primary p-2 rounded-md hover:bg-primary hover:text-white'
+        <p className='text-center'>
+          Bạn chưa có tài khoản?{' '}
+          <Link
+            to={'/dang-ky'}
+            className='text-center text-primary hover:text-primary-dark'
+          >
+            Đăng ký ngay
+          </Link>
+        </p>
+        <Divider>
+          <span className='text-tertiary-dark'>hoặc đăng nhập với</span>
+        </Divider>
+        <Stack
+          spacing={4}
+          direction={'row'}
+          alignItems={'center'}
+          justifyContent={'center'}
         >
-          Đăng ký
-        </Link>
+          <FaFacebook
+            color='blue'
+            size={35}
+            className='hover:cursor-pointer hover:opacity-85'
+          />
+          <FcGoogle
+            size={35}
+            className='hover:cursor-pointer hover:opacity-85'
+          />
+        </Stack>
       </Stack>
     </div>
   );

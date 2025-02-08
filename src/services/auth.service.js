@@ -15,5 +15,14 @@ class AuthService {
       console.log(error);
     }
   }
+
+  async register(registerInfo) {
+    try {
+      const response = await this.api.post('register', registerInfo);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
 export default new AuthService();

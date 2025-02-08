@@ -2,7 +2,7 @@ import ApiService from './api.service';
 
 class ServiceCombo {
   constructor() {
-    this.api = new ApiService('http://localhost:5010/api/service-combos');
+    this.api = new ApiService('http://localhost:5020/api/service-combos');
   }
 
   async getAll(params = {}) {

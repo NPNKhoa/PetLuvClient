@@ -18,3 +18,21 @@ export const login = createAsyncThunk(
     }
   }
 );
+
+export const register = createAsyncThunk(
+  'auth/register',
+  async (registerInfo, { rejectWithValue }) => {
+    try {
+      const response = await authService.register(registerInfo);
+
+      if (!response.flag) {
+        return rejectWithValue(response.message);
+      }
+
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      rejectWithValue(error);
+    }
+  }
+);

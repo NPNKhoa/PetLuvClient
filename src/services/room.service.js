@@ -2,7 +2,7 @@ import ApiService from './api.service';
 
 class RoomService {
   constructor() {
-    this.api = new ApiService('http://localhost:5018/api/rooms/');
+    this.api = new ApiService('http://localhost:5030/api/rooms/');
   }
 
   async getAllRooms(params = {}) {

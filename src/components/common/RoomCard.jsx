@@ -11,7 +11,7 @@ const RoomCard = ({ room }) => {
         src={`${
           !Array.isArray(room?.roomImages) || room?.roomImages.length === 0
             ? 'logo.png'
-            : 'http://localhost:5018' + room?.roomImages[0]
+            : 'http://localhost:5030' + room?.roomImages[0]
         }`}
         alt={room?.roomName}
         className='w-full h-48 object-cover'
