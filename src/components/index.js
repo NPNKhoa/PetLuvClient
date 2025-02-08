@@ -17,6 +17,9 @@ import ServiceInfo from './ServicePage/ServiceInfo';
 
 import RoomInfo from './RoomPage/RoomInfo';
 
+import Sidebar from './PersonalInfoPage/SideBar';
+import PersonalInfo from './PersonalInfoPage/PersonalInfo';
+
 export {
   Header,
   Footer,
@@ -32,4 +35,6 @@ export {
   ImageGallery,
   ServiceInfo,
   RoomInfo,
+  Sidebar,
+  PersonalInfo,
 };

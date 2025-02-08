@@ -6,6 +6,7 @@ import LoginPage from './LoginPage';
 import RegisterPage from './RegisterPage';
 import ServicePage from './ServicePage';
 import SpaServicePage from './SpaServicePage';
+import PersonalInfoPage from './PersonalInfoPage';
 
 export {
   NotFoundPage,
@@ -15,4 +16,5 @@ export {
   RegisterPage,
   ServicePage,
   SpaServicePage,
+  PersonalInfoPage,
 };
