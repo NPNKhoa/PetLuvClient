@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSpring, animated } from '@react-spring/web';
-import { Avatar, IconButton, TextField } from '@mui/material';
+import { Avatar, Badge, IconButton, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { hoverDropdownConfig } from '../../configs/animationConfigurations';
 import { useSelector } from 'react-redux';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -133,6 +134,12 @@ const Header = () => {
               />
             </form>
           </animated.div>
+        </IconButton>
+
+        <IconButton>
+          <Badge badgeContent={4} color='primary'>
+            <NotificationsIcon color='secondary' />
+          </Badge>
         </IconButton>
 
         <IconButton color='secondary' onClick={() => navigate('/gio-hang')}>

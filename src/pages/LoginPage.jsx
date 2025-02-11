@@ -111,11 +111,11 @@ const LoginPage = () => {
                 disabled={loading}
                 type='submit'
                 className={`w-full bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 mt-4 rounded ${
-                  loading && 'hover:cursor-not-allowed'
+                  loading && 'hover:cursor-not-allowed bg-primary-dark'
                 }`}
               >
                 {loading ? (
-                  <CircularProgress size={'medium'} color='primary' />
+                  <CircularProgress size={'1rem'} color='secondary' />
                 ) : (
                   'Login'
                 )}

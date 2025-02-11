@@ -11,7 +11,7 @@ const ServiceCard = ({ service }) => {
         src={`${
           !Array.isArray(service?.serviceImageUrls) ||
           service?.serviceImageUrls.length === 0
-            ? 'logo.png'
+            ? '/logo.png'
             : 'http://localhost:5020' + service?.serviceImageUrls[0]
         }`}
         alt={service?.serviceName}
@@ -24,7 +24,11 @@ const ServiceCard = ({ service }) => {
         </h3>
         <p className='text-sm text-gray-600 mt-2'>{service?.serviceDesc}</p>
 
-        <span className='inline-block mt-3 text-xs text-white bg-primary px-3 py-1 rounded-full'>
+        <span
+          className={`inline-block mt-3 text-xs text-white ${
+            service?.serviceTypeName && 'bg-primary'
+          } px-3 py-1 rounded-full`}
+        >
           {service?.serviceTypeName}
         </span>
       </div>
