@@ -3,6 +3,7 @@ import {
   HomePage,
   LoginPage,
   RegisterPage,
+  ServiceComboDetailPage,
   ServicePage,
   SpaServicePage,
 } from '../pages';
@@ -40,6 +41,11 @@ export default [
     id: `client-route-${uuidv4()}`,
     path: '/dich-vu-spa/:serviceId',
     element: <ServiceDetailPage />,
+  },
+  {
+    id: `client-route-${uuidv4()}`,
+    path: '/dich-vu-spa/combo/:serviceComboId',
+    element: <ServiceComboDetailPage />,
   },
   {
     id: `client-route-${uuidv4()}`,

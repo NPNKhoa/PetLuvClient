@@ -7,6 +7,7 @@ import RegisterPage from './RegisterPage';
 import ServicePage from './ServicePage';
 import SpaServicePage from './SpaServicePage';
 import PersonalInfoPage from './PersonalInfoPage';
+import ServiceComboDetailPage from './ServiceComboDetailPage';
 
 export {
   NotFoundPage,
@@ -17,4 +18,5 @@ export {
   ServicePage,
   SpaServicePage,
   PersonalInfoPage,
+  ServiceComboDetailPage,
 };

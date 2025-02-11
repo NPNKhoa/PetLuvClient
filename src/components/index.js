@@ -20,6 +20,8 @@ import RoomInfo from './RoomPage/RoomInfo';
 import Sidebar from './PersonalInfoPage/SideBar';
 import PersonalInfo from './PersonalInfoPage/PersonalInfo';
 
+import ServiceComboInfo from './ServiceComboPage/ServiceComboInfo';
+
 export {
   Header,
   Footer,
@@ -37,4 +39,5 @@ export {
   RoomInfo,
   Sidebar,
   PersonalInfo,
+  ServiceComboInfo,
 };

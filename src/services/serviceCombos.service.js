@@ -2,7 +2,7 @@ import ApiService from './api.service';
 
 class ServiceCombo {
   constructor() {
-    this.api = new ApiService('http://localhost:5020/api/service-combos');
+    this.api = new ApiService('http://localhost:5020/api/service-combos/');
   }
 
   async getAll(params = {}) {
@@ -26,6 +26,15 @@ class ServiceCombo {
     try {
       const response = await this.api.get(`${serviceComboId}`);
       return response;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+
+  async getServices(serviceComboId) {
+    try {
+      return await this.api.get(`${serviceComboId}/services`);
     } catch (error) {
       console.log(error);
       throw error;
