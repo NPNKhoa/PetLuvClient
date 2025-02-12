@@ -36,6 +36,6 @@ export default [
   {
     label: 'Riêng tư',
     icon: <FaLock />,
-    path: 'rieng-tu',
+    path: 'bao-mat',
   },
 ];

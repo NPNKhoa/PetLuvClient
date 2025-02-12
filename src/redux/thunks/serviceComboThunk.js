@@ -14,7 +14,7 @@ export const getServiceCombos = createAsyncThunk(
       return response.data.data;
     } catch (error) {
       console.log(error);
-      rejectWithValue(error);
+      return rejectWithValue(error);
     }
   }
 );
@@ -30,7 +30,7 @@ export const getServiceComboById = createAsyncThunk(
       return response.data.data;
     } catch (error) {
       console.log(error);
-      rejectWithValue(error);
+      return rejectWithValue(error);
     }
   }
 );

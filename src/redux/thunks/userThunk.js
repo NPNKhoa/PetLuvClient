@@ -14,7 +14,7 @@ export const getUserInfo = createAsyncThunk(
       return response.data;
     } catch (error) {
       console.log(error);
-      rejectWithValue(error);
+      return rejectWithValue(error);
     }
   }
 );
@@ -34,7 +34,7 @@ export const updateUserInfo = createAsyncThunk(
       return response.data;
     } catch (error) {
       console.log(error);
-      rejectWithValue(error);
+      return rejectWithValue(error);
     }
   }
 );

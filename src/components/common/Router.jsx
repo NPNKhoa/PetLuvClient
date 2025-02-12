@@ -34,7 +34,7 @@ const Router = () => {
           >
             <Route index element={<PersonalInfo />} />
             <Route path='dia-chi' element={<AddressCollection />} />
-            <Route path='mat-khau' element={<Privilege />} />
+            <Route path='bao-mat' element={<Privilege />} />
           </Route>
 
           <Route path='*' element={<NotFoundPage />} />

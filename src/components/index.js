@@ -2,7 +2,6 @@ import Router from './common/Router';
 
 import Header from './common/Header';
 import Footer from './common/Footer';
-import Carousel from './HomePage/Carousel';
 import NotFoundComponent from './common/NotFoundComponent';
 
 import ServiceCard from './common/ServiceCard';
@@ -10,14 +9,17 @@ import ServiceCardList from './common/ServiceCardList';
 import ServiceComboCard from './common/ServiceComboCard';
 import ServiceComboCardList from './common/ServiceComboCardList';
 import CatPawsBackground from './common/CatPawsBackground';
+import ImageGallery from './common/ImageGallery';
+import PasswordField from './common/PassWordField';
+
+import Carousel from './HomePage/Carousel';
 import CategoryList from './HomePage/CategoryList';
 
-import ImageGallery from './common/ImageGallery';
 import ServiceInfo from './ServicePage/ServiceInfo';
 
 import RoomInfo from './RoomPage/RoomInfo';
 
-import Sidebar from './PersonalInfoPage/SideBar';
+import Sidebar from './PersonalInfoPage/Sidebar';
 import PersonalInfo from './PersonalInfoPage/PersonalInfo';
 
 import ServiceComboInfo from './ServiceComboPage/ServiceComboInfo';
@@ -40,4 +42,5 @@ export {
   Sidebar,
   PersonalInfo,
   ServiceComboInfo,
+  PasswordField,
 };

@@ -27,11 +27,20 @@ class ApiService {
     try {
       const response = await fetch(url, options);
 
+      if (!response.ok && response.status === 401) {
+        localStorage.removeItem(this.tokenKey);
+        throw new Error('Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại');
+      }
+
       const data = await response.json();
 
       if (data === null || data.flag === null) {
         if (response.status === 401) {
-          localStorage.removeItem(this.tokenKey);
+          if (data.message && data.message.toLowerCase().includes('token')) {
+            localStorage.removeItem(this.tokenKey);
+            window.location.href('/dang-nhap');
+          }
+
           throw new Error('Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại');
         }
 

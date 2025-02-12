@@ -36,6 +36,7 @@ const LoginPage = () => {
 
   const handleSubmit = async (values) => {
     dispatch(login(values));
+    toast.success('Đăng nhập thành công');
   };
 
   useEffect(() => {
@@ -48,8 +49,7 @@ const LoginPage = () => {
   }, [error]);
 
   useEffect(() => {
-    if (user) {
-      toast.success('Đăng nhập thành công');
+    if (user !== null && localStorage.getItem('token') !== null) {
       navigate('/');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -24,5 +24,13 @@ class AuthService {
       console.log(error);
     }
   }
+  async resetPassword(credentials) {
+    try {
+      return await this.api.post(`change-password`, credentials);
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
 }
 export default new AuthService();

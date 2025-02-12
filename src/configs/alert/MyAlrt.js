@@ -4,11 +4,11 @@ class MyAlrt {
   constructor() {
     this.deleteColor = '#d33';
     this.cancelColor = '#aeaeae';
-    this.errorImage = 'crying-cat.gif';
-    this.successImage = 'happy-cat.gif';
-    this.warningImage = 'warning-cat.gif';
-    this.infoImage = 'infoImage-cat.gif';
-    this.questionImage = 'questionImage-cat.gif';
+    this.errorImage = '/crying-cat.gif';
+    this.successImage = '/happy-cat.gif';
+    this.warningImage = '/warning-cat.gif';
+    this.infoImage = '/infoImage-cat.gif';
+    this.questionImage = '/questionImage-cat.gif';
     this.showClass = {
       popup: `
           animate__animated

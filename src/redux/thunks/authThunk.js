@@ -14,7 +14,7 @@ export const login = createAsyncThunk(
       return response.data;
     } catch (error) {
       console.log(error);
-      rejectWithValue(error.message);
+      return rejectWithValue(error.message);
     }
   }
 );
@@ -32,7 +32,25 @@ export const register = createAsyncThunk(
       return response.data;
     } catch (error) {
       console.log(error);
-      rejectWithValue(error);
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const resetPassword = createAsyncThunk(
+  'auth/resetPassword',
+  async (credentials, { rejectWithValue }) => {
+    try {
+      const response = await authService.resetPassword(credentials);
+
+      if (!response.flag) {
+        return rejectWithValue(response.message);
+      }
+
+      return response.data;
+    } catch (error) {
+      console.log(error.message);
+      return rejectWithValue(error.message);
     }
   }
 );
