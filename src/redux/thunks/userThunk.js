@@ -23,12 +23,9 @@ export const updateUserInfo = createAsyncThunk(
   'users/updateUserInfo',
   async (params, { rejectWithValue }) => {
     try {
-      console.log(params);
       const { userId, payload } = params;
 
       const response = await userService.updateInfo(userId, payload);
-
-      console.log(response);
 
       if (!response.flag) {
         return rejectWithValue(response.message);

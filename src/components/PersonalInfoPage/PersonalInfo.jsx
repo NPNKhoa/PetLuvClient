@@ -47,6 +47,7 @@ const PersonalInfo = () => {
   );
 
   const initialUserValues = {
+    avatar: user?.avatar,
     fullName: user?.fullName || '',
     email: user?.email || '',
     phoneNumber: user?.phoneNumber || '',
@@ -59,7 +60,7 @@ const PersonalInfo = () => {
 
   const [formValues, setFormValues] = useState(initialUserValues);
   const [avatarPreview, setAvatarPreview] = useState(
-    `http://localhost:5050${user.avatar}`
+    `${initialUserValues?.avatar}`
   );
   const [errors, setErrors] = useState({});
 
@@ -75,17 +76,18 @@ const PersonalInfo = () => {
       ...formValues,
       [e.target.name]: e.target.value,
     });
-    setEditMode(false);
   };
 
   const handleAvatarChange = (e) => {
     const file = e.target.files[0];
+
+    setFormValues((prev) => ({
+      ...prev,
+      avatar: file,
+    }));
+
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setAvatarPreview(reader.result);
-      };
-      reader.readAsDataURL(file);
+      setAvatarPreview(URL.createObjectURL(file));
     }
   };
 
@@ -102,6 +104,8 @@ const PersonalInfo = () => {
             : null,
         };
         dispatch(updateUserInfo({ userId, payload }));
+        toast.success('Cập nhật thông tin người dùng thành công');
+        setEditMode(false);
       })
       .catch((validationError) => {
         const errorObj = {};
@@ -139,7 +143,7 @@ const PersonalInfo = () => {
             <Box sx={{ position: 'relative' }}>
               <Avatar
                 src={avatarPreview}
-                alt='Avatar'
+                alt={formValues?.fullName}
                 sx={{ width: '8rem', height: '8rem' }}
               />
               {editMode && (

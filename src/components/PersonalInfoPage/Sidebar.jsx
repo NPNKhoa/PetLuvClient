@@ -17,9 +17,7 @@ const Sidebar = ({ user, sidebarItems = SidebarItems }) => {
       <div className='flex flex-col items-center mb-6'>
         <Avatar
           alt={user?.fullName || 'User'}
-          src={
-            user?.avatar ? `http://localhost:5050${user?.avatar}` : '/logo.png'
-          }
+          src={user?.avatar ? `${user?.avatar}` : '/logo.png'}
           sx={{ width: 64, height: 64 }}
         />
         <Typography
