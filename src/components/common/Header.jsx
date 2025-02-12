@@ -145,9 +145,8 @@ const Header = () => {
         <IconButton color='secondary' onClick={() => navigate('/gio-hang')}>
           <ShoppingCartIcon />
         </IconButton>
-
         {loggedInUser ? (
-          <Link to={'/trang-ca-nhan'}>
+          <Link to={`/trang-ca-nhan/${loggedInUser.userId}`}>
             <Avatar
               alt={loggedInUser?.fullName || 'Avatar'}
               src={`http://localhost:5050${loggedInUser?.avatar}`}

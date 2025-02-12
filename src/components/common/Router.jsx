@@ -25,7 +25,7 @@ const Router = () => {
           })}
 
           <Route
-            path='/trang-ca-nhan'
+            path='/trang-ca-nhan/:userId'
             element={
               <CommonLayout>
                 <PersonalInfoPage />
