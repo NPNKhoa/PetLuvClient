@@ -146,7 +146,7 @@ const Header = () => {
           <ShoppingCartIcon />
         </IconButton>
         {loggedInUser ? (
-          <Link to={`/trang-ca-nhan/${loggedInUser.userId}`}>
+          <Link to={`/trang-ca-nhan`}>
             <Avatar
               alt={loggedInUser?.fullName || 'Avatar'}
               src={`${loggedInUser?.avatar}`}

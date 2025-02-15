@@ -7,7 +7,7 @@ class UserService {
 
   async getUserById(userId) {
     try {
-      const response = this.api(`${userId}`);
+      const response = this.api.get(`${userId}`);
       return response;
     } catch (error) {
       console.log(error);

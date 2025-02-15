@@ -3,6 +3,7 @@ import Router from './common/Router';
 import Header from './common/Header';
 import Footer from './common/Footer';
 import NotFoundComponent from './common/NotFoundComponent';
+import LoadingComponent from './common/LoadingComponent';
 
 import ServiceCard from './common/ServiceCard';
 import ServiceCardList from './common/ServiceCardList';
@@ -21,6 +22,9 @@ import RoomInfo from './RoomPage/RoomInfo';
 
 import Sidebar from './PersonalInfoPage/Sidebar';
 import PersonalInfo from './PersonalInfoPage/PersonalInfo';
+import PetCollection from './PersonalInfoPage/PetCollection';
+import UserPetCard from './PersonalInfoPage/UserPetCard';
+import UserPetCardList from './PersonalInfoPage/UserPetCardList';
 
 import ServiceComboInfo from './ServiceComboPage/ServiceComboInfo';
 
@@ -43,4 +47,8 @@ export {
   PersonalInfo,
   ServiceComboInfo,
   PasswordField,
+  PetCollection,
+  UserPetCard,
+  UserPetCardList,
+  LoadingComponent,
 };

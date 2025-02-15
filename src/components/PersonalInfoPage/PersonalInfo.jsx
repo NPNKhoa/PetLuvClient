@@ -14,7 +14,6 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { updateUserInfo } from '../../redux/thunks/userThunk';
-import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { format, parseISO } from 'date-fns';
 
@@ -39,7 +38,7 @@ const PersonalInfo = () => {
   const loading = useSelector((state) => state.users.loading);
   const error = useSelector((state) => state.users.error);
 
-  const { userId } = useParams();
+  const { userId } = user || { userId: '' };
 
   const initialDate = useMemo(
     () => (user?.dateOfBirth ? parseISO(user?.dateOfBirth) : null),

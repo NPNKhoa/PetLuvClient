@@ -10,6 +10,7 @@ import serviceComboSlice from './slices/serviceComboSlice.js';
 import roomReducer from './slices/roomSlice.js';
 import authReducer from './slices/authSlice.js';
 import userReducer from './slices/userSlice.js';
+import petReducer from './slices/petSlice.js';
 
 const authUserFilter = createFilter('auth', ['user']);
 
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
   services: serviceSlice,
   serviceCombos: serviceComboSlice,
   rooms: roomReducer,
+  pets: petReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

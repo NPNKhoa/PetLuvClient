@@ -8,6 +8,7 @@ import { Suspense } from 'react';
 import PersonalInfo from '../PersonalInfoPage/PersonalInfo.jsx';
 import Privilege from '../PersonalInfoPage/Privilege.jsx';
 import AddressCollection from '../PersonalInfoPage/AddressCollection.jsx';
+import PetCollection from '../PersonalInfoPage/PetCollection.jsx';
 
 const Router = () => {
   return (
@@ -25,7 +26,7 @@ const Router = () => {
           })}
 
           <Route
-            path='/trang-ca-nhan/:userId'
+            path='/trang-ca-nhan'
             element={
               <CommonLayout>
                 <PersonalInfoPage />
@@ -35,6 +36,7 @@ const Router = () => {
             <Route index element={<PersonalInfo />} />
             <Route path='dia-chi' element={<AddressCollection />} />
             <Route path='bao-mat' element={<Privilege />} />
+            <Route path='bst-thu-cung' element={<PetCollection />} />
           </Route>
 
           <Route path='*' element={<NotFoundPage />} />
