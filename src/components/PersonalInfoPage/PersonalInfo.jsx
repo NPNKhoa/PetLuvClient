@@ -131,7 +131,7 @@ const PersonalInfo = () => {
   }, [error]);
 
   return (
-    <Box sx={{ p: 3 }}>
+    <Box sx={{ px: 3 }}>
       <Stack spacing={3}>
         {/* Header: Avatar và Toggle */}
         <Stack

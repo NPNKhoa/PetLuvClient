@@ -46,14 +46,15 @@ const ServiceInfo = ({ service }) => {
                 }`}
                 onClick={() => onSelectVariant(variant)}
               >
-                <h2 className='font-bold text-lg text-secondary'>
-                  {variant.breedName}{' '}
+                <h2 className='max-w-4/5 font-bold text-lg text-secondary-light flex justify-start items-center gap-2 mb-4'>
+                  <span>{variant.breedName}</span>
+                  <span>{variant?.petWeightRange}</span>
                 </h2>
-                <h3 className='font-bold text-lg text-secondary'>
-                  <span>Trọng lượng: </span> {variant?.petWeightRange}
-                </h3>
-                <p className='text-gray-600 mt-2'>
-                  Giá: {formatCurrency(variant.price)}
+                <p className='font-bold text-2xl text-primary-light'>
+                  <span className='font-bold text-lg text-secondary'>
+                    Giá:{' '}
+                  </span>{' '}
+                  {formatCurrency(variant.price)}
                 </p>
                 {selectedVariant.breedId === variant.breedId &&
                   selectedVariant.petWeightRange === variant.petWeightRange && (
