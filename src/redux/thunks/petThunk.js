@@ -18,3 +18,37 @@ export const getPetByUser = createAsyncThunk(
     }
   }
 );
+
+export const getPetInfo = createAsyncThunk(
+  'pets/getPetInfo',
+  async (petId, { rejectWithValue }) => {
+    try {
+      const response = await petService.getById(petId);
+
+      if (!response?.flag) return rejectWithValue(response?.message);
+
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const updatePetInfo = createAsyncThunk(
+  'pets/updatePetInfo',
+  async (params, { rejectWithValue }) => {
+    const { petId, payload } = params;
+
+    try {
+      const response = await petService.update(petId, payload);
+
+      if (!response.flag) return rejectWithValue(response.message);
+
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error);
+    }
+  }
+);

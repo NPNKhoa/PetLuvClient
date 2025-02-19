@@ -10,6 +10,7 @@ import {
 import HotelServicePage from '../pages/HotelServicePage';
 import ServiceDetailPage from '../pages/ServiceDetailPage';
 import RoomDetailPage from '../pages/RoomDetailPage';
+import PetInfoPage from '../pages/PetInfoPage';
 
 export default [
   {
@@ -56,5 +57,10 @@ export default [
     id: `client-route-${uuidv4()}`,
     path: '/khach-san-thu-cung/:roomId',
     element: <RoomDetailPage />,
+  },
+  {
+    id: `client-route-${uuidv4()}`,
+    path: '/trang-ca-nhan/bst-thu-cung/thu-cung/:petId',
+    element: <PetInfoPage />,
   },
 ];

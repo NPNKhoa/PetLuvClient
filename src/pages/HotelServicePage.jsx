@@ -13,13 +13,15 @@ const HotelServicePage = () => {
   const rooms = useSelector((state) => state.rooms.rooms);
 
   useEffect(() => {
-    if (error) {
-      return toast.error(error);
-    }
-
     dispatch(getRooms({ pageIndex: 1, pageSize: 10 }));
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+    }
   }, [error]);
 
   return (

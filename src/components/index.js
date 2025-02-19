@@ -28,6 +28,9 @@ import UserPetCardList from './PersonalInfoPage/UserPetCardList';
 
 import ServiceComboInfo from './ServiceComboPage/ServiceComboInfo';
 
+import CustomerPetInfo from './PetInfoPage/CustomerPetInfo';
+import BigSizeIcon from './PetInfoPage/BisSizeIcon';
+
 export {
   Header,
   Footer,
@@ -51,4 +54,6 @@ export {
   UserPetCard,
   UserPetCardList,
   LoadingComponent,
+  CustomerPetInfo,
+  BigSizeIcon,
 };

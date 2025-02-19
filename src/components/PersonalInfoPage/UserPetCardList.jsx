@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import UserPetCard from './UserPetCard'; // Đảm bảo đường dẫn này đúng
+import UserPetCard from './UserPetCard';
 import NotFoundComponent from '../common/NotFoundComponent';
 
 const UserPetCardList = ({ pets }) => {
