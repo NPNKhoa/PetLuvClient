@@ -13,7 +13,6 @@ const PetInfoPage = () => {
   const location = useLocation();
   const pet = useSelector((state) => state.pets.pet);
   const breedCrumbItems = useMemo(() => {
-    // Implement logic get current route hear
     const pathnames = location.pathname.split('/').filter((x) => x);
 
     return pathnames.map((item, index) => {
