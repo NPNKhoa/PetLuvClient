@@ -30,6 +30,7 @@ import ServiceComboInfo from './ServiceComboPage/ServiceComboInfo';
 
 import CustomerPetInfo from './PetInfoPage/CustomerPetInfo';
 import BigSizeIcon from './PetInfoPage/BisSizeIcon';
+import PetFamilyModal from './PetInfoPage/PetFamilyModal';
 
 export {
   Header,
@@ -56,4 +57,5 @@ export {
   LoadingComponent,
   CustomerPetInfo,
   BigSizeIcon,
+  PetFamilyModal
 };

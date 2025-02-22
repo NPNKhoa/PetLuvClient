@@ -1,15 +1,23 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 const ImageGallery = ({ imageUrls }) => {
-  const [selectedImage, setSelectedImage] = useState(imageUrls[0]);
+  const [selectedImage, setSelectedImage] = useState(imageUrls[0] || '');
+
+  useEffect(() => {
+    Array.isArray(imageUrls) && imageUrls.length !== 0 && setSelectedImage(imageUrls[0]);
+  }, [imageUrls]);
+
+  const handleChangeImage = (e) => {
+    setSelectedImage(e.target.name);
+  }
 
   return (
     <div className='flex flex-col'>
       <div className='w-full h-96 rounded-lg overflow-hidden shadow-lg'>
         <img
           src={selectedImage}
-          alt='Service'
+          alt={imageUrls}
           className='w-full h-full object-cover'
         />
       </div>
@@ -17,7 +25,8 @@ const ImageGallery = ({ imageUrls }) => {
         {imageUrls.map((url, index) => (
           <button
             key={index}
-            onClick={() => setSelectedImage(url)}
+            name={url}
+            onClick={handleChangeImage}
             className='focus:outline-none'
           >
             <img

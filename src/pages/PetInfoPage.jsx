@@ -1,17 +1,23 @@
 import { BigSizeIcon, CustomerPetInfo, ImageGallery } from '../components';
 import CustomBreadCrumbs from '../components/common/CustomBreadCrumbs';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import { RiHealthBookLine } from 'react-icons/ri';
 import { GiFamilyTree } from 'react-icons/gi';
+import ActionModal from '../components/common/ActionModal';
+import PetInfoPageModalData from '../configs/modalData/PetInfoPageModalData';
 
-const mockImages = ['/logo.png', '/logo.png', '/logo.png', '/logo.png'];
+const familyIconStyle = {
+  rotate: '90%'
+}
 
 const PetInfoPage = () => {
   const location = useLocation();
   const pet = useSelector((state) => state.pets.pet);
+
+  // BreadCrumbs
   const breedCrumbItems = useMemo(() => {
     // Implement logic get current route hear
     const pathnames = location.pathname.split('/').filter((x) => x);
@@ -33,9 +39,27 @@ const PetInfoPage = () => {
     });
   }, [location]);
 
+  const petImages = useMemo(() => {
+    return Array.isArray(pet.petImagePaths) ? pet.petImagePaths.map((item) => item.petImagePath) : [];
+  }, [pet]);
+
+  const [key, setKey] = useState(null);
+  // Family Modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const handleClickHealthBook = () => {
     // Open Modal
   };
+
+  const handleViewFamilyDetail = () => {
+    setKey('family');
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setKey(null);
+    setIsModalOpen(false);
+  }
 
   return (
     <div className='p-8'>
@@ -46,7 +70,7 @@ const PetInfoPage = () => {
 
       <div className='grid grid-cols-12 gap-6'>
         <div className='col-span-4'>
-          <ImageGallery imageUrls={mockImages} />
+          <ImageGallery imageUrls={petImages} />
           <BigSizeIcon
             icon={<RiHealthBookLine size={'4rem'} />}
             content={
@@ -58,15 +82,28 @@ const PetInfoPage = () => {
             onClick={handleClickHealthBook}
           />
           <BigSizeIcon
-            icon={<GiFamilyTree size={'4rem'} />}
+            icon={<GiFamilyTree size={'4rem'} style={familyIconStyle} />}
             content={
               <h1 className='lg:text-lg md:text-sm font-cute tracking-wide'>
                 Xem nguồn gốc của
                 <div className='text-primary'>{pet?.petName}</div>
               </h1>
             }
-            onClick={handleClickHealthBook}
+            onClick={handleViewFamilyDetail}
           />
+        {key && <ActionModal
+        title={PetInfoPageModalData[key].setTitle(pet.petName)}
+        open={isModalOpen}
+        onClose={handleCloseModal}
+      >
+        {key && (
+          <>
+            {PetInfoPageModalData[key].setContent({
+              familyPets: {}
+            })}
+          </>
+        )}
+      </ActionModal>}
         </div>
 
         <div className='col-span-8'>
