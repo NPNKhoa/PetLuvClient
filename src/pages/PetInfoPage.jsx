@@ -19,7 +19,6 @@ const PetInfoPage = () => {
 
   // BreadCrumbs
   const breedCrumbItems = useMemo(() => {
-    // Implement logic get current route hear
     const pathnames = location.pathname.split('/').filter((x) => x);
 
     return pathnames.map((item, index) => {
