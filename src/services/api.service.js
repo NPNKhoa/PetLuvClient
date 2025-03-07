@@ -49,12 +49,8 @@ class ApiService {
 
       return data;
     } catch (error) {
-      if (error instanceof TypeError) {
-        console.error('Lỗi mạng! Kiểm tra kết nối mạng và thử lại sau.');
-        throw new Error('Lỗi mạng! Kiểm tra kết nối mạng và thử lại sau.');
-      }
       console.error('API error:', error);
-      throw error;
+      // throw error;
     }
   }
 

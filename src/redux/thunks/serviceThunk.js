@@ -35,3 +35,21 @@ export const getServiceById = createAsyncThunk(
     }
   }
 );
+
+export const getVariants = createAsyncThunk(
+  'services/getVariants',
+  async (serviceId, { rejectWithValue }) => {
+    try {
+      const response = await servicesService.getVariants(serviceId);
+
+      if (!response.flag) {
+        return rejectWithValue(response.message);
+      }
+
+      return response.data.data;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error.message);
+    }
+  }
+);

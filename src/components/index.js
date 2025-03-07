@@ -32,6 +32,12 @@ import CustomerPetInfo from './PetInfoPage/CustomerPetInfo';
 import BigSizeIcon from './PetInfoPage/BisSizeIcon';
 import PetFamilyModal from './PetInfoPage/PetFamilyModal';
 
+import ChooseServiceStepperContent from './BookingPage/ChooseServiceStepperContent';
+import ChoosePetStepperContent from './BookingPage/ChoosePetStepperContent';
+import ChooseVariantStepperContent from './BookingPage/ChooseVariantStepperContent';
+import ConfirmInforStepperContent from './BookingPage/ConfirmInforStepperContent';
+import ChosenServiceCard from './BookingPage/ChosenServiceCard';
+
 export {
   Header,
   Footer,
@@ -57,5 +63,10 @@ export {
   LoadingComponent,
   CustomerPetInfo,
   BigSizeIcon,
-  PetFamilyModal
+  PetFamilyModal,
+  ChooseServiceStepperContent,
+  ChoosePetStepperContent,
+  ChooseVariantStepperContent,
+  ConfirmInforStepperContent,
+  ChosenServiceCard,
 };

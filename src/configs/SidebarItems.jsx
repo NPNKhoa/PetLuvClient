@@ -5,7 +5,7 @@ import {
   FaCalendar,
 } from 'react-icons/fa6';
 import { MdOutlinePets } from 'react-icons/md';
-import { IoBag } from 'react-icons/io5';
+import { IoBag, IoLogOutOutline } from 'react-icons/io5';
 
 export default [
   {
@@ -36,6 +36,11 @@ export default [
   {
     label: 'Riêng tư',
     icon: <FaLock />,
+    path: 'bao-mat',
+  },
+  {
+    label: 'Đăng xuất',
+    icon: <IoLogOutOutline />,
     path: 'bao-mat',
   },
 ];

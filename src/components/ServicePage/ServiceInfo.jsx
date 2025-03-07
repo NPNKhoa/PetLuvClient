@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
 import formatCurrency from '../../utils/formatCurrency';
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const ServiceInfo = ({ service }) => {
   const { serviceId } = useParams();
+  const navigate = useNavigate();
 
   const [selectedVariant, setSelectedVariant] = useState({
     serviceId: '',
@@ -14,6 +15,18 @@ const ServiceInfo = ({ service }) => {
 
   const onSelectVariant = ({ breedId, petWeightRange }) => {
     setSelectedVariant({ serviceId, breedId, petWeightRange });
+  };
+
+  const handleClickBook = () => {
+    const { serviceId, breedId, petWeightRange } = selectedVariant;
+
+    const queryParams = new URLSearchParams({
+      dichVu: serviceId,
+      loai: breedId,
+      canNang: petWeightRange,
+    });
+
+    navigate(`/dat-lich?${queryParams}`);
   };
 
   return (
@@ -73,7 +86,10 @@ const ServiceInfo = ({ service }) => {
       </div>
 
       <div className='mt-auto'>
-        <button className='w-full bg-primary hover:bg-primary-dark text-white font-bold py-3 rounded-lg transition-colors'>
+        <button
+          onClick={handleClickBook}
+          className='w-full bg-primary hover:bg-primary-dark text-white font-bold py-3 rounded-lg transition-colors'
+        >
           Đặt lịch ngay
         </button>
       </div>

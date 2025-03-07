@@ -5,7 +5,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { persistReducer, persistStore } from 'redux-persist';
 import createFilter from 'redux-persist-transform-filter';
 
-import serviceSlice from './slices/serviceSlice.js';
+import serviceReducer from './slices/serviceSlice.js';
 import serviceComboSlice from './slices/serviceComboSlice.js';
 import roomReducer from './slices/roomSlice.js';
 import authReducer from './slices/authSlice.js';
@@ -13,18 +13,23 @@ import userReducer from './slices/userSlice.js';
 import petReducer from './slices/petSlice.js';
 
 const authUserFilter = createFilter('auth', ['user']);
+const serviceFilter = createFilter('services', [
+  'service',
+  'services',
+  'selectedServiceIds',
+]);
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['auth'],
-  transforms: [authUserFilter],
+  whitelist: ['auth', 'services', 'pets'],
+  transforms: [authUserFilter, serviceFilter],
 };
 
 const rootReducer = combineReducers({
   auth: authReducer,
   users: userReducer,
-  services: serviceSlice,
+  services: serviceReducer,
   serviceCombos: serviceComboSlice,
   rooms: roomReducer,
   pets: petReducer,

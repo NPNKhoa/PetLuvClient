@@ -27,6 +27,16 @@ class ServicesService {
       throw error;
     }
   }
+
+  async getVariants(serviceId) {
+    try {
+      const response = await this.api.get(`${serviceId}/service-variants`);
+      return response;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
 }
 
 export default new ServicesService();

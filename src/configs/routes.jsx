@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import {
+  BookingPage,
   HomePage,
   LoginPage,
   RegisterPage,
@@ -11,6 +12,7 @@ import HotelServicePage from '../pages/HotelServicePage';
 import ServiceDetailPage from '../pages/ServiceDetailPage';
 import RoomDetailPage from '../pages/RoomDetailPage';
 import PetInfoPage from '../pages/PetInfoPage';
+import BookingSuccessPage from '../pages/BookingSuccessPage';
 
 export default [
   {
@@ -62,5 +64,15 @@ export default [
     id: `client-route-${uuidv4()}`,
     path: '/trang-ca-nhan/bst-thu-cung/thu-cung/:petId',
     element: <PetInfoPage />,
+  },
+  {
+    id: `client-route-${uuidv4()}`,
+    path: '/dat-lich',
+    element: <BookingPage />,
+  },
+  {
+    id: `client-route-${uuidv4()}`,
+    path: '/dat-lich/ket-qua',
+    element: <BookingSuccessPage />,
   },
 ];

@@ -4,6 +4,7 @@ import { getPetByUser, getPetInfo, updatePetInfo } from '../thunks/petThunk';
 const initialState = {
   pet: {},
   pets: [],
+  selectedPetId: null,
   loading: false,
   error: null,
 };
@@ -11,7 +12,14 @@ const initialState = {
 const petSlice = createSlice({
   name: 'pets',
   initialState,
-  reducers: {},
+  reducers: {
+    setSelectedPet: (state, action) => {
+      state.selectedPetId = action.payload;
+    },
+    resetSelectedPet: (state) => {
+      state.selectedPetId = null;
+    },
+  },
   extraReducers: (builder) => {
     // Get Collection
     builder
@@ -58,3 +66,5 @@ const petSlice = createSlice({
 });
 
 export default petSlice.reducer;
+
+export const { setSelectedPet, resetSelectedPet } = petSlice.actions;

@@ -8,6 +8,7 @@ import ServicePage from './ServicePage';
 import SpaServicePage from './SpaServicePage';
 import PersonalInfoPage from './PersonalInfoPage';
 import ServiceComboDetailPage from './ServiceComboDetailPage';
+import BookingPage from './BookingPage';
 
 export {
   NotFoundPage,
@@ -19,4 +20,5 @@ export {
   SpaServicePage,
   PersonalInfoPage,
   ServiceComboDetailPage,
+  BookingPage
 };
