@@ -37,6 +37,7 @@ import ChoosePetStepperContent from './BookingPage/ChoosePetStepperContent';
 import ChooseVariantStepperContent from './BookingPage/ChooseVariantStepperContent';
 import ConfirmInforStepperContent from './BookingPage/ConfirmInforStepperContent';
 import ChosenServiceCard from './BookingPage/ChosenServiceCard';
+import ChooseServiceContainer from './BookingPage/Container/ChooseServiceContainer';
 
 export {
   Header,
@@ -64,6 +65,7 @@ export {
   CustomerPetInfo,
   BigSizeIcon,
   PetFamilyModal,
+  ChooseServiceContainer,
   ChooseServiceStepperContent,
   ChoosePetStepperContent,
   ChooseVariantStepperContent,

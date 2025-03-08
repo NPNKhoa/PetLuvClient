@@ -1,49 +1,21 @@
 import PropTypes from 'prop-types';
-import { useMemo, useState } from 'react';
 import { TextField, MenuItem } from '@mui/material';
-import { useSelector } from 'react-redux';
 import NotFoundComponent from '../common/NotFoundComponent';
 import ChosenServiceCard from './ChosenServiceCard';
 import ServiceCardList from '../common/ServiceCardList';
 
-// const services = [
-//   { name: "Tắm cho thú cưng", category: "Chăm sóc" },
-//   { name: "Cắt tỉa lông", category: "Chăm sóc" },
-//   { name: "Khám sức khỏe", category: "Y tế" },
-//   { name: "Tiêm phòng", category: "Y tế" },
-// ];
-
 const categories = ['Tất cả', 'Chăm sóc', 'Y tế'];
 
-const ChooseServiceStepperContent = ({ setServices }) => {
-  const [search, setSearch] = useState('');
-  const [category, setCategory] = useState('Tất cả');
-
-  const services = useSelector((state) => state.services.services);
-
-  const filteredServices = useMemo(() => {
-    return services.filter(
-      (service) =>
-        (category === 'Tất cả' || service?.category === category) &&
-        service?.serviceName?.toLowerCase().includes(search?.toLowerCase())
-    );
-  }, [services, category, search]);
-
-  const [selectedServices, setSelectedServices] = useState([]);
-
-  const handleSelectCard = (e) => {
-    console.log(filteredServices);
-    const newArray = filteredServices.filter(
-      (item) => String(item.serviceId) === e.currentTarget.dataset.id
-    );
-
-    setSelectedServices((prev) => {
-      const updatedServices = [...prev, ...newArray];
-      setServices(updatedServices.map((item) => item.serviceId));
-      return updatedServices;
-    });
-  };
-
+const ChooseServiceStepperContent = ({
+  services,
+  selectedServices,
+  onResetSelectedServices,
+  search,
+  setSearch,
+  category,
+  setCategory,
+  onSelectService,
+}) => {
   return (
     <div className='w-full flex flex-col items-center'>
       <div className='flex gap-4 w-full max-w-3xl mb-6'>
@@ -69,34 +41,50 @@ const ChooseServiceStepperContent = ({ setServices }) => {
           ))}
         </TextField>
       </div>
-      {!Array.isArray(filteredServices) || filteredServices.length === 0 ? (
+
+      {!Array.isArray(services) || services.length === 0 ? (
         <NotFoundComponent name='dịch vụ' />
       ) : (
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-16 mt-8 mx-auto w-full'>
-          {filteredServices.map((service, index) => (
+          {services.map((service, index) => (
             <ChosenServiceCard
               key={`service-${index}`}
               service={service}
-              onClick={handleSelectCard}
+              onClick={() => onSelectService(service)}
             />
           ))}
         </div>
       )}
 
       <div>
-        <h1 className='text-2xl text-primary font-cute tracking-wider'>
-          Dịch vụ đã chọn
-        </h1>
-        <div>
-          <ServiceCardList serviceList={selectedServices} />
+        <div className='flex items-center justify-between'>
+          <h1 className='text-2xl text-primary font-cute tracking-wider text-start'>
+            Dịch vụ đã chọn
+          </h1>
+          {Array.isArray(selectedServices) && selectedServices.length !== 0 && (
+            <span
+              onClick={onResetSelectedServices}
+              className='text-red-500 text-xl italic font-light me-8 hover:cursor-pointer hover:text-red-400'
+            >
+              Xóa tất cả
+            </span>
+          )}
         </div>
+        <ServiceCardList serviceList={selectedServices} />
       </div>
     </div>
   );
 };
 
 ChooseServiceStepperContent.propTypes = {
-  setServices: PropTypes.any,
+  services: PropTypes.array.isRequired,
+  selectedServices: PropTypes.array.isRequired,
+  onResetSelectedServices: PropTypes.func.isRequired,
+  search: PropTypes.string.isRequired,
+  setSearch: PropTypes.func.isRequired,
+  category: PropTypes.string.isRequired,
+  setCategory: PropTypes.func.isRequired,
+  onSelectService: PropTypes.func.isRequired,
 };
 
 export default ChooseServiceStepperContent;

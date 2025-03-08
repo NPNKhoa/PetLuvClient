@@ -1,12 +1,29 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Card, CardContent, Typography } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import { useDispatch } from 'react-redux';
+import { getPetByUser } from '../../redux/thunks/petThunk';
 
 const ChoosePetStepperContent = ({ setPet }) => {
+  const dispatch = useDispatch();
+
   const pets = useSelector((state) => state.pets.pets);
+  const currentUser = useSelector((state) => state.auth.user);
   const [selectedPetId, setSelectedPetId] = useState(null);
+
+  const isFetched = useRef(false);
+
+  useEffect(() => {
+    if (isFetched.current) return;
+
+    if (Array.isArray(pets) && pets.length === 0) {
+      dispatch(getPetByUser(currentUser?.userId));
+      isFetched.current = true;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pets]);
 
   const handlePetSelect = (petId) => {
     setSelectedPetId(petId);

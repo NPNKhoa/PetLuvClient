@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { TextField } from '@mui/material';
 import { LocalizationProvider, DateTimePicker } from '@mui/x-date-pickers';
@@ -9,6 +9,12 @@ import { useDispatch } from 'react-redux';
 import { createBooking } from '../../redux/thunks/bookingThunk';
 import { toast } from 'react-toastify';
 import MyAlrt from '../../configs/alert/MyAlrt';
+import {
+  resetSelectedService,
+  resetSelectedVariant,
+} from '../../redux/slices/serviceSlice';
+import { resetSelectedType } from '../../redux/slices/bookingTypeSlice';
+import { resetSelectedPet } from '../../redux/slices/petSlice';
 
 const ConfirmInforStepperContent = ({ setHandleBook }) => {
   const dispatch = useDispatch();
@@ -22,8 +28,8 @@ const ConfirmInforStepperContent = ({ setHandleBook }) => {
     bookingNote: '',
   });
 
-  const selectedServiceIds = useSelector(
-    (state) => state.services.selectedServiceIds
+  const selectedServices = useSelector(
+    (state) => state.services.selectedServices
   );
   const selectedBreedId = useSelector(
     (state) => state.services.selectedBreedId
@@ -32,19 +38,68 @@ const ConfirmInforStepperContent = ({ setHandleBook }) => {
     (state) => state.services.selectedPetWeightRange
   );
   const selectedPetId = useSelector((state) => state.pets.selectedPetId);
+  const selectedTypeId = useSelector(
+    (state) => state.bookingTypes.selectedTypeId
+  );
+
+  const selectedServiceIds = useMemo(() => {
+    return Array.isArray(selectedServices) && selectedServices.length !== 0
+      ? selectedServices.map((item) => item.serviceId)
+      : [];
+  }, [selectedServices]);
+
+  console.log(selectedServices);
+
+  const totalEstimateTime = useMemo(() => {
+    if (!Array.isArray(selectedServices) && selectedServices.length === 0)
+      return 0;
+
+    let result = 0;
+
+    console.log(selectedServices.length);
+
+    selectedServices?.forEach((service) => {
+      if (service === null) return 0;
+
+      if (
+        !Array.isArray(service.serviceVariants) ||
+        service.serviceVariants.length === 0
+      )
+        return 0;
+
+      service.serviceVariants.forEach((variant) => {
+        result += variant?.estimateTime;
+      });
+    });
+
+    return result;
+  }, [selectedServices]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleConfirmBookingResult = useCallback(() => {
+    dispatch(resetSelectedService());
+    dispatch(resetSelectedType());
+    dispatch(resetSelectedVariant());
+    dispatch(resetSelectedPet());
+
+    window.location.href = '/';
+  }, [dispatch]);
+
   useEffect(() => {
     const handleBook = () => {
+      if (selectedServiceIds.length === 0) {
+        return toast.error('Vui lòng chọn ít nhất một dịch vụ');
+      }
+
       const requestBody = {
         bookingStartTime: formData.appointmentTime,
-        bookingEndTime: formData.appointmentTime.add(2, 'hour'), // Fix later
+        bookingEndTime: formData.appointmentTime.add(totalEstimateTime, 'hour'),
         bookingNote: formData.bookingNote,
         roomRentalTime: 0, // Fix later
-        bookingTypeId: '872fcefe-b60c-4892-b6cb-0f2dde06c11e', // Fix later
+        bookingTypeId: selectedTypeId,
         customerId: user.userId,
         customerEmail: user.email,
         petId: selectedPetId,
@@ -53,13 +108,17 @@ const ConfirmInforStepperContent = ({ setHandleBook }) => {
         serviceId: selectedServiceIds,
       };
 
+      console.log(requestBody);
+
       dispatch(createBooking(requestBody))
         .unwrap()
         .then(() => {
           MyAlrt.Success(
             'Tạo lịch hẹn',
             'Đặt lịch hẹn thành công. Vui lòng kiểm tra email và xác nhận thanh toán',
-            'Xác nhận'
+            'Xác nhận',
+            false,
+            handleConfirmBookingResult
           );
         })
         .catch((err) => {
@@ -79,7 +138,9 @@ const ConfirmInforStepperContent = ({ setHandleBook }) => {
     selectedBreedId,
     selectedPetWeightRange,
     selectedServiceIds,
+    selectedTypeId,
     dispatch,
+    handleConfirmBookingResult,
   ]);
 
   return (
@@ -109,7 +170,7 @@ const ConfirmInforStepperContent = ({ setHandleBook }) => {
         />
         <TextField
           label='Số điện thoại'
-          name='phone'
+          name='phoneNumber'
           type='tel'
           fullWidth
           variant='outlined'
@@ -128,13 +189,27 @@ const ConfirmInforStepperContent = ({ setHandleBook }) => {
         </LocalizationProvider>
         <TextField
           label='Ghi chú'
-          name='note'
+          name='bookingNote'
           type='text'
           fullWidth
           variant='outlined'
-          value={formData.phoneNumber}
+          value={formData.bookingNote}
           onChange={handleChange}
         />
+        {totalEstimateTime > 0 && (
+          <p className='text-start'>
+            <span className='text-red-500 text-2xl font-semibold'>Lưu ý: </span>
+            Với các dịch vụ bạn đã chọn, thời gian{' '}
+            <span className='font-bold'>dự kiến</span> để chúng tôi hoàn thành
+            các dịch vụ này là khoảng{' '}
+            <span className='text-primary-dark font-semibold text-[1.3rem]'>
+              {totalEstimateTime} giờ
+            </span>{' '}
+            . Vui lòng sắp xếp và đến cửa hàng{' '}
+            <span className='font-semibold'>đúng giờ hẹn</span> để chúng tôi
+            thực hiện việc chăm sóc sớm nhất, không làm mất thời gian của bạn
+          </p>
+        )}
       </div>
     </div>
   );

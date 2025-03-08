@@ -11,18 +11,20 @@ import roomReducer from './slices/roomSlice.js';
 import authReducer from './slices/authSlice.js';
 import userReducer from './slices/userSlice.js';
 import petReducer from './slices/petSlice.js';
+import bookingReducer from './slices/bookingSlice.js';
+import bookingTypeReducer from './slices/bookingTypeSlice.js';
 
 const authUserFilter = createFilter('auth', ['user']);
 const serviceFilter = createFilter('services', [
   'service',
   'services',
-  'selectedServiceIds',
+  'selectedServices',
 ]);
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['auth', 'services', 'pets'],
+  whitelist: ['auth', 'services', 'pets', 'bookingTypes'],
   transforms: [authUserFilter, serviceFilter],
 };
 
@@ -33,6 +35,8 @@ const rootReducer = combineReducers({
   serviceCombos: serviceComboSlice,
   rooms: roomReducer,
   pets: petReducer,
+  bookings: bookingReducer,
+  bookingTypes: bookingTypeReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
