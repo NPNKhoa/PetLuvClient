@@ -3,7 +3,7 @@ import servicesService from '../../services/services.service';
 
 export const getServices = createAsyncThunk(
   'services/getServices',
-  async (params = {}, { rejectWithValue }) => {
+  async (params, { rejectWithValue }) => {
     try {
       const response = await servicesService.getServices(params);
 

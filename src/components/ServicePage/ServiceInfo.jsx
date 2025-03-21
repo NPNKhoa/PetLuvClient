@@ -2,10 +2,14 @@ import PropTypes from 'prop-types';
 import formatCurrency from '../../utils/formatCurrency';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setSelectedVariant as setSelectedVariantRedux } from '../../redux/slices/serviceSlice';
 
 const ServiceInfo = ({ service }) => {
   const { serviceId } = useParams();
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
 
   const [selectedVariant, setSelectedVariant] = useState({
     serviceId: '',
@@ -15,6 +19,7 @@ const ServiceInfo = ({ service }) => {
 
   const onSelectVariant = ({ breedId, petWeightRange }) => {
     setSelectedVariant({ serviceId, breedId, petWeightRange });
+    dispatch(setSelectedVariantRedux({ breedId, petWeightRange }));
   };
 
   const handleClickBook = () => {

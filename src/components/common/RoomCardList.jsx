@@ -4,13 +4,15 @@ import RoomCard from './RoomCard';
 
 const RoomCardList = ({ roomList }) => {
   return (
-    <section className='flex justify-between items-center gap-4 mb-16'>
+    <section className='my-8'>
       {!Array.isArray(roomList) || roomList.length === 0 ? (
-        <NotFoundComponent name='phòng' />
+        <NotFoundComponent name='dịch vụ' />
       ) : (
-        roomList.map((room, index) => (
-          <RoomCard key={`service-${index}`} room={room} />
-        ))
+        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-16 mt-8 mx-auto w-full'>
+          {roomList.map((room, index) => (
+            <RoomCard key={`room-${index}`} room={room} />
+          ))}
+        </div>
       )}
     </section>
   );

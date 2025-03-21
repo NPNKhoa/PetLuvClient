@@ -12,7 +12,6 @@ const ChooseVariantStepperContent = ({ setVariant }) => {
   const [selectedVariants, setSelectedVariants] = useState({});
 
   const handleVariantSelect = (serviceId, breedId, petWeightRange) => {
-    console.log(serviceId, breedId, petWeightRange);
     setVariant({ breedId, petWeightRange });
     setSelectedVariants({ serviceId, breedId, petWeightRange });
   };

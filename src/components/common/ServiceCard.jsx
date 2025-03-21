@@ -22,7 +22,9 @@ const ServiceCard = ({ service }) => {
         <h3 className='text-xl font-bold text-gray-800'>
           {service?.serviceName}
         </h3>
-        <p className='text-sm text-gray-600 mt-2'>{service?.serviceDesc}</p>
+        <p className='text-sm text-gray-600 mt-2 line-clamp-3'>
+          {service?.serviceDesc}
+        </p>
 
         <span
           className={`inline-block mt-3 text-xs text-white ${

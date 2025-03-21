@@ -26,6 +26,7 @@ import {
   resetSelectedType,
   setSelectedType,
 } from '../redux/slices/bookingTypeSlice';
+import { resetSelectedCombo } from '../redux/slices/serviceComboSlice';
 
 const steps = [
   { label: 'Chọn loại booking', icon: <MdOutlineTypeSpecimen /> },
@@ -47,7 +48,7 @@ const BookingPage = () => {
 
   const initialStep = useMemo(() => {
     if (serviceId !== null && breedId !== null && petWeightRange !== null)
-      return 2;
+      return 3;
     if (serviceId !== null) return 1;
     return 0;
   }, [breedId, petWeightRange, serviceId]);
@@ -100,6 +101,7 @@ const BookingPage = () => {
   const selectedServices = useSelector(
     (state) => state.services.selectedServices
   );
+  const selectedRooms = useSelector((state) => state.rooms.selectedRooms);
 
   // Pet
   const selectedPet = useSelector((state) => state.pets.selectedPetId);
@@ -127,9 +129,11 @@ const BookingPage = () => {
           : null;
 
       case 1:
-        return !Array.isArray(selectedServices) || selectedServices.length === 0
-          ? 'Vui lòng chọn ít nhất một dịch vụ để tiếp tục'
-          : null;
+        return (Array.isArray(selectedServices) &&
+          selectedServices.length !== 0) ||
+          (Array.isArray(selectedRooms) && selectedRooms.length !== 0)
+          ? null
+          : 'Vui lòng chọn ít nhất một dịch vụ để tiếp tục';
 
       case 2:
         return selectedBreed === null && selectedPetWeightRange === null
@@ -147,9 +151,10 @@ const BookingPage = () => {
   }, [
     activeStep,
     selectedTypeId,
+    selectedServices,
+    selectedRooms,
     selectedBreed,
     selectedPetWeightRange,
-    selectedServices,
     selectedPet,
   ]);
 
@@ -160,6 +165,7 @@ const BookingPage = () => {
   const handleBack = () => {
     if (activeStep === 1) {
       dispatch(resetSelectedService());
+      dispatch(resetSelectedCombo());
       dispatch(resetSelectedType());
     }
 
@@ -220,7 +226,6 @@ const BookingPage = () => {
           </Step>
         ))}
       </Stepper>
-      {console.log(selectedType)}
       <div className='mt-8 text-center'>
         {activeStep === 0 ? (
           <ChooseBookingTypeContent

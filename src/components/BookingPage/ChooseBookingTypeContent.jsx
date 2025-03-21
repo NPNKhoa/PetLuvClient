@@ -3,6 +3,9 @@ import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { setSelectedType } from '../../redux/slices/bookingTypeSlice';
+import { getServices } from '../../redux/thunks/serviceThunk';
+import { getRooms } from '../../redux/thunks/roomThunk';
+import { getServiceCombos } from '../../redux/thunks/serviceComboThunk';
 
 const ChooseBookingTypeContent = ({ bookingTypes }) => {
   const dispatch = useDispatch();
@@ -14,8 +17,27 @@ const ChooseBookingTypeContent = ({ bookingTypes }) => {
   const handleSelectType = useCallback(
     (e) => {
       dispatch(setSelectedType(e?.currentTarget?.id));
+      const selectedTypeName = bookingTypes.find(
+        (b) => b.id === e?.currentTarget?.id
+      ).label;
+
+      if (
+        selectedTypeName.toLowerCase().includes('khách sạn') ||
+        selectedTypeName.toLowerCase().includes('phòng')
+      ) {
+        dispatch(getRooms({ pageIndex: 1, pageSize: 10 }));
+      } else {
+        dispatch(
+          getServices({
+            serviceType: selectedTypeName,
+            pageIndex: 1,
+            pageSize: 10,
+          })
+        );
+        dispatch(getServiceCombos({ pageIndex: 1, pageSize: 10 }));
+      }
     },
-    [dispatch]
+    [dispatch, bookingTypes]
   );
 
   return (

@@ -1,3 +1,4 @@
+import { Tooltip } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
@@ -11,13 +12,19 @@ const ServiceComboCard = ({ service }) => {
 
   return (
     <div className='bg-white shadow-xl rounded-2xl overflow-hidden max-w-sm transition-transform transform hover:scale-105 hover:shadow-2xl hover:cursor-pointer relative'>
-      <div className='p-6'>
-        <h3 className='text-2xl font-extrabold text-gray-900 z-10 line-clamp-1 w-[85%]'>
-          {service?.serviceComboName}
-        </h3>
-        <p className='mt-4 text-base text-gray-600 z-10 line-clamp-4 h-32'>
-          {service?.serviceComboDesc}
-        </p>
+      <div className='p-6 flex flex-col h-full justify-between'>
+        <div>
+          <h3 className='text-2xl font-extrabold text-gray-900 z-10 line-clamp-1 w-[85%]'>
+            <Tooltip title={service?.serviceComboName} placement='bottom'>
+              {service?.serviceComboName}
+            </Tooltip>
+          </h3>
+          <p className='mt-4 text-base text-gray-600 z-10 line-clamp-3'>
+            <Tooltip title={service?.serviceComboDesc} placement='bottom'>
+              {service?.serviceComboDesc}
+            </Tooltip>
+          </p>
+        </div>
         <div className='mt-6'>
           <Link
             to={`combo/${service.serviceComboId}`}

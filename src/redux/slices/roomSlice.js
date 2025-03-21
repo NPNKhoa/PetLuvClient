@@ -4,6 +4,7 @@ import { getRoomById, getRooms } from '../thunks/roomThunk';
 const initialState = {
   rooms: [],
   room: {},
+  selectedRooms: [],
   loading: false,
   error: null,
 };
@@ -11,7 +12,19 @@ const initialState = {
 const roomSlice = createSlice({
   name: 'rooms',
   initialState,
-  reducers: {},
+  reducers: {
+    setSelectedRoom: (state, action) => {
+      const room = action.payload;
+
+      if (!state.selectedRooms?.includes(room)) {
+        state.selectedRooms.push(room);
+      }
+    },
+
+    resetSelectedRoom: (state) => {
+      state.selectedRooms = [];
+    },
+  },
   extraReducers: (builder) => {
     // Get All
     builder
@@ -44,3 +57,5 @@ const roomSlice = createSlice({
 });
 
 export default roomSlice.reducer;
+
+export const { setSelectedRoom, resetSelectedRoom } = roomSlice.actions;

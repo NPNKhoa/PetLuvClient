@@ -10,6 +10,7 @@ const initialState = {
   serviceCombos: [],
   services: [],
   serviceCombo: {},
+  selectedCombos: [],
   loading: false,
   error: null,
 };
@@ -17,7 +18,19 @@ const initialState = {
 const serviceComboSlice = createSlice({
   name: 'serviceCombos',
   initialState,
-  reducers: {},
+  reducers: {
+    setSelectedCombo: (state, action) => {
+      const combo = action.payload;
+
+      if (!state.selectedCombos.includes(combo)) {
+        state.selectedCombos.push(combo);
+      }
+    },
+
+    resetSelectedCombo: (state) => {
+      state.selectedCombos = [];
+    },
+  },
   extraReducers: (builder) => {
     // Get All
     builder
@@ -64,3 +77,6 @@ const serviceComboSlice = createSlice({
 });
 
 export default serviceComboSlice.reducer;
+
+export const { setSelectedCombo, resetSelectedCombo } =
+  serviceComboSlice.actions;

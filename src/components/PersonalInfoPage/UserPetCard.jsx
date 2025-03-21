@@ -51,7 +51,7 @@ const UserPetCard = ({ pet }) => {
         </div>
 
         <div
-          className='text-white text-xs font-bold py-1 px-3 rounded-full w-fit'
+          className='text-xs font-bold py-1 px-3 rounded-full w-fit text-secondary'
           style={{
             backgroundColor: petBreedColor,
           }}

@@ -10,8 +10,8 @@ import ActionModal from '../components/common/ActionModal';
 import PetInfoPageModalData from '../configs/modalData/PetInfoPageModalData';
 
 const familyIconStyle = {
-  rotate: '90%'
-}
+  rotate: '90%',
+};
 
 const PetInfoPage = () => {
   const location = useLocation();
@@ -39,7 +39,9 @@ const PetInfoPage = () => {
   }, [location]);
 
   const petImages = useMemo(() => {
-    return Array.isArray(pet.petImagePaths) ? pet.petImagePaths.map((item) => item.petImagePath) : [];
+    return Array.isArray(pet.petImagePaths)
+      ? pet.petImagePaths.map((item) => item.petImagePath)
+      : [];
   }, [pet]);
 
   const [key, setKey] = useState(null);
@@ -58,7 +60,7 @@ const PetInfoPage = () => {
   const handleCloseModal = () => {
     setKey(null);
     setIsModalOpen(false);
-  }
+  };
 
   return (
     <div className='p-8'>
@@ -90,19 +92,22 @@ const PetInfoPage = () => {
             }
             onClick={handleViewFamilyDetail}
           />
-        {key && <ActionModal
-        title={PetInfoPageModalData[key].setTitle(pet.petName)}
-        open={isModalOpen}
-        onClose={handleCloseModal}
-      >
-        {key && (
-          <>
-            {PetInfoPageModalData[key].setContent({
-              familyPets: {}
-            })}
-          </>
-        )}
-      </ActionModal>}
+          {key && (
+            <ActionModal
+              title={PetInfoPageModalData[key].setTitle(pet.petName)}
+              open={isModalOpen}
+              onClose={handleCloseModal}
+            >
+              {key && (
+                <>
+                  {console.log(pet)}
+                  {PetInfoPageModalData[key].setContent({
+                    familyPets: {},
+                  })}
+                </>
+              )}
+            </ActionModal>
+          )}
         </div>
 
         <div className='col-span-8'>

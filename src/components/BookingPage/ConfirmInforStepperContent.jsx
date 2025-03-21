@@ -56,8 +56,6 @@ const ConfirmInforStepperContent = ({ setHandleBook }) => {
 
     let result = 0;
 
-    console.log(selectedServices.length);
-
     selectedServices?.forEach((service) => {
       if (service === null) return 0;
 
@@ -108,8 +106,6 @@ const ConfirmInforStepperContent = ({ setHandleBook }) => {
         serviceId: selectedServiceIds,
       };
 
-      console.log(requestBody);
-
       dispatch(createBooking(requestBody))
         .unwrap()
         .then(() => {
@@ -141,6 +137,7 @@ const ConfirmInforStepperContent = ({ setHandleBook }) => {
     selectedTypeId,
     dispatch,
     handleConfirmBookingResult,
+    totalEstimateTime,
   ]);
 
   return (

@@ -26,6 +26,7 @@ const servicesSlice = createSlice({
         state.selectedServices.push(service);
       }
     },
+
     resetSelectedService: (state) => {
       state.selectedServices = [];
     },
