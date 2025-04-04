@@ -136,11 +136,11 @@ const Header = () => {
           </animated.div>
         </IconButton>
 
-        <IconButton>
+        {/* <IconButton>
           <Badge badgeContent={4} color='primary'>
             <NotificationsIcon color='secondary' />
           </Badge>
-        </IconButton>
+        </IconButton> */}
 
         <IconButton color='secondary' onClick={() => navigate('/gio-hang')}>
           <ShoppingCartIcon />
