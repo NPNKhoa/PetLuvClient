@@ -27,7 +27,23 @@ export const getPetInfo = createAsyncThunk(
 
       if (!response?.flag) return rejectWithValue(response?.message);
 
-      return response.data;
+      return response?.data?.data || response?.data;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const addPetToCollection = createAsyncThunk(
+  'pets/addPetToCollection',
+  async (payload, { rejectWithValue }) => {
+    try {
+      const response = await petService.createAsync(payload);
+
+      if (!response?.flag) return rejectWithValue(response?.message);
+
+      return response?.data;
     } catch (error) {
       console.log(error);
       return rejectWithValue(error);

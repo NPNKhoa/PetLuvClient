@@ -35,8 +35,13 @@ const LoginPage = () => {
   });
 
   const handleSubmit = async (values) => {
-    dispatch(login(values));
-    toast.success('Đăng nhập thành công');
+    dispatch(login(values))
+      .unwrap()
+      .then(() => toast.success('Đăng nhập thành công'))
+      .catch((error) => {
+        console.log(error);
+        toast.error(error?.message || error);
+      });
   };
 
   useEffect(() => {
@@ -90,7 +95,7 @@ const LoginPage = () => {
                   htmlFor='password'
                   className='block text-sm font-medium text-gray-700'
                 >
-                  Password
+                  Mật khẩu
                 </label>
                 <Field
                   type='password'
@@ -117,7 +122,7 @@ const LoginPage = () => {
                 {loading ? (
                   <CircularProgress size={'1rem'} color='secondary' />
                 ) : (
-                  'Login'
+                  'Đăng nhập'
                 )}
               </button>
             </Form>

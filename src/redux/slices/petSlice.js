@@ -1,5 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getPetByUser, getPetInfo, updatePetInfo } from '../thunks/petThunk';
+import {
+  addPetToCollection,
+  getPetByUser,
+  getPetInfo,
+  updatePetInfo,
+} from '../thunks/petThunk';
 
 const initialState = {
   pet: {},
@@ -31,6 +36,20 @@ const petSlice = createSlice({
         state.pets = action.payload;
       })
       .addCase(getPetByUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
+
+    // Add Pet To Collection
+    builder
+      .addCase(addPetToCollection.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(addPetToCollection.fulfilled, (state, action) => {
+        state.loading = false;
+        state.pets.push(action.payload);
+      })
+      .addCase(addPetToCollection.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

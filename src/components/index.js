@@ -39,6 +39,8 @@ import ConfirmInforStepperContent from './BookingPage/ConfirmInforStepperContent
 import ChosenServiceCard from './BookingPage/ChosenServiceCard';
 import ChooseServiceContainer from './BookingPage/Container/ChooseServiceContainer';
 
+import ActionImage from './common/ActionImage';
+
 export {
   Header,
   Footer,
@@ -71,4 +73,5 @@ export {
   ChooseVariantStepperContent,
   ConfirmInforStepperContent,
   ChosenServiceCard,
+  ActionImage,
 };

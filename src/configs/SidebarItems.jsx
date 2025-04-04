@@ -41,6 +41,6 @@ export default [
   {
     label: 'Đăng xuất',
     icon: <IoLogOutOutline />,
-    path: 'bao-mat',
+    path: 'logout',
   },
 ];

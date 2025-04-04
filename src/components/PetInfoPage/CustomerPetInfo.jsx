@@ -203,8 +203,8 @@ const CustomerPetInfo = () => {
           helperText={errors.petGender}
         >
           <option value=''>Chọn giới tính</option>
-          <option value='true'>Nam</option>
-          <option value='false'>Nữ</option>
+          <option value={true}>Nam</option>
+          <option value={false}>Nữ</option>
         </TextField>
         <DatePicker
           label='Ngày sinh'
