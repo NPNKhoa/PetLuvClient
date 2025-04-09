@@ -1,23 +1,27 @@
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-const ImageGallery = ({ imageUrls }) => {
+import { FaRegEdit } from 'react-icons/fa';
+
+const ImageGallery = ({ imageUrls, onAddButtonClicked, addButtonContent }) => {
   const [selectedImage, setSelectedImage] = useState(imageUrls[0] || '');
 
   useEffect(() => {
-    Array.isArray(imageUrls) && imageUrls.length !== 0 && setSelectedImage(imageUrls[0]);
+    Array.isArray(imageUrls) &&
+      imageUrls.length !== 0 &&
+      setSelectedImage(imageUrls[0]);
   }, [imageUrls]);
 
   const handleChangeImage = (e) => {
-    setSelectedImage(e.target.name);
-  }
+    setSelectedImage(e.target.src);
+  };
 
   return (
     <div className='flex flex-col'>
       <div className='w-full h-96 rounded-lg overflow-hidden shadow-lg'>
         <img
-          src={selectedImage}
-          alt={imageUrls}
+          src={selectedImage || '/no-image.png'}
+          alt={selectedImage || '/no-image.png'}
           className='w-full h-full object-cover'
         />
       </div>
@@ -38,6 +42,18 @@ const ImageGallery = ({ imageUrls }) => {
             />
           </button>
         ))}
+        {onAddButtonClicked && (
+          <button
+            key={'add-btn'}
+            className='flex flex-col items-center justify-center gap-2 border-[3px] bg-tertiary-light border-primary rounded-2xl hover:bg-primary hover:text-white hover:border-secondary'
+            onClick={onAddButtonClicked}
+          >
+            <FaRegEdit size={'2rem'} />
+            <p className='text-[0.8rem] font-semibold'>
+              {addButtonContent || 'Cập nhật danh sách ảnh'}
+            </p>
+          </button>
+        )}
       </div>
     </div>
   );
@@ -45,6 +61,8 @@ const ImageGallery = ({ imageUrls }) => {
 
 ImageGallery.propTypes = {
   imageUrls: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onAddButtonClicked: PropTypes.arrayOf(PropTypes.func),
+  addButtonContent: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default ImageGallery;

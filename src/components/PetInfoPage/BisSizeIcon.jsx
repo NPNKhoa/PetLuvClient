@@ -7,7 +7,7 @@ const BigSizeIcon = ({ icon, content, onClick }) => {
       className='w-4/5 mx-auto my-8 p-6 ring-2 rounded-lg 
         flex justify-start items-center gap-2
         ring-primary-light bg-tertiary-light text-secondary 
-        hover:cursor-pointer hover:bg-secondary-light hover:ring-4'
+        cursor-pointer hover:bg-secondary-light hover:ring-4'
     >
       {icon}
       <h1 className='lg:text-lg md:text-sm font-cute tracking-wide'>

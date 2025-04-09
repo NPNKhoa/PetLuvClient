@@ -21,7 +21,12 @@ const serviceFilter = createFilter('services', [
   'services',
   'selectedServices',
 ]);
-const petFilter = createFilter('pets', ['pets', 'pet', 'selectedPetId']);
+const petFilter = createFilter('pets', [
+  'pets',
+  'pet',
+  'selectedPetId',
+  'healthBookDetails',
+]);
 
 const persistConfig = {
   key: 'root',

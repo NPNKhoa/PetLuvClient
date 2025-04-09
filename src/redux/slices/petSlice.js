@@ -1,8 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
   addPetToCollection,
+  createHealthBookDetail,
+  deletePetImages,
+  getHealthBookDetail,
   getPetByUser,
   getPetInfo,
+  updateHealthBookDetail,
+  updatePetFamily,
+  updatePetImages,
   updatePetInfo,
 } from '../thunks/petThunk';
 
@@ -10,6 +16,7 @@ const initialState = {
   pet: {},
   pets: [],
   selectedPetId: null,
+  healthBookDetails: [],
   loading: false,
   error: null,
 };
@@ -68,7 +75,7 @@ const petSlice = createSlice({
         state.error = action.payload;
       });
 
-    // Get Pet Info
+    // Update Pet Info
     builder
       .addCase(updatePetInfo.pending, (state) => {
         state.loading = true;
@@ -78,6 +85,97 @@ const petSlice = createSlice({
         state.pet = action.payload;
       })
       .addCase(updatePetInfo.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
+
+    // Update Pet Image
+    builder
+      .addCase(updatePetImages.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(updatePetImages.fulfilled, (state, action) => {
+        state.loading = false;
+        state.pet = action.payload;
+      })
+      .addCase(updatePetImages.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
+
+    // Update Pet Family
+    builder
+      .addCase(updatePetFamily.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(updatePetFamily.fulfilled, (state, action) => {
+        state.loading = false;
+        state.pet = action.payload;
+      })
+      .addCase(updatePetFamily.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
+
+    // Delete Pet Image
+    builder
+      .addCase(deletePetImages.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(deletePetImages.fulfilled, (state, action) => {
+        state.loading = false;
+        state.pet = action.payload;
+      })
+      .addCase(deletePetImages.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
+
+    // Get Health Book Detail
+    builder
+      .addCase(getHealthBookDetail.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getHealthBookDetail.fulfilled, (state, action) => {
+        state.loading = false;
+        state.healthBookDetails = action.payload;
+      })
+      .addCase(getHealthBookDetail.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
+
+    // Add New Health Book Detail
+    builder
+      .addCase(createHealthBookDetail.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(createHealthBookDetail.fulfilled, (state, action) => {
+        state.loading = false;
+        state.healthBookDetails.push(action.payload);
+      })
+      .addCase(createHealthBookDetail.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
+
+    // Update New Health Book Detail
+    builder
+      .addCase(updateHealthBookDetail.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(updateHealthBookDetail.fulfilled, (state, action) => {
+        state.loading = false;
+
+        const index = state.healthBookDetails.findIndex(
+          (hb) => hb.healthBookDetailId === action.payload.healthBookDetailId
+        );
+
+        if (index !== -1) {
+          state.healthBookDetails[index] = action.payload;
+        }
+      })
+      .addCase(updateHealthBookDetail.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });
