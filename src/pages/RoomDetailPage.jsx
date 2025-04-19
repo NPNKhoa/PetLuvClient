@@ -28,13 +28,17 @@ const RoomDetailPage = () => {
     dispatch(getRoomById(roomId));
   }, [dispatch, roomId, error]);
 
+  console.log(room);
+
   return (
     <div className='container mx-auto p-6 space-y-12' ref={headPageRef}>
       <div className='flex flex-col lg:flex-row gap-8'>
         <div className='lg:w-1/2'>
-          {room?.RoomImages && room.RoomImages.length > 0 ? (
+          {room?.roomImages && room.roomImages.length > 0 ? (
             <ImageGallery
-              imageUrls={room.RoomImages.map((img) => img.RoomImagePath)}
+              imageUrls={room.roomImages.map(
+                (image) => `http://localhost:5030${image}`
+              )}
             />
           ) : (
             <div className='w-full h-96 bg-gray-200 flex items-center justify-center rounded-lg'>
