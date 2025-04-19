@@ -9,6 +9,8 @@ import PersonalInfo from '../PersonalInfoPage/PersonalInfo.jsx';
 import Privilege from '../PersonalInfoPage/Privilege.jsx';
 import AddressCollection from '../PersonalInfoPage/AddressCollection.jsx';
 import PetCollection from '../PersonalInfoPage/PetCollection.jsx';
+import BookingHistoryPage from '../../pages/BookingHistoryPage.jsx';
+import PaymentHistoryPage from '../../pages/PaymentHistoryPage.jsx';
 
 const Router = () => {
   return (
@@ -35,8 +37,10 @@ const Router = () => {
           >
             <Route index element={<PersonalInfo />} />
             <Route path='dia-chi' element={<AddressCollection />} />
+            <Route path='lich-hen' element={<BookingHistoryPage />} />
             <Route path='bao-mat' element={<Privilege />} />
             <Route path='bst-thu-cung' element={<PetCollection />} />
+            <Route path='lich-su-thanh-toan' element={<PaymentHistoryPage />} />
           </Route>
 
           <Route path='*' element={<NotFoundPage />} />

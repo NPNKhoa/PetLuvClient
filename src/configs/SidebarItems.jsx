@@ -4,7 +4,7 @@ import {
   FaLock,
   FaCalendar,
 } from 'react-icons/fa6';
-import { MdOutlinePets } from 'react-icons/md';
+import { MdOutlinePets, MdPayments } from 'react-icons/md';
 import { IoBag, IoLogOutOutline } from 'react-icons/io5';
 
 export default [
@@ -13,25 +13,30 @@ export default [
     icon: <FaCircleUser />,
     path: '',
   },
-  {
-    label: 'Sổ địa chỉ',
-    icon: <FaLocationDot />,
-    path: 'dia-chi',
-  },
+  // {
+  //   label: 'Sổ địa chỉ',
+  //   icon: <FaLocationDot />,
+  //   path: 'dia-chi',
+  // },
   {
     label: 'BST Thú cưng',
     icon: <MdOutlinePets />,
     path: 'bst-thu-cung',
   },
-  {
-    label: 'Đơn mua',
-    icon: <IoBag />,
-    path: 'don-mua',
-  },
+  // {
+  //   label: 'Đơn mua',
+  //   icon: <IoBag />,
+  //   path: 'don-mua',
+  // },
   {
     label: 'Lịch hẹn',
     icon: <FaCalendar />,
     path: 'lich-hen',
+  },
+  {
+    label: 'Lịch sử thanh toán',
+    icon: <MdPayments />,
+    path: 'lich-su-thanh-toan',
   },
   {
     label: 'Riêng tư',

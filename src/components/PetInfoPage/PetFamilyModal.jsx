@@ -202,31 +202,13 @@ const PetFamilyModal = ({
               {step === 2 && (
                 <>
                   <label className='font-semibold text-gray-700'>
-                    Chọn cách nhập:
+                    Chọn thú cưng:
                   </label>
-                  <div className='flex gap-4'>
-                    <button
-                      className={`px-4 py-2 rounded-md border ${
-                        useOwnPet ? 'bg-primary text-white' : 'bg-white'
-                      }`}
-                      onClick={() => setUseOwnPet(true)}
-                    >
-                      Chọn thú cưng của tôi
-                    </button>
-                    <button
-                      className={`px-4 py-2 rounded-md border ${
-                        !useOwnPet ? 'bg-primary text-white' : 'bg-white'
-                      }`}
-                      onClick={() => setUseOwnPet(false)}
-                    >
-                      Nhập thông tin thủ công
-                    </button>
-                  </div>
 
                   {useOwnPet ? (
                     <>
                       <select
-                        className='mt-4 p-2 border rounded-md'
+                        className='p-2 border rounded-md'
                         value={selectedPetId || ''}
                         onChange={(e) => setSelectedPetId(e.target.value)}
                       >
