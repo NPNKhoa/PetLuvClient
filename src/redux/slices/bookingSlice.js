@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createBooking } from '../thunks/bookingThunk';
+import { createBooking, getBookingHistory } from '../thunks/bookingThunk';
 
 const initialState = {
   bookings: [],
@@ -20,9 +20,23 @@ const bookingSlice = createSlice({
       })
       .addCase(createBooking.fulfilled, (state, action) => {
         state.loading = false;
-        state.booking = action.payload;
+        state.bookings.push(action.payload);
       })
       .addCase(createBooking.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
+
+    // Create
+    builder
+      .addCase(getBookingHistory.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getBookingHistory.fulfilled, (state, action) => {
+        state.loading = false;
+        state.bookings = action.payload;
+      })
+      .addCase(getBookingHistory.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

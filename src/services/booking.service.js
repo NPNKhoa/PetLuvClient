@@ -5,13 +5,9 @@ class BookingService {
     this.api = new ApiService('http://localhost:5010/api/bookings/');
   }
 
-  async getBookings(params = {}) {
-    const { pageIndex, pageSize } = params;
-    const query = new URLSearchParams({ pageIndex, pageSize }).toString();
-
+  async getBookingHistory(userId) {
     try {
-      const response = await this.api.get(`?${query}`);
-      return response;
+      return await this.api.get(`/api/users/${userId}/bookings`);
     } catch (error) {
       console.log(error);
       throw error;

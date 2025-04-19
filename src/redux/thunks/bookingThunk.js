@@ -11,10 +11,28 @@ export const createBooking = createAsyncThunk(
         return rejectWithValue(response.message);
       }
 
-      return response?.data?.data;
+      return response?.data?.data || response?.data;
     } catch (error) {
       console.log(error);
       return rejectWithValue(error);
+    }
+  }
+);
+
+export const getBookingHistory = createAsyncThunk(
+  'bookings/getBookingHistory',
+  async (params, { rejectWithValue }) => {
+    try {
+      const response = await bookingService.getBookingHistory(params);
+
+      if (!response?.flag) {
+        return rejectWithValue(response?.message);
+      }
+
+      return response?.data?.data || response?.data;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error?.message || error);
     }
   }
 );
