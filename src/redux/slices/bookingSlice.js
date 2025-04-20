@@ -4,6 +4,8 @@ import { createBooking, getBookingHistory } from '../thunks/bookingThunk';
 const initialState = {
   bookings: [],
   booking: {},
+  bookingStartTime: null,
+  bookingEndTime: null,
   loading: false,
   error: null,
 };
@@ -11,7 +13,18 @@ const initialState = {
 const bookingSlice = createSlice({
   name: 'bookings',
   initialState,
-  reducers: {},
+  reducers: {
+    setBookingStartTime: (state, action) => {
+      state.bookingStartTime = action.payload;
+    },
+    setBookingEndTime: (state, action) => {
+      state.bookingEndTime = action.payload;
+    },
+    resetBookingTime: (state) => {
+      state.bookingStartTime = null;
+      state.bookingEndTime = null;
+    },
+  },
   extraReducers: (builder) => {
     // Create
     builder
@@ -44,3 +57,6 @@ const bookingSlice = createSlice({
 });
 
 export default bookingSlice.reducer;
+
+export const { setBookingStartTime, setBookingEndTime, resetBookingTime } =
+  bookingSlice.actions;

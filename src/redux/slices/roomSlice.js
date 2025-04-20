@@ -1,10 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getRoomById, getRooms } from '../thunks/roomThunk';
+import { getRoomById, getRooms, getRoomsByBreeds } from '../thunks/roomThunk';
 
 const initialState = {
   rooms: [],
   room: {},
   selectedRooms: [],
+  availableRooms: [],
+  roomRentalTime: null,
   loading: false,
   error: null,
 };
@@ -23,6 +25,14 @@ const roomSlice = createSlice({
 
     resetSelectedRoom: (state) => {
       state.selectedRooms = [];
+    },
+
+    setRoomRentalTime: (state, action) => {
+      state.roomRentalTime = action.payload;
+    },
+
+    resetRoomRentalTime: (state) => {
+      state.roomRentalTime = null;
     },
   },
   extraReducers: (builder) => {
@@ -53,9 +63,28 @@ const roomSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       });
+
+    // Get By Breeds
+    builder
+      .addCase(getRoomsByBreeds.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getRoomsByBreeds.fulfilled, (state, action) => {
+        state.loading = false;
+        state.availableRooms = action.payload;
+      })
+      .addCase(getRoomsByBreeds.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
   },
 });
 
 export default roomSlice.reducer;
 
-export const { setSelectedRoom, resetSelectedRoom } = roomSlice.actions;
+export const {
+  setSelectedRoom,
+  resetSelectedRoom,
+  setRoomRentalTime,
+  resetRoomRentalTime,
+} = roomSlice.actions;

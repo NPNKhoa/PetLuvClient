@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import ChooseServiceStepperContent from '../ChooseServiceStepperContent';
 import { useDispatch } from 'react-redux';
@@ -17,6 +17,7 @@ import {
   setSelectedCombo,
 } from '../../../redux/slices/serviceComboSlice';
 import { toast } from 'react-toastify';
+import { getRoomsByBreeds } from '../../../redux/thunks/roomThunk';
 
 const ChooseServiceContainer = ({ selectedBookingType }) => {
   const dispatch = useDispatch();
@@ -27,8 +28,9 @@ const ChooseServiceContainer = ({ selectedBookingType }) => {
   const serviceCombos = useSelector(
     (state) => state.serviceCombos.serviceCombos
   );
-  const rooms = useSelector((state) => state.rooms.rooms);
+  const rooms = useSelector((state) => state.rooms.availableRooms);
   const roomLoading = useSelector((state) => state.rooms.loading);
+  console.log(rooms);
 
   const selectedServices = useSelector(
     (state) => state.services.selectedServices
@@ -42,10 +44,27 @@ const ChooseServiceContainer = ({ selectedBookingType }) => {
 
   const isRenderRoom = useMemo(
     () =>
-      selectedBookingType?.name.includes('khách sạn') ||
-      selectedBookingType?.name.includes('phòng'),
+      selectedBookingType?.name?.toLowerCase()?.includes('khách sạn') ||
+      selectedBookingType?.name?.toLowerCase()?.includes('phòng'),
     [selectedBookingType]
   );
+
+  const userPets = useSelector((state) => state.pets.pets);
+
+  const breedsFromPets = useMemo(() => {
+    if (!Array.isArray(userPets) || userPets.length === 0) return [];
+
+    const breedIds = userPets.map((pet) => pet.breedId);
+    const uniqueBreedIds = [...new Set(breedIds)];
+
+    return uniqueBreedIds;
+  }, [userPets]);
+
+  useEffect(() => {
+    if (isRenderRoom) {
+      dispatch(getRoomsByBreeds(breedsFromPets));
+    }
+  }, [isRenderRoom, breedsFromPets, dispatch]);
 
   const filteredServices = useMemo(() => {
     if (selectedBookingType && isRenderRoom) {
@@ -56,7 +75,6 @@ const ChooseServiceContainer = ({ selectedBookingType }) => {
       });
     }
 
-    // here
     return services.filter((service) => {
       return service?.serviceName
         ?.toLowerCase()

@@ -28,11 +28,13 @@ const ChooseRoomStepperContent = ({
       />
 
       {loading ? (
-        <CircularProgress />
+        <div className='flex justify-center items-center my-6'>
+          <CircularProgress />
+        </div>
       ) : !Array.isArray(rooms) || rooms.length === 0 ? (
         <NotFoundComponent name='phòng' />
       ) : (
-        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-16 mt-16 mx-auto w-full'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-16 mt-16 mx-auto w-full'>
           {rooms.map((room, index) => (
             <ChosenRoomCard
               key={`room-${index}`}
@@ -43,19 +45,21 @@ const ChooseRoomStepperContent = ({
         </div>
       )}
 
-      <div>
-        <div className='flex items-center justify-between'>
-          <h1 className='text-2xl text-primary font-cute tracking-wider text-start'>
+      <div className='lg:min-w-[75%] md:min-w-[50%] min-w-[25%] mt-8'>
+        <div className='flex items-center justify-between w-full'>
+          <h1 className='text-2xl text-primary font-cute tracking-wider text-center'>
             Phòng đã chọn
           </h1>
-          {Array.isArray(selectedRooms) && selectedRooms.length !== 0 && (
-            <span
-              onClick={onResetSelectedRooms}
-              className='text-red-500 text-xl italic font-light me-8 hover:cursor-pointer hover:text-red-400'
-            >
-              Xóa tất cả
-            </span>
-          )}
+          <span
+            onClick={onResetSelectedRooms}
+            className={`${
+              Array.isArray(selectedRooms) && selectedRooms.length !== 0
+                ? 'text-red-500 hover:cursor-pointer hover:text-red-400'
+                : 'text-gray-500 hover:cursor-not-allowed'
+            }  text-xl italic font-light me-8`}
+          >
+            Xóa tất cả
+          </span>
         </div>
         <RoomCardList roomList={selectedRooms} />
       </div>

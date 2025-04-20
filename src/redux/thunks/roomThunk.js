@@ -36,3 +36,21 @@ export const getRoomById = createAsyncThunk(
     }
   }
 );
+
+export const getRoomsByBreeds = createAsyncThunk(
+  'rooms/getRoomsByBreeds',
+  async (breedIds, { rejectWithValue }) => {
+    try {
+      const response = await roomService.getRoomsByBreeds(breedIds);
+
+      if (!response.flag) {
+        return rejectWithValue(response.message);
+      }
+
+      return response?.data?.data || response?.data;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error?.message || error);
+    }
+  }
+);

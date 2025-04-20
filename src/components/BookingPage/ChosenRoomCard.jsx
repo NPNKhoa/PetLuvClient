@@ -9,14 +9,16 @@ const ChosenRoomCard = ({ room, onClick }) => {
         src={`${
           !Array.isArray(room?.roomImages) || room?.roomImages.length === 0
             ? '/logo.png'
-            : 'http://localhost:5020' + room?.roomImages[0]
+            : 'http://localhost:5030' + room?.roomImages[0]
         }`}
         alt={room?.roomName}
         className='w-full h-48 object-cover'
       />
 
       <div className='p-4 text-start'>
-        <h3 className='text-lg font-bold text-gray-800'>{room?.roomName}</h3>
+        <h3 className='text-lg font-bold text-gray-800 line-clamp-1'>
+          {room?.roomName}
+        </h3>
         <p className='text-sm text-gray-500 mt-2 line-clamp-2'>
           {room?.roomDesc}
         </p>

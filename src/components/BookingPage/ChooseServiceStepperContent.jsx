@@ -67,37 +67,41 @@ const ChooseServiceStepperContent = ({
         </div>
       )}
 
-      <div>
-        <div className='flex items-center justify-between'>
-          <h1 className='text-2xl text-primary font-cute tracking-wider text-center mx-auto'>
+      <div className='lg:min-w-[75%] md:min-w-[50%] min-w-[25%]'>
+        <div className='flex items-center justify-between w-full'>
+          <h1 className='text-2xl text-primary font-cute tracking-wider text-center'>
             Dịch vụ đã chọn
           </h1>
-          {Array.isArray(selectedServices) && selectedServices.length !== 0 && (
-            <span
-              onClick={onResetSelectedServices}
-              className='text-red-500 text-xl italic font-light me-8 hover:cursor-pointer hover:text-red-400'
-            >
-              Xóa tất cả
-            </span>
-          )}
+          <span
+            onClick={onResetSelectedServices}
+            className={`${
+              Array.isArray(selectedServices) && selectedServices.length !== 0
+                ? 'text-red-500 hover:cursor-pointer hover:text-red-400'
+                : 'text-gray-500 hover:cursor-not-allowed'
+            }  text-xl italic font-light me-8`}
+          >
+            Xóa tất cả
+          </span>
         </div>
         <ServiceCardList serviceList={selectedServices} />
         {/* Show service combos */}
       </div>
 
-      <div>
-        <div className='flex items-center justify-between'>
-          <h1 className='text-2xl text-primary font-cute tracking-wider text-center mx-auto'>
+      <div className='lg:min-w-[75%] md:min-w-[50%] min-w-[25%]'>
+        <div className='flex items-center justify-between w-full'>
+          <h1 className='text-2xl text-primary font-cute tracking-wider text-center'>
             Combo đã chọn
           </h1>
-          {Array.isArray(selectedCombos) && selectedCombos.length !== 0 && (
-            <span
-              onClick={onResetSelectedCombos}
-              className='text-red-500 text-xl italic font-light me-8 hover:cursor-pointer hover:text-red-400'
-            >
-              Xóa tất cả
-            </span>
-          )}
+          <span
+            onClick={onResetSelectedCombos}
+            className={`${
+              Array.isArray(selectedServices) && selectedServices.length !== 0
+                ? 'text-red-500 hover:cursor-pointer hover:text-red-400'
+                : 'text-gray-500 hover:cursor-not-allowed'
+            }  text-xl italic font-light me-8`}
+          >
+            Xóa tất cả
+          </span>
         </div>
         <ServiceComboCardList comboList={selectedCombos} />
       </div>

@@ -30,6 +30,21 @@ class RoomService {
       throw error;
     }
   }
+
+  async getRoomsByBreeds(breedIds) {
+    const query = new URLSearchParams();
+
+    breedIds.forEach((breedId) => {
+      query.append('breedIds', breedId);
+    });
+
+    try {
+      return await this.api.get(`available/?${query.toString()}`);
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
 }
 
 export default new RoomService();
