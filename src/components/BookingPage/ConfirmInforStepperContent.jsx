@@ -83,6 +83,7 @@ const ConfirmInforStepperContent = ({ setHandleBook }) => {
 
     selectedServices?.forEach((service) => {
       if (service === null) return 0;
+      console.log(service);
 
       if (
         !Array.isArray(service.serviceVariants) ||
@@ -92,8 +93,8 @@ const ConfirmInforStepperContent = ({ setHandleBook }) => {
 
       service.serviceVariants.forEach((variant) => {
         if (
-          variant.breedId !== selectedBreedId &&
-          variant.petWeightRangeId !== selectedPetWeightRange
+          variant.breedId === selectedBreedId &&
+          variant.petWeightRange === selectedPetWeightRange
         ) {
           result += variant?.estimateTime;
         }
@@ -102,6 +103,7 @@ const ConfirmInforStepperContent = ({ setHandleBook }) => {
 
     return result;
   }, [selectedBreedId, selectedPetWeightRange, selectedServices]);
+  console.log(totalEstimateTime);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -266,6 +268,7 @@ const ConfirmInforStepperContent = ({ setHandleBook }) => {
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DateTimePicker
                       label='Thời gian hẹn'
+                      disablePast={true}
                       value={formData.appointmentTime}
                       onChange={(newValue) =>
                         setFormData({ ...formData, appointmentTime: newValue })
@@ -299,28 +302,28 @@ const ConfirmInforStepperContent = ({ setHandleBook }) => {
               </div>
 
               {totalEstimateTime > 0 && (
-                <div className='p-4 bg-orange-50 border-t border-orange-200'>
+                <div className='p-4 bg-orange-50 border-t border-red-200'>
                   <div className='flex items-start'>
-                    <div className='flex-shrink-0'>
-                      <svg
-                        xmlns='http://www.w3.org/2000/svg'
-                        className='h-6 w-6 text-orange-500'
-                        fill='none'
-                        viewBox='0 0 24 24'
-                        stroke='currentColor'
-                      >
-                        <path
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                          strokeWidth={2}
-                          d='M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z'
-                        />
-                      </svg>
-                    </div>
                     <div className='ml-3'>
-                      <h3 className='text-red-500 text-lg font-semibold'>
-                        Lưu ý:
-                      </h3>
+                      <div className='flex justify-center items-center gap-1'>
+                        <svg
+                          xmlns='http://www.w3.org/2000/svg'
+                          className='h-8 w-8 text-red-500'
+                          fill='none'
+                          viewBox='0 0 24 24'
+                          stroke='currentColor'
+                        >
+                          <path
+                            strokeLinecap='round'
+                            strokeLinejoin='round'
+                            strokeWidth={2}
+                            d='M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z'
+                          />
+                        </svg>
+                        <h3 className='text-red-500 text-lg font-semibold'>
+                          Lưu ý:
+                        </h3>
+                      </div>
                       <p className='text-gray-700 text-left'>
                         Với các dịch vụ bạn đã chọn, thời gian{' '}
                         <span className='font-bold'>dự kiến</span> để chúng tôi

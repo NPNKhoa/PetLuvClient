@@ -49,8 +49,8 @@ dayjs.extend(isSameOrBefore);
 const steps = [
   { label: 'Chọn loại booking', icon: <MdOutlineTypeSpecimen /> },
   { label: 'Chọn dịch vụ', icon: <MdMedicalServices /> },
-  { label: 'Chọn biến thể', icon: <Category /> },
   { label: 'Chọn thú cưng', icon: <Pets /> },
+  { label: 'Chọn biến thể', icon: <Category /> },
   { label: 'Xác nhận thông tin', icon: <CheckCircle /> },
 ];
 
@@ -66,8 +66,7 @@ const BookingPage = () => {
 
   const initialStep = useMemo(() => {
     if (serviceId !== null && breedId !== null && petWeightRange !== null)
-      return 3;
-    if (serviceId !== null) return 1;
+      return 1;
     return 0;
   }, [breedId, petWeightRange, serviceId]);
 
@@ -165,6 +164,11 @@ const BookingPage = () => {
           : 'Vui lòng chọn ít nhất một dịch vụ để tiếp tục';
 
       case 2:
+        return selectedPet == null
+          ? 'Vui lòng chọn một thú cưng để tiếp tục'
+          : null;
+
+      case 3:
         if (
           selectedType?.name?.toLowerCase()?.includes('khách sạn') ||
           selectedType?.name?.toLowerCase()?.includes('phòng')
@@ -175,11 +179,6 @@ const BookingPage = () => {
         }
         return selectedBreed === null && selectedPetWeightRange === null
           ? 'Vui lòng chọn một biến thể để tiếp tục'
-          : null;
-
-      case 3:
-        return selectedPet == null
-          ? 'Vui lòng chọn một thú cưng để tiếp tục'
           : null;
 
       default:
@@ -327,27 +326,20 @@ const BookingPage = () => {
       roomRentalTime = checkOutDate.diff(checkInDate, 'hour');
     }
 
-    // Format dates for .NET server
-    // .NET DateTime can parse ISO 8601 format strings
-    // We'll use ISO format with the timezone offset explicitly included
-
     if (roomRentalTime !== null) {
       dispatch(setRoomRentalTime(roomRentalTime));
     }
 
     if (checkInDate !== null) {
-      // Format: 2023-04-20T12:00:00.000+07:00 (includes timezone offset)
       const formattedCheckIn = checkInDate.format('YYYY-MM-DDTHH:mm:ss.SSSZ');
       dispatch(setBookingStartTime(formattedCheckIn));
     }
 
     if (checkOutDate !== null) {
-      // Format: 2023-04-20T12:00:00.000+07:00 (includes timezone offset)
       const formattedCheckOut = checkOutDate.format('YYYY-MM-DDTHH:mm:ss.SSSZ');
       dispatch(setBookingEndTime(formattedCheckOut));
     }
 
-    // For now, just move to the next step
     toast.info('Đã ghi nhận thời gian đặt phòng');
   }, [checkInDate, checkOutDate, bookingType, dispatch]);
 
@@ -406,6 +398,8 @@ const BookingPage = () => {
         ) : activeStep === 1 ? (
           <ChooseServiceContainer selectedBookingType={selectedType} />
         ) : activeStep === 2 ? (
+          <ChoosePetStepperContent setPet={handleSetPet} />
+        ) : activeStep === 3 ? (
           selectedType?.name?.toLowerCase()?.includes('khách sạn') ||
           selectedType?.name?.toLowerCase()?.includes('phòng') ? (
             <ChooseRoomBookTime
@@ -424,8 +418,6 @@ const BookingPage = () => {
           ) : (
             <ChooseVariantStepperContent setVariant={handleSetVariant} />
           )
-        ) : activeStep === 3 ? (
-          <ChoosePetStepperContent setPet={handleSetPet} />
         ) : activeStep === 4 ? (
           <ConfirmInforStepperContent setHandleBook={setHandleBook} />
         ) : (

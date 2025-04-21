@@ -3,20 +3,15 @@ import { useEffect } from 'react';
 import { getServices } from '../redux/thunks/serviceThunk.js';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { ServiceCardList, ServiceComboCardList } from '../components/index.js';
+import { ServiceCardList } from '../components/index.js';
 import { getServiceCombos } from '../redux/thunks/serviceComboThunk.js';
 
-const SpaServicePage = () => {
+const DogWalkingServicePage = () => {
   const dispatch = useDispatch();
 
   const loading = useSelector((state) => state.services.loading);
   const services = useSelector((state) => state.services.services);
   const error = useSelector((state) => state.services.error);
-
-  const comboLoading = useSelector((state) => state.serviceCombos.loading);
-  const serviceCombos = useSelector(
-    (state) => state.serviceCombos.serviceCombos
-  );
 
   useEffect(() => {
     dispatch(getServices({ pageIndex: 1, pageSize: 10 }));
@@ -33,12 +28,12 @@ const SpaServicePage = () => {
       <div className='relative w-full h-[30rem]'>
         <div
           className='absolute inset-0 bg-cover bg-center blur-[2px]'
-          style={{ backgroundImage: "url('./dog-grooming.jpg')" }}
+          style={{ backgroundImage: "url('./dog-walking.png')" }}
         ></div>
 
         <div className='absolute inset-0 bg-black/30 flex items-center justify-center'>
           <h1 className='text-primary text-6xl font-cute tracking-wider'>
-            Dịch vụ spa
+            Dịch vụ dắt chó đi dạo
           </h1>
         </div>
       </div>
@@ -46,7 +41,7 @@ const SpaServicePage = () => {
       <section>
         <div>
           <h1 className='text-3xl font-semibold text-center text-primary mt-4 mb-2'>
-            Dịch vụ lẻ
+            Dịch vụ dắt chó đi dạo tại PetLuv
           </h1>
           <img
             src='./cute_separator.png'
@@ -65,34 +60,7 @@ const SpaServicePage = () => {
               />
             </div>
           ) : (
-            <ServiceCardList serviceList={services} serviceType='spa' />
-          )}
-        </div>
-      </section>
-
-      <section>
-        <div>
-          <h1 className='text-3xl font-semibold text-center text-primary mt-4 mb-2'>
-            Combo
-          </h1>
-          <img
-            src='./cute_separator.png'
-            alt='cute_separator'
-            className='mx-auto'
-          />
-        </div>
-
-        <div className='m-10 mb-24'>
-          {comboLoading ? (
-            <div className='flex justify-center items-center w-full'>
-              <img
-                src='./loading-cat.gif'
-                alt='loading...'
-                className='w-1/4 sm:w-1/3'
-              />
-            </div>
-          ) : (
-            <ServiceComboCardList comboList={serviceCombos} />
+            <ServiceCardList serviceList={services} serviceType='walk' />
           )}
         </div>
       </section>
@@ -100,4 +68,4 @@ const SpaServicePage = () => {
   );
 };
 
-export default SpaServicePage;
+export default DogWalkingServicePage;

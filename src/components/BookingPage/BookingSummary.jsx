@@ -90,11 +90,15 @@ const BookingSummary = () => {
       return (
         total +
         service.serviceVariants.reduce((variantTotal, variant) => {
-          return variantTotal + (variant.price || 0);
+          return (
+            variant.breedId === selectedBreedId &&
+            variant.petWeightRange === selectedPetWeightRange &&
+            variantTotal + (variant.price || 0)
+          );
         }, 0)
       );
     }, 0);
-  }, [selectedServices]);
+  }, [selectedBreedId, selectedPetWeightRange, selectedServices]);
 
   const daysBetween = useMemo(() => {
     if (!bookingStartTime || !bookingEndTime || roomRentalTime) return null;
@@ -240,20 +244,18 @@ const BookingSummary = () => {
               </thead>
               <tbody className='bg-white divide-y divide-gray-200'>
                 {selectedServices.map((service, index) => (
-                  <tr
-                    key={`${service.serviceId}-${index}`}
-                    className='hover:bg-gray-50'
-                  >
+                  <tr key={`${service.serviceId}-${index}`}>
                     <td
-                      rowSpan={service.serviceVariants.length}
-                      className='px-6 py-4 whitespace-nowrap'
+                      className={`px-6 py-4 whitespace-nowrap ${
+                        index % 2 !== 0 ? 'bg-tertiary-light' : ''
+                      }`}
                     >
                       <div className='flex items-center'>
-                        <div className='ml-4'>
+                        <div className='text-left'>
                           <div className='text-sm font-medium text-gray-900'>
                             {service.serviceName}
                           </div>
-                          <span>
+                          <span className='text-xs italic'>
                             {selectedVariant
                               ? `(${selectedVariant.breedName} - ${selectedVariant.petWeightRange})`
                               : ''}
@@ -262,11 +264,18 @@ const BookingSummary = () => {
                       </div>
                     </td>
 
-                    <td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
+                    <td
+                      className={`px-6 py-4 whitespace-nowrap text-sm text-gray-500 ${
+                        index % 2 !== 0 ? 'bg-tertiary-light' : ''
+                      }`}
+                    >
                       {selectedVariant?.estimateTime}
                     </td>
-                    {console.log(selectedVariant)}
-                    <td className='px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right'>
+                    <td
+                      className={`px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right ${
+                        index % 2 !== 0 ? 'bg-tertiary-light' : ''
+                      }`}
+                    >
                       {formatCurrency(selectedVariant?.price)}
                     </td>
                   </tr>
@@ -365,10 +374,10 @@ const BookingSummary = () => {
             <h3 className='font-medium text-lg'>Tổng Thanh Toán</h3>
           </div>
           <div className='text-2xl font-bold text-primary'>
-            {totalPrice.toLocaleString('vi-VN')} đ
+            {totalPrice.toLocaleString('vi-VN')}
           </div>
         </div>
-        <p className='text-sm text-gray-500 mt-2'>
+        <p className='text-sm text-gray-500 mt-2 italic'>
           * Giá trên đã bao gồm thuế và phí dịch vụ
         </p>
       </div>

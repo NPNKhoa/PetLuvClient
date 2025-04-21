@@ -8,6 +8,7 @@ import {
   setSelectedService,
 } from '../../../redux/slices/serviceSlice';
 import ChooseRoomStepperContent from '../ChooseRoomStepperContent';
+import ChooseWalkDogServiceStepperContent from '../ChooseWalkDogServiceStepperContent';
 import {
   resetSelectedRoom,
   setSelectedRoom,
@@ -30,7 +31,6 @@ const ChooseServiceContainer = ({ selectedBookingType }) => {
   );
   const rooms = useSelector((state) => state.rooms.availableRooms);
   const roomLoading = useSelector((state) => state.rooms.loading);
-  console.log(rooms);
 
   const selectedServices = useSelector(
     (state) => state.services.selectedServices
@@ -75,12 +75,32 @@ const ChooseServiceContainer = ({ selectedBookingType }) => {
       });
     }
 
-    return services.filter((service) => {
+    console.log(selectedServices);
+
+    let result = services;
+
+    if (Array.isArray(selectedServices) && selectedServices.length !== 0) {
+      result = result.filter(
+        (service) =>
+          !selectedServices.some(
+            (selectedService) => selectedService.serviceId === service.serviceId
+          )
+      );
+    }
+
+    return result.filter((service) => {
       return service?.serviceName
         ?.toLowerCase()
         .includes(search.toLowerCase().trim());
     });
-  }, [selectedBookingType, isRenderRoom, services, rooms, search]);
+  }, [
+    selectedBookingType,
+    isRenderRoom,
+    selectedServices,
+    services,
+    rooms,
+    search,
+  ]);
 
   const handleSelectService = (service) => {
     if (Array.isArray(selectedCombos) && selectedCombos.length !== 0) {
@@ -126,6 +146,8 @@ const ChooseServiceContainer = ({ selectedBookingType }) => {
     dispatch(resetSelectedRoom());
   };
 
+  console.log(selectedBookingType);
+
   return isRenderRoom ? (
     <ChooseRoomStepperContent
       rooms={filteredServices}
@@ -135,6 +157,15 @@ const ChooseServiceContainer = ({ selectedBookingType }) => {
       search={search}
       setSearch={setSearch}
       onSelectRoom={handleSelectRoom}
+    />
+  ) : selectedBookingType?.name?.toLowerCase()?.includes('dắt chó') ? (
+    <ChooseWalkDogServiceStepperContent
+      services={filteredServices}
+      selectedServices={selectedServices}
+      onResetSelectedServices={handleResetSelectedServices}
+      search={search}
+      setSearch={setSearch}
+      onSelectService={handleSelectService}
     />
   ) : (
     <ChooseServiceStepperContent

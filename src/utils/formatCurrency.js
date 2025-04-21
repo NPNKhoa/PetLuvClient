@@ -3,7 +3,7 @@ export default function formatCurrency(
   currency = 'VND',
   locale = 'vi-VN'
 ) {
-  console.log(value);
+  // console.log(value);
   const numberValue = Number(value);
   if (isNaN(numberValue)) {
     return 'Invalid Number';

@@ -3,7 +3,10 @@ import formatCurrency from '../../utils/formatCurrency';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setSelectedVariant as setSelectedVariantRedux } from '../../redux/slices/serviceSlice';
+import {
+  setSelectedService,
+  setSelectedVariant as setSelectedVariantRedux,
+} from '../../redux/slices/serviceSlice';
 
 const ServiceInfo = ({ service }) => {
   const { serviceId } = useParams();
@@ -30,6 +33,8 @@ const ServiceInfo = ({ service }) => {
       loai: breedId,
       canNang: petWeightRange,
     });
+
+    dispatch(setSelectedService(service));
 
     navigate(`/dat-lich?${queryParams}`);
   };
@@ -64,9 +69,11 @@ const ServiceInfo = ({ service }) => {
                 }`}
                 onClick={() => onSelectVariant(variant)}
               >
-                <h2 className='max-w-4/5 font-bold text-lg text-secondary-light flex justify-start items-center gap-2 mb-4'>
-                  <span>{variant.breedName}</span>
-                  <span>{variant?.petWeightRange}</span>
+                <h2 className='font-bold text-lg text-secondary-light flex items-center gap-2 mb-4 overflow-hidden'>
+                  <span className='truncate flex-1'>{variant?.breedName}</span>
+                  <span className='whitespace-nowrap flex-shrink-0'>
+                    {variant?.petWeightRange}
+                  </span>
                 </h2>
                 <p className='font-bold text-2xl text-primary-light'>
                   <span className='font-bold text-lg text-secondary'>

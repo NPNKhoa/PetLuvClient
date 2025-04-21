@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import {
   BookingPage,
+  DogWalkingServicePage,
   HomePage,
   LoginPage,
   RegisterPage,
@@ -39,6 +40,11 @@ export default [
     id: `client-route-${uuidv4()}`,
     path: '/dich-vu-spa',
     element: <SpaServicePage />,
+  },
+  {
+    id: `client-route-${uuidv4()}`,
+    path: '/dat-cho-di-dao',
+    element: <DogWalkingServicePage />,
   },
   {
     id: `client-route-${uuidv4()}`,

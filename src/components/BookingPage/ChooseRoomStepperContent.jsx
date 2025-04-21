@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { CircularProgress, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 import NotFoundComponent from '../common/NotFoundComponent';
 import RoomCardList from '../common/RoomCardList';
 import ChosenRoomCard from './ChosenRoomCard';
@@ -29,7 +29,13 @@ const ChooseRoomStepperContent = ({
 
       {loading ? (
         <div className='flex justify-center items-center my-6'>
-          <CircularProgress />
+          <div className='flex justify-center items-center w-full'>
+            <img
+              src='./loading-cat.gif'
+              alt='loading...'
+              className='w-1/4 sm:w-1/3'
+            />
+          </div>
         </div>
       ) : !Array.isArray(rooms) || rooms.length === 0 ? (
         <NotFoundComponent name='phòng' />

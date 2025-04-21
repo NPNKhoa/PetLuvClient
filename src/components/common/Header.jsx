@@ -1,22 +1,18 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSpring, animated } from '@react-spring/web';
-import { Avatar, Badge, IconButton, TextField } from '@mui/material';
+import { Avatar, IconButton, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { hoverDropdownConfig } from '../../configs/animationConfigurations';
 import { useSelector } from 'react-redux';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 
 const Header = () => {
   const navigate = useNavigate();
 
-  const [navHovered, setNavHovered] = useState(false);
   const [searchHovered, setSearchHovered] = useState(false);
 
   const loggedInUser = useSelector((state) => state.auth.user);
-
-  const menuAnimation = useSpring(hoverDropdownConfig(navHovered));
 
   const searchAnimation = useSpring(hoverDropdownConfig(searchHovered));
 
@@ -57,33 +53,6 @@ const Header = () => {
           Dịch vụ
         </Link>
 
-        <div
-          className='relative'
-          onMouseEnter={() => setNavHovered(true)}
-          onMouseLeave={() => setNavHovered(false)}
-        >
-          <a className='text-white font-semibold text-xl hover:text-secondary-light hover:cursor-pointer'>
-            Mua hàng
-          </a>
-          <animated.div
-            style={menuAnimation}
-            className='absolute left-0 bg-secondary-light flex flex-col py-2 right-[-3rem] mt-1 rounded-sm'
-          >
-            <Link
-              to={'thuc-an'}
-              className='px-4 py-1 text-lg text-white hover:bg-secondary hover:text-white'
-            >
-              Thức ăn
-            </Link>
-            <Link
-              to={'thu-cung'}
-              className='px-4 py-1 text-lg text-white hover:bg-secondary hover:text-white'
-            >
-              Thú cưng
-            </Link>
-          </animated.div>
-        </div>
-
         <Link
           to='/dat-lich'
           className='text-white font-semibold text-xl hover:text-secondary-light'
@@ -100,7 +69,7 @@ const Header = () => {
 
       {/* Search Bar */}
       <div className='flex items-center justify-between gap-4'>
-        <IconButton
+        {/* <IconButton
           color='secondary'
           className='relative'
           sx={{
@@ -134,7 +103,7 @@ const Header = () => {
               />
             </form>
           </animated.div>
-        </IconButton>
+        </IconButton> */}
 
         {/* <IconButton>
           <Badge badgeContent={4} color='primary'>
@@ -142,9 +111,9 @@ const Header = () => {
           </Badge>
         </IconButton> */}
 
-        <IconButton color='secondary' onClick={() => navigate('/gio-hang')}>
+        {/* <IconButton color='secondary' onClick={() => navigate('/gio-hang')}>
           <ShoppingCartIcon />
-        </IconButton>
+        </IconButton> */}
         {loggedInUser ? (
           <Link to={`/trang-ca-nhan`}>
             <Avatar
