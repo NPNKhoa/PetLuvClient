@@ -1,10 +1,18 @@
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import dayjs from 'dayjs';
 import { CheckCircle, XCircle } from 'lucide-react';
+import { useEffect, useMemo } from 'react';
+import { useDispatch } from 'react-redux';
+import { IpnAction } from '../redux/thunks/paymentThunk';
 
 const BookingSuccessPage = () => {
   const location = useLocation();
-  const params = new URLSearchParams(location.search);
+  const params = useMemo(
+    () => new URLSearchParams(location.search),
+    [location.search]
+  );
+
+  const dispatch = useDispatch();
 
   const responseCode = params.get('vnp_ResponseCode');
   const amount = params.get('vnp_Amount');
@@ -23,6 +31,10 @@ const BookingSuccessPage = () => {
     : 'N/A';
 
   const isSuccess = responseCode === '00';
+
+  useEffect(() => {
+    dispatch(IpnAction(params.toString()));
+  }, [dispatch, params]);
 
   return (
     <div className='flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6'>
@@ -61,9 +73,24 @@ const BookingSuccessPage = () => {
           </p>
         </div>
 
+        <div className='grid grid-cols-2 gap-4 mt-6'>
+          <Link
+            to='/trang-ca-nhan/lich-hen'
+            className='mt-6 bg-primary text-white px-6 py-4 rounded-full text-sm hover:bg-primary-light transition'
+          >
+            Xem thông tin lịch hẹn
+          </Link>
+          <Link
+            to='/trang-ca-nhan/lich-su-thanh-toan'
+            className='mt-6 bg-secondary text-white px-6 py-4 rounded-full text-sm hover:bg-secondary-light transition'
+          >
+            Xem lịch sử thanh toán
+          </Link>
+        </div>
+
         <button
           onClick={() => (window.location.href = '/')}
-          className='mt-6 bg-primary text-white px-6 py-2 rounded-full text-lg hover:bg-primary-dark transition'
+          className='mt-6 bg-gray-500 text-white px-6 py-4 rounded-full text-sm hover:bg-gray-600 transition'
         >
           Quay về trang chủ
         </button>
@@ -71,5 +98,4 @@ const BookingSuccessPage = () => {
     </div>
   );
 };
-
 export default BookingSuccessPage;

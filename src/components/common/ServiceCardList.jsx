@@ -12,11 +12,19 @@ const ServiceCardList = ({ serviceList, serviceType = 'all' }) => {
           {serviceList.map((service, index) =>
             serviceType === 'spa' ? (
               !service.serviceName.toLowerCase().includes('dắt chó') && (
-                <ServiceCard key={`service-${index}`} service={service} />
+                <ServiceCard
+                  key={`service-${index}`}
+                  service={service}
+                  serviceType='spa'
+                />
               )
             ) : serviceType === 'walk' ? (
               service.serviceName.toLowerCase().includes('dắt chó') && (
-                <ServiceCard key={`service-${index}`} service={service} />
+                <ServiceCard
+                  key={`service-${index}`}
+                  service={service}
+                  serviceType='walk-dog'
+                />
               )
             ) : (
               <ServiceCard key={`service-${index}`} service={service} />

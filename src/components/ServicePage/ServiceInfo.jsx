@@ -1,16 +1,20 @@
 import PropTypes from 'prop-types';
 import formatCurrency from '../../utils/formatCurrency';
-import { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import {
   setSelectedService,
   setSelectedVariant as setSelectedVariantRedux,
 } from '../../redux/slices/serviceSlice';
+import { useSelector } from 'react-redux';
+import { setSelectedType } from '../../redux/slices/bookingTypeSlice';
 
 const ServiceInfo = ({ service }) => {
   const { serviceId } = useParams();
   const navigate = useNavigate();
+
+  const { pathname } = useLocation();
 
   const dispatch = useDispatch();
 
@@ -19,6 +23,8 @@ const ServiceInfo = ({ service }) => {
     breedId: '',
     petWeightRange: '',
   });
+
+  const bookingTypes = useSelector((state) => state.bookingTypes.bookingTypes);
 
   const onSelectVariant = ({ breedId, petWeightRange }) => {
     setSelectedVariant({ serviceId, breedId, petWeightRange });
@@ -38,6 +44,27 @@ const ServiceInfo = ({ service }) => {
 
     navigate(`/dat-lich?${queryParams}`);
   };
+
+  useEffect(() => {
+    if (pathname.includes('spa')) {
+      const bookingTypeId = bookingTypes.find((type) =>
+        type.bookingTypeName.includes('chăm sóc')
+      ).bookingTypeId;
+
+      dispatch(setSelectedType(bookingTypeId));
+    }
+
+    if (pathname.includes('dat-cho')) {
+      const bookingTypeId = bookingTypes.find((type) =>
+        type.bookingTypeName.includes('dắt chó')
+      ).bookingTypeId;
+      console.log(
+        bookingTypes.find((type) => type.bookingTypeName.includes('dắt chó'))
+          .bookingTypeId
+      );
+      dispatch(setSelectedType(bookingTypeId));
+    }
+  }, [bookingTypes, dispatch, pathname]);
 
   return (
     <div className='flex flex-col h-full'>

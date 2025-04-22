@@ -1,7 +1,28 @@
 import PropTypes from 'prop-types';
 import formatCurrency from '../../utils/formatCurrency';
+import { useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { setSelectedType } from '../../redux/slices/bookingTypeSlice';
+import { useDispatch } from 'react-redux';
 
 const RoomInfo = ({ room }) => {
+  const dispatch = useDispatch();
+
+  const { pathname } = useLocation();
+
+  const bookingTypes = useSelector((state) => state.bookingTypes.bookingTypes);
+
+  useEffect(() => {
+    if (pathname.includes('khach-san')) {
+      const bookingTypeId = bookingTypes.find((type) =>
+        type.bookingTypeName.includes('khách sạn')
+      ).bookingTypeId;
+
+      dispatch(setSelectedType(bookingTypeId));
+    }
+  }, [bookingTypes, dispatch, pathname]);
+
   return (
     <div className='flex flex-col h-full'>
       <div className='mb-6'>

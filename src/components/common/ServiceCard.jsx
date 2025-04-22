@@ -1,10 +1,14 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-const ServiceCard = ({ service }) => {
+const ServiceCard = ({ service, serviceType = 'spa' }) => {
   return (
     <Link
-      to={`/dich-vu-spa/${service.serviceId}`}
+      to={`${
+        serviceType === 'spa'
+          ? '/dich-vu-spa/' + service.serviceId
+          : '/dat-cho-di-dao/' + service.serviceId
+      }`}
       className='bg-white shadow-lg rounded-2xl overflow-hidden max-w-sm transition-transform transform hover:scale-105 hover:cursor-pointer'
     >
       <img
@@ -40,6 +44,7 @@ const ServiceCard = ({ service }) => {
 
 ServiceCard.propTypes = {
   service: PropTypes.object.isRequired,
+  serviceType: PropTypes.string.isRequired,
 };
 
 export default ServiceCard;

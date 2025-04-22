@@ -14,6 +14,7 @@ import petReducer from './slices/petSlice.js';
 import bookingReducer from './slices/bookingSlice.js';
 import bookingTypeReducer from './slices/bookingTypeSlice.js';
 import petBreedReducer from './slices/petBreedSlice.js';
+import paymentReducer from './slices/paymentSlice.js';
 
 const authUserFilter = createFilter('auth', ['user']);
 const serviceFilter = createFilter('services', [
@@ -47,6 +48,7 @@ const rootReducer = combineReducers({
   petBreeds: petBreedReducer,
   bookings: bookingReducer,
   bookingTypes: bookingTypeReducer,
+  payments: paymentReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

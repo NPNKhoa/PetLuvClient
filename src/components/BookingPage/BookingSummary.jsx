@@ -85,16 +85,20 @@ const BookingSummary = () => {
   // Calculate total price
   const totalServicesPrice = useMemo(() => {
     if (!Array.isArray(selectedServices)) return 0;
+
     return selectedServices.reduce((total, service) => {
       if (!Array.isArray(service.serviceVariants)) return total;
       return (
         total +
         service.serviceVariants.reduce((variantTotal, variant) => {
-          return (
+          if (
             variant.breedId === selectedBreedId &&
-            variant.petWeightRange === selectedPetWeightRange &&
-            variantTotal + (variant.price || 0)
-          );
+            variant.petWeightRange === selectedPetWeightRange
+          ) {
+            return variantTotal + (variant.price || 0);
+          }
+
+          return variantTotal;
         }, 0)
       );
     }, 0);
@@ -373,9 +377,7 @@ const BookingSummary = () => {
             <FaMoneyBillWave className='text-primary mr-2 text-xl' />
             <h3 className='font-medium text-lg'>Tổng Thanh Toán</h3>
           </div>
-          <div className='text-2xl font-bold text-primary'>
-            {totalPrice.toLocaleString('vi-VN')}
-          </div>
+          <div className='text-2xl font-bold text-primary'>{totalPrice}</div>
         </div>
         <p className='text-sm text-gray-500 mt-2 italic'>
           * Giá trên đã bao gồm thuế và phí dịch vụ

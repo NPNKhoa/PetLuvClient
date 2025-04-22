@@ -13,84 +13,10 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { getBookingHistory } from '../redux/thunks/bookingThunk';
 import { toast } from 'react-toastify';
-
-const columns = [
-  {
-    field: 'bookingStartTime',
-    headerName: 'Bắt đầu',
-    headerAlign: 'center',
-    align: 'center',
-    flex: 1,
-    valueFormatter: (params) => dayjs(params).format('DD/MM/YYYY'),
-  },
-  {
-    field: 'bookingEndTime',
-    headerName: 'Kết thúc',
-    headerAlign: 'center',
-    align: 'center',
-    flex: 1,
-    valueFormatter: (params) => dayjs(params).format('DD/MM/YYYY'),
-  },
-  {
-    field: 'totalAmount',
-    headerName: 'Tổng tiền (đ)',
-    headerAlign: 'center',
-    align: 'right',
-    flex: 1,
-    valueFormatter: (params) => formatCurrency(params.value || params),
-  },
-  {
-    field: 'bookingType',
-    headerName: 'Loại đặt lịch',
-    headerAlign: 'center',
-    align: 'center',
-    flex: 1,
-    valueFormatter: (params) => params?.bookingTypeName || 'N/A',
-  },
-  {
-    field: 'bookingStatusName',
-    headerName: 'Trạng thái',
-    headerAlign: 'center',
-    align: 'center',
-    flex: 1,
-    renderCell: (params) => {
-      const colorCode = getColorByBookingStatus(
-        params?.value?.bookingStatusName ||
-          params?.bookingStatusName ||
-          params?.row?.bookingStatus?.bookingStatusName
-      );
-      return (
-        <span
-          style={{ backgroundColor: colorCode }}
-          className='px-8 py-2 rounded-full font-semibold'
-        >
-          {params?.value || params?.row?.bookingStatus?.bookingStatusName}
-        </span>
-      );
-    },
-  },
-  {
-    field: 'action',
-    headerName: 'Hành động',
-    headerAlign: 'center',
-    align: 'center',
-    flex: 0.75,
-    sortable: false,
-    renderCell: (params) => (
-      <button
-        onClick={() => console.log('View detail of:', params.row.bookingId)}
-        className='text-blue-500 hover:text-blue-700'
-        title='Xem chi tiết'
-      >
-        <FaEye size={'1.5rem'} />
-      </button>
-    ),
-  },
-];
+import ViewBookingHistoryDetailModal from '../components/BookingHistoryPage/ViewBookingHistoryDetailModal';
 
 const BookingHistoryPage = () => {
   const dispatch = useDispatch();
-
   const navigate = useNavigate();
 
   const user = useSelector((state) => state.auth.user);
@@ -99,12 +25,98 @@ const BookingHistoryPage = () => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [bookingTypeFilter, setBookingTypeFilter] = useState('');
+  const [selectedBookingId, setSelectedBookingId] = useState(null);
+  const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
 
   const bookings = useSelector((state) => state.bookings.bookings);
   const bookingLoading = useSelector((state) => state.bookings.loading);
   const bookingError = useSelector((state) => state.bookings.error);
 
   const bookingTypes = useSelector((state) => state.bookingTypes.bookingTypes);
+
+  const handleViewBookingDetail = (bookingId) => {
+    setSelectedBookingId(bookingId);
+    setIsDetailModalOpen(true);
+  };
+
+  const handleCloseDetailModal = () => {
+    setIsDetailModalOpen(false);
+    setSelectedBookingId(null);
+  };
+
+  const columns = [
+    {
+      field: 'bookingStartTime',
+      headerName: 'Bắt đầu',
+      headerAlign: 'center',
+      align: 'center',
+      flex: 1,
+      valueFormatter: (params) => dayjs(params).format('DD/MM/YYYY'),
+    },
+    {
+      field: 'bookingEndTime',
+      headerName: 'Kết thúc',
+      headerAlign: 'center',
+      align: 'center',
+      flex: 1,
+      valueFormatter: (params) => dayjs(params).format('DD/MM/YYYY'),
+    },
+    {
+      field: 'totalAmount',
+      headerName: 'Tổng tiền (đ)',
+      headerAlign: 'center',
+      align: 'right',
+      flex: 1,
+      valueFormatter: (params) => formatCurrency(params.value || params),
+    },
+    {
+      field: 'bookingType',
+      headerName: 'Loại đặt lịch',
+      headerAlign: 'center',
+      align: 'center',
+      flex: 1,
+      valueFormatter: (params) => params?.bookingTypeName || 'N/A',
+    },
+    {
+      field: 'bookingStatusName',
+      headerName: 'Trạng thái',
+      headerAlign: 'center',
+      align: 'center',
+      flex: 1,
+      renderCell: (params) => {
+        const colorCode = getColorByBookingStatus(
+          params?.value?.bookingStatusName ||
+            params?.bookingStatusName ||
+            params?.row?.bookingStatus?.bookingStatusName
+        );
+        return (
+          <span
+            style={{ backgroundColor: colorCode }}
+            className='px-8 py-2 rounded-full font-semibold'
+          >
+            {params?.value || params?.row?.bookingStatus?.bookingStatusName}
+          </span>
+        );
+      },
+    },
+    {
+      field: 'action',
+      headerName: 'Hành động',
+      headerAlign: 'center',
+      align: 'center',
+      flex: 0.75,
+      sortable: false,
+      renderCell: (params) => (
+        <button
+          onClick={() => handleViewBookingDetail(params.row.bookingId)}
+          className='text-blue-500 hover:text-blue-700'
+          title='Xem chi tiết'
+        >
+          <FaEye size={'1.5rem'} />
+        </button>
+      ),
+    },
+  ];
 
   // Filtered bookings (mock logic)
   const filteredBookings = useMemo(
@@ -199,7 +211,6 @@ const BookingHistoryPage = () => {
                   {item?.bookingTypeName}
                 </option>
               ))}
-            {/* Add more types here */}
           </select>
         </div>
         <FaUndo
@@ -221,9 +232,26 @@ const BookingHistoryPage = () => {
             rowsPerPageOptions={[5, 10, 20]}
             getRowId={(row) => row.bookingId}
             className='bg-white rounded-xl shadow'
+            sx={{
+              '& .MuiDataGrid-row:nth-of-type(even)': {
+                backgroundColor: '#efefef',
+              },
+              '& .MuiDataGrid-row:hover': {
+                backgroundColor: '#f79400',
+                color: 'white',
+              },
+            }}
           />
         )}
       </div>
+
+      {/* Booking Detail Modal */}
+      <ViewBookingHistoryDetailModal
+        open={isDetailModalOpen}
+        onClose={handleCloseDetailModal}
+        bookingId={selectedBookingId}
+        bookings={bookings}
+      />
     </div>
   );
 };

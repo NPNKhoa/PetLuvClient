@@ -146,8 +146,6 @@ const ChooseServiceContainer = ({ selectedBookingType }) => {
     dispatch(resetSelectedRoom());
   };
 
-  console.log(selectedBookingType);
-
   return isRenderRoom ? (
     <ChooseRoomStepperContent
       rooms={filteredServices}

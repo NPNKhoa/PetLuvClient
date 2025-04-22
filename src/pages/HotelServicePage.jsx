@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { getRooms } from '../redux/thunks/roomThunk';
@@ -11,6 +11,16 @@ const HotelServicePage = () => {
   const loading = useSelector((state) => state.rooms.loading);
   const error = useSelector((state) => state.rooms.error);
   const rooms = useSelector((state) => state.rooms.rooms);
+
+  const catRooms = useMemo(
+    () => rooms.filter((room) => room.roomDesc.toLowerCase().includes('mèo')),
+    [rooms]
+  );
+
+  const dogRooms = useMemo(
+    () => rooms.filter((room) => room.roomDesc.toLowerCase().includes('chó')),
+    [rooms]
+  );
 
   useEffect(() => {
     dispatch(getRooms({ pageIndex: 1, pageSize: 10 }));
@@ -61,7 +71,7 @@ const HotelServicePage = () => {
               />
             </div>
           ) : (
-            <RoomCardList roomList={rooms} />
+            <RoomCardList roomList={dogRooms} />
           )}
         </div>
       </section>
@@ -88,7 +98,7 @@ const HotelServicePage = () => {
               />
             </div>
           ) : (
-            <RoomCardList roomList={rooms} />
+            <RoomCardList roomList={catRooms} />
           )}
         </div>
       </section>

@@ -304,7 +304,7 @@ const BookingPage = () => {
 
   const shouldDisableTime = useCallback((time, view) => {
     const openingTime = 8; // 8 AM
-    const closingTime = 17; // 5 PM
+    const closingTime = 21; // 5 PM
 
     if (view === 'hours') {
       const hours = time.hour();
