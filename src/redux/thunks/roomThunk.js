@@ -7,11 +7,11 @@ export const getRooms = createAsyncThunk(
     try {
       const response = await roomService.getAllRooms(params);
 
-      if (!response.flag) {
-        return rejectWithValue(response.message);
+      if (!response?.flag) {
+        return rejectWithValue(response?.message);
       }
 
-      return response.data.data;
+      return response?.data?.data || response?.data;
     } catch (error) {
       console.log(error);
       return rejectWithValue(error.message);
@@ -25,11 +25,11 @@ export const getRoomById = createAsyncThunk(
     try {
       const response = await roomService.getRoomById(roomId);
 
-      if (!response.flag) {
-        return rejectWithValue(response.message);
+      if (!response?.flag) {
+        return rejectWithValue(response?.message);
       }
 
-      return response.data.data;
+      return response?.data?.data || response?.data;
     } catch (error) {
       console.log(error);
       return rejectWithValue(error.message);
@@ -43,8 +43,8 @@ export const getRoomsByBreeds = createAsyncThunk(
     try {
       const response = await roomService.getRoomsByBreeds(breedIds);
 
-      if (!response.flag) {
-        return rejectWithValue(response.message);
+      if (!response?.flag) {
+        return rejectWithValue(response?.message);
       }
 
       return response?.data?.data || response?.data;

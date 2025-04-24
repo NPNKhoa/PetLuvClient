@@ -8,7 +8,7 @@ const ServiceComboCardList = ({ comboList }) => {
       {!Array.isArray(comboList) || comboList.length === 0 ? (
         <NotFoundComponent name='combo' />
       ) : (
-        <section className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-16 mt-8 mx-auto w-full'>
+        <section className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-16 mt-8 mx-auto w-full'>
           {comboList.map((service, index) => (
             <ServiceComboCard key={`service-${index}`} service={service} />
           ))}

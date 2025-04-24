@@ -7,11 +7,11 @@ export const getServices = createAsyncThunk(
     try {
       const response = await servicesService.getServices(params);
 
-      if (!response.flag) {
-        return rejectWithValue(response.message);
+      if (!response?.flag) {
+        return rejectWithValue(response?.message);
       }
 
-      return response.data.data;
+      return response?.data?.data || response?.data;
     } catch (error) {
       console.log(error);
       return rejectWithValue(error.message);
@@ -25,10 +25,11 @@ export const getServiceById = createAsyncThunk(
     try {
       const response = await servicesService.getServiceById(serviceId);
 
-      if (!response.flag) {
-        return rejectWithValue(response.message);
+      if (!response?.flag) {
+        return rejectWithValue(response?.message);
       }
-      return response.data.data;
+
+      return response?.data?.data || response?.data;
     } catch (error) {
       console.log(error);
       return rejectWithValue(error.message);
@@ -42,11 +43,11 @@ export const getVariants = createAsyncThunk(
     try {
       const response = await servicesService.getVariants(serviceId);
 
-      if (!response.flag) {
-        return rejectWithValue(response.message);
+      if (!response?.flag) {
+        return rejectWithValue(response?.message);
       }
 
-      return response.data.data;
+      return response?.data?.data || response?.data;
     } catch (error) {
       console.log(error);
       return rejectWithValue(error.message);

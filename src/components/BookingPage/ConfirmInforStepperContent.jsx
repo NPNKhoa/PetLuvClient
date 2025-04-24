@@ -5,6 +5,9 @@ import { TextField } from '@mui/material';
 import { LocalizationProvider, DateTimePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
+import 'dayjs/locale/vi';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
 import { useDispatch } from 'react-redux';
 import { createBooking } from '../../redux/thunks/bookingThunk';
 import { toast } from 'react-toastify';
@@ -16,6 +19,11 @@ import {
 import { resetSelectedType } from '../../redux/slices/bookingTypeSlice';
 import { resetSelectedPet } from '../../redux/slices/petSlice';
 import BookingSummary from './BookingSummary';
+
+// Add UTC and timezone plugins to dayjs
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.locale('vi');
 
 const ConfirmInforStepperContent = ({ setHandleBook }) => {
   const dispatch = useDispatch();
@@ -33,6 +41,9 @@ const ConfirmInforStepperContent = ({ setHandleBook }) => {
     (state) => state.services.selectedServices
   );
   const selectedRooms = useSelector((state) => state.rooms.selectedRooms);
+  const selectedCombos = useSelector(
+    (state) => state.serviceCombos.selectedCombos
+  );
 
   const selectedBreedId = useSelector(
     (state) => state.services.selectedBreedId
@@ -51,11 +62,61 @@ const ConfirmInforStepperContent = ({ setHandleBook }) => {
       : [];
   }, [selectedServices]);
 
+  const itemNames = useMemo(() => {
+    if (
+      (!Array.isArray(selectedServices) || selectedServices.length === 0) &&
+      (!Array.isArray(selectedCombos) || selectedCombos.length === 0)
+    )
+      return 'N/A';
+
+    const itemNames = [];
+
+    for (const service of selectedServices) {
+      for (const variant of service.serviceVariants) {
+        if (
+          variant.breedId === selectedBreedId &&
+          variant.petWeightRange === selectedPetWeightRange
+        ) {
+          let itemName = `${service.serviceName} (${variant.breedName} - ${variant.petWeightRange})`;
+          itemNames.push(itemName);
+          // return variant;
+        }
+      }
+    }
+
+    for (const combo of selectedCombos) {
+      for (const variant of combo.comboVariants) {
+        if (
+          variant.breedId === selectedBreedId &&
+          variant.weightRange === selectedPetWeightRange
+        ) {
+          let itemName = `Combo - ${combo.serviceComboName} (${variant.breedName} - ${variant.weightRange})`;
+          itemNames.push(itemName);
+        }
+      }
+    }
+
+    return itemNames;
+  }, [
+    selectedBreedId,
+    selectedCombos,
+    selectedPetWeightRange,
+    selectedServices,
+  ]);
+
+  console.log(itemNames);
+
   const selectedRoomIds = useMemo(() => {
     return Array.isArray(selectedRooms) && selectedRooms.length !== 0
       ? selectedRooms.map((item) => item.roomId)
       : [];
   }, [selectedRooms]);
+
+  const selectedComboIds = useMemo(() => {
+    return Array.isArray(selectedCombos) && selectedCombos.length !== 0
+      ? selectedCombos.map((item) => item.serviceComboId)
+      : [];
+  }, [selectedCombos]);
 
   const roomRentalTime = useSelector((state) => state.rooms.roomRentalTime);
 
@@ -76,7 +137,10 @@ const ConfirmInforStepperContent = ({ setHandleBook }) => {
   }, [bookingStartTime, bookingEndTime, roomRentalTime]);
 
   const totalEstimateTime = useMemo(() => {
-    if (!Array.isArray(selectedServices) && selectedServices.length === 0)
+    if (
+      (!Array.isArray(selectedServices) && selectedServices.length === 0) ||
+      (!Array.isArray(selectedCombos) && selectedCombos.length === 0)
+    )
       return 0;
 
     let result = 0;
@@ -101,8 +165,33 @@ const ConfirmInforStepperContent = ({ setHandleBook }) => {
       });
     });
 
+    selectedCombos?.forEach((combo) => {
+      if (combo === null) return 0;
+      console.log(combo);
+
+      if (
+        !Array.isArray(combo.comboVariants) ||
+        combo.comboVariants.length === 0
+      )
+        return 0;
+
+      combo.comboVariants.forEach((variant) => {
+        if (
+          variant.breedId === selectedBreedId &&
+          variant.weightRange === selectedPetWeightRange
+        ) {
+          result += variant?.estimateTime;
+        }
+      });
+    });
+
     return result;
-  }, [selectedBreedId, selectedPetWeightRange, selectedServices]);
+  }, [
+    selectedBreedId,
+    selectedCombos,
+    selectedPetWeightRange,
+    selectedServices,
+  ]);
   console.log(totalEstimateTime);
 
   const handleChange = (e) => {
@@ -118,19 +207,48 @@ const ConfirmInforStepperContent = ({ setHandleBook }) => {
     window.location.href = '/';
   }, [dispatch]);
 
+  const shouldDisableTime = useCallback((time) => {
+    const openingTime = 8;
+    const closingTime = 21;
+
+    const hours = time.hour();
+    return hours < openingTime || hours > closingTime;
+  }, []);
+
   useEffect(() => {
     const handleBook = () => {
-      if (selectedServiceIds.length === 0 && selectedRoomIds.length === 0) {
+      if (
+        selectedServiceIds.length === 0 &&
+        selectedRoomIds.length === 0 &&
+        selectedComboIds.length === 0
+      ) {
         return toast.error('Vui lòng chọn ít nhất một dịch vụ');
       }
 
+      // Fix for the time issue - ensure we're using the correct time
+      let startTime, endTime;
+
+      if (bookingStartTime) {
+        // Use the existing booking start time if available
+        startTime = dayjs(bookingStartTime).format('YYYY-MM-DDTHH:mm:ss.SSSZ');
+      } else {
+        // For manually selected time, ensure we preserve the exact time selected
+        startTime = formData.appointmentTime.format('YYYY-MM-DDTHH:mm:ss.SSSZ');
+      }
+
+      if (bookingEndTime) {
+        // Use the existing booking end time if available
+        endTime = dayjs(bookingEndTime).format('YYYY-MM-DDTHH:mm:ss.SSSZ');
+      } else {
+        // Calculate end time based on start time + estimate
+        endTime = formData.appointmentTime
+          .add(totalEstimateTime, 'hour')
+          .format('YYYY-MM-DDTHH:mm:ss.SSSZ');
+      }
+
       const requestBody = {
-        bookingStartTime: bookingStartTime
-          ? bookingStartTime
-          : formData.appointmentTime,
-        bookingEndTime: bookingEndTime
-          ? bookingEndTime
-          : formData.appointmentTime.add(totalEstimateTime, 'hour'),
+        bookingStartTime: startTime,
+        bookingEndTime: endTime,
         bookingNote: formData.bookingNote,
         roomRentalTime: roomRentalTime ? roomRentalTime : daysBetween * 24,
         bookingTypeId: selectedTypeId,
@@ -143,7 +261,9 @@ const ConfirmInforStepperContent = ({ setHandleBook }) => {
           Array.isArray(selectedServiceIds) && selectedServiceIds.length > 0
             ? selectedServiceIds
             : null,
+        serviceNames: itemNames,
         roomId: selectedRoomIds?.[0],
+        serviceComboIds: selectedComboIds,
       };
 
       console.log(requestBody);
@@ -186,6 +306,9 @@ const ConfirmInforStepperContent = ({ setHandleBook }) => {
     selectedRoomIds.length,
     selectedRoomIds,
     daysBetween,
+    selectedComboIds.length,
+    selectedComboIds,
+    itemNames,
   ]);
 
   return (
@@ -265,14 +388,25 @@ const ConfirmInforStepperContent = ({ setHandleBook }) => {
                     </div>
                   </div>
                 ) : (
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <LocalizationProvider
+                    dateAdapter={AdapterDayjs}
+                    adapterLocale='vi'
+                  >
                     <DateTimePicker
                       label='Thời gian hẹn'
                       disablePast={true}
+                      minutesStep={60}
+                      shouldDisableTime={shouldDisableTime}
+                      views={['year', 'month', 'day', 'hours']}
                       value={formData.appointmentTime}
-                      onChange={(newValue) =>
-                        setFormData({ ...formData, appointmentTime: newValue })
-                      }
+                      onChange={(newValue) => {
+                        // Ensure we're preserving the exact time selected by the user
+                        const exactTime = dayjs(newValue);
+                        setFormData({
+                          ...formData,
+                          appointmentTime: exactTime,
+                        });
+                      }}
                       className='w-full bg-gray-50'
                       slotProps={{
                         textField: {
@@ -280,6 +414,7 @@ const ConfirmInforStepperContent = ({ setHandleBook }) => {
                           fullWidth: true,
                         },
                       }}
+                      timezone='Asia/Ho_Chi_Minh' // Explicitly set timezone to Vietnam
                     />
                   </LocalizationProvider>
                 )}

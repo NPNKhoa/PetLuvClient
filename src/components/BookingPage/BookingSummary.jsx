@@ -10,6 +10,7 @@ import {
   FaMoneyBillWave,
 } from 'react-icons/fa';
 import { MdPets, MdSpa } from 'react-icons/md';
+import { IoGrid } from 'react-icons/io5';
 import formatCurrency from '../../utils/formatCurrency';
 
 // Set Vietnamese locale
@@ -19,6 +20,9 @@ const BookingSummary = () => {
   // Get data from Redux store
   const selectedServices = useSelector(
     (state) => state.services.selectedServices
+  );
+  const selectedCombos = useSelector(
+    (state) => state.serviceCombos.selectedCombos
   );
   const selectedRooms = useSelector((state) => state.rooms.selectedRooms);
   const selectedPet = useSelector((state) => state.pets.selectedPetId);
@@ -104,6 +108,31 @@ const BookingSummary = () => {
     }, 0);
   }, [selectedBreedId, selectedPetWeightRange, selectedServices]);
 
+  // Calculate total combo price
+  const totalCombosPrice = useMemo(() => {
+    if (!Array.isArray(selectedCombos) || selectedCombos.length === 0) return 0;
+
+    return selectedCombos.reduce((total, combo) => {
+      if (!Array.isArray(combo.comboVariants)) return total;
+      return (
+        total +
+        combo.comboVariants.reduce((variantTotal, variant) => {
+          console.log(variant);
+          console.log(selectedBreedId);
+          console.log(selectedPetWeightRange);
+          if (
+            variant.breedId === selectedBreedId &&
+            variant.weightRange === selectedPetWeightRange
+          ) {
+            return variantTotal + (variant.comboPrice || 0);
+          }
+
+          return variantTotal;
+        }, 0)
+      );
+    }, 0);
+  }, [selectedBreedId, selectedCombos, selectedPetWeightRange]);
+
   const daysBetween = useMemo(() => {
     if (!bookingStartTime || !bookingEndTime || roomRentalTime) return null;
 
@@ -128,14 +157,17 @@ const BookingSummary = () => {
     let total = 0;
 
     if (totalServicesPrice) total += totalServicesPrice;
+    if (totalCombosPrice) total += totalCombosPrice;
     if (totalRoomsPrice) total += totalRoomsPrice;
 
     return formatCurrency(total);
-  }, [totalRoomsPrice, totalServicesPrice]);
+  }, [totalRoomsPrice, totalServicesPrice, totalCombosPrice]);
 
   // Check if we have any booking data to display
   const hasBookingData =
-    selectedServices?.length > 0 || selectedRooms?.length > 0;
+    selectedServices?.length > 0 ||
+    selectedRooms?.length > 0 ||
+    selectedCombos?.length > 0;
 
   if (!hasBookingData) {
     return null;
@@ -213,6 +245,76 @@ const BookingSummary = () => {
           </div>
         )}
       </div>
+
+      {/* Service Combos */}
+      {selectedCombos?.length > 0 && (
+        <div className='p-6 border-t border-gray-200'>
+          <div className='flex items-center mb-4'>
+            <IoGrid className='text-primary mr-2 text-xl' />
+            <h3 className='font-medium text-lg'>Combo Dịch Vụ Đã Chọn</h3>
+          </div>
+
+          <div className='overflow-x-auto'>
+            <table className='min-w-full divide-y divide-gray-200'>
+              <thead className='bg-gray-50'>
+                <tr>
+                  <th
+                    scope='col'
+                    className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
+                  >
+                    Tên Combo
+                  </th>
+                  <th
+                    scope='col'
+                    className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
+                  >
+                    Mô tả
+                  </th>
+                  <th
+                    scope='col'
+                    className='px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider'
+                  >
+                    Giá
+                  </th>
+                </tr>
+              </thead>
+              <tbody className='bg-white divide-y divide-gray-200'>
+                {selectedCombos.map((combo, index) => (
+                  <tr key={`${combo.serviceComboId}-${index}`}>
+                    <td
+                      className={`px-6 py-4 whitespace-nowrap ${
+                        index % 2 !== 0 ? 'bg-tertiary-light' : ''
+                      }`}
+                    >
+                      <div className='flex items-center'>
+                        <div className='text-left'>
+                          <div className='text-sm font-medium text-gray-900'>
+                            {combo.serviceComboName}
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td
+                      className={`px-6 py-4 whitespace-nowrap text-sm line-clamp-1 max-w-[8rem] text-gray-500 ${
+                        index % 2 !== 0 ? 'bg-tertiary-light' : ''
+                      }`}
+                    >
+                      {combo.serviceComboDesc || 'Gói dịch vụ kết hợp'}
+                    </td>
+                    <td
+                      className={`px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right ${
+                        index % 2 !== 0 ? 'bg-tertiary-light' : ''
+                      }`}
+                    >
+                      {formatCurrency(totalCombosPrice)}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
 
       {/* Services */}
       {selectedServices?.length > 0 && (

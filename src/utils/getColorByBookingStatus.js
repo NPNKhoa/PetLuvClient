@@ -4,18 +4,16 @@ export default function getStatusColor(statusName) {
   const status = statusName?.toLowerCase();
 
   if (status?.includes('hủy') || status?.includes('huy')) {
-    // Cancelled
-    return '#ffb3ba'; // Pastel red
+    return '#ffb3ba';
   } else if (status?.includes('xác nhận') || status?.includes('xac nhan')) {
-    // Confirmed
-    return '#b3ffb3'; // Pastel green
+    return '#b3ffb3';
   } else if (status?.includes('hoàn thành') || status?.includes('hoan thanh')) {
-    // Completed
-    return '#b3c6ff'; // Pastel blue
+    return '#b3c6ff';
   } else if (status?.includes('xử lý') || status?.includes('xu ly')) {
-    // Processing
-    return '#fff7b3'; // Pastel yellow (darker than pure pastel yellow for better visibility)
+    return '#fff7b3';
+  } else if (status?.includes('cọc') || status?.includes('coc')) {
+    return '#3b82f6';
   } else {
-    return '#e0e0e0'; // Pastel gray (for unknown status)
+    return '#e0e0e0';
   }
 }

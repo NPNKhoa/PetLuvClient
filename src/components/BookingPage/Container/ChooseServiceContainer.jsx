@@ -137,6 +137,14 @@ const ChooseServiceContainer = ({ selectedBookingType }) => {
   };
 
   const handleSelectRoom = (room) => {
+    if (Array.isArray(selectedServices) && selectedServices.length !== 0) {
+      return toast.warn('Không thể cùng lúc chọn cả dịch vụ và phòng');
+    }
+
+    if (selectedRooms?.length > 0) {
+      return toast.warn('Đã chọn phòng rồi');
+    }
+
     if (!selectedRooms?.find((item) => item.roomId === room.roomId)) {
       dispatch(setSelectedRoom(room));
     }

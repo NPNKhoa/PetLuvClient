@@ -50,7 +50,7 @@ const ServiceComboDetailPage = () => {
   return (
     <div className='container mx-auto p-6 space-y-12' ref={headPageRef}>
       <div className='flex flex-col lg:flex-row gap-8'>
-        <div className='lg:w-1/2'>
+        {/* <div className='lg:w-1/2'>
           {serviceImageUrls && serviceImageUrls.length > 0 ? (
             <ImageGallery imageUrls={serviceImageUrls} />
           ) : (
@@ -58,15 +58,13 @@ const ServiceComboDetailPage = () => {
               <img src='/logo.png' alt='' />
             </div>
           )}
-        </div>
+        </div> */}
 
-        <div className='lg:w-1/2'>
-          {loading ? (
-            <Skeleton circle count={4.5} />
-          ) : (
-            <ServiceComboInfo serviceCombo={serviceCombo} />
-          )}
-        </div>
+        {loading ? (
+          <Skeleton circle count={4.5} />
+        ) : (
+          <ServiceComboInfo serviceCombo={serviceCombo} />
+        )}
       </div>
 
       <div>

@@ -79,7 +79,7 @@ const PaymentHistoryPage = () => {
         width: 180,
         valueFormatter: (params) => {
           console.log(params);
-          return dayjs(params).format('HH:mm DD/MM/YYYY');
+          return dayjs(params).format('DD/MM/YYYY');
         },
       },
       {

@@ -39,7 +39,10 @@ const serviceComboSlice = createSlice({
       })
       .addCase(getServiceCombos.fulfilled, (state, action) => {
         state.loading = false;
-        state.serviceCombos = action.payload;
+        state.serviceCombos =
+          Array.isArray(action.payload) && action.payload.length > 0
+            ? action.payload.filter((c) => c.isVisible)
+            : [];
       })
       .addCase(getServiceCombos.rejected, (state, action) => {
         state.loading = false;

@@ -20,7 +20,7 @@ const ChooseServiceStepperContent = ({
 }) => {
   return (
     <div className='w-full flex flex-col items-center'>
-      <h1 className='text-primary text-2xl font-cute tracking-wide my-6'>
+      <h1 className='text-primary text-3xl font-cute tracking-wide my-6'>
         Chọn dịch vụ cho thú cưng của bạn
       </h1>
 
@@ -32,7 +32,7 @@ const ChooseServiceStepperContent = ({
         onChange={(e) => setSearch(e.target.value)}
       />
 
-      <h2 className='text-start text-xl text-primary font-cute tracking-wider mt-16 mb-8'>
+      <h2 className='text-start text-2xl text-primary font-cute tracking-wider mt-16 mb-8'>
         Dịch vụ lẻ
       </h2>
       {!Array.isArray(services) || services.length === 0 ? (
@@ -53,7 +53,7 @@ const ChooseServiceStepperContent = ({
       )}
 
       {/* Choosen service combo */}
-      <h2 className='text-start text-xl text-primary font-cute tracking-wider my-8'>
+      <h2 className='text-start text-2xl text-primary font-cute tracking-wider my-8'>
         Combo Dịch vụ
       </h2>
       {!Array.isArray(combos) || combos.length === 0 ? (

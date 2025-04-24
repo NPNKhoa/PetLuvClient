@@ -43,7 +43,10 @@ const roomSlice = createSlice({
       })
       .addCase(getRooms.fulfilled, (state, action) => {
         state.loading = false;
-        state.rooms = action.payload;
+        state.rooms =
+          Array.isArray(action.payload) && action.payload.length > 0
+            ? action.payload.filter((room) => room.isVisible)
+            : [];
       })
       .addCase(getRooms.rejected, (state, action) => {
         state.loading = false;
